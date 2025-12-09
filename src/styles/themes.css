@@ -1,0 +1,206 @@
+/* ============================================
+   THEME OPTIONS - Yellow Mantis
+   ============================================ */
+
+/* === OPTION 1: DEEP CHARCOAL === 
+   Ultra dark with soft pale gold
+   Sharp, modern, elegant
+*/
+html[data-theme="charcoal"],
+html[data-theme="charcoal"] body {
+  --primary-yellow: #F2D974;
+  --primary-gold: #E8C85C;
+  --accent-lime: #D8E070;
+  --accent-orange: #E8B858;
+  
+  --bg-primary: #050505;
+  --bg-secondary: #0E0E0E;
+  --bg-tertiary: #181818;
+  --bg-card: rgba(14, 14, 14, 0.95);
+  
+  --text-primary: #FFFFFF;
+  --text-secondary: #D0D0D0;
+  --text-muted: #909090;
+  
+  --gradient-primary: linear-gradient(135deg, #F2D974 0%, #E8C85C 50%, #E8B858 100%);
+  --gradient-hero: linear-gradient(135deg, #050505 0%, #0E0E0E 50%, #050505 100%);
+  --gradient-glow: radial-gradient(circle, rgba(242, 217, 116, 0.15) 0%, transparent 70%);
+  
+  --shadow-glow: 0 0 60px rgba(242, 217, 116, 0.35);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.8);
+  --border-subtle: rgba(242, 217, 116, 0.12);
+  
+  background: #050505 !important;
+}
+
+/* === OPTION 2: WARM SLATE === 
+   Rich warm grey with muted gold - Premium feel
+   Sophisticated, elegant, high-end
+*/
+html[data-theme="slate"],
+html[data-theme="slate"] body {
+  --primary-yellow: #D4AA40;
+  --primary-gold: #B8923A;
+  --accent-lime: #B5A845;
+  --accent-orange: #C4802A;
+  
+  --bg-primary: #0F0D0A;
+  --bg-secondary: #191612;
+  --bg-tertiary: #23201B;
+  --bg-card: rgba(25, 22, 18, 0.95);
+  
+  --text-primary: #F5F0E8;
+  --text-secondary: #C8C0B8;
+  --text-muted: #908880;
+  
+  --gradient-primary: linear-gradient(135deg, #D4AA40 0%, #B8923A 50%, #C4802A 100%);
+  --gradient-hero: linear-gradient(135deg, #0F0D0A 0%, #191612 50%, #0F0D0A 100%);
+  --gradient-glow: radial-gradient(circle, rgba(212, 170, 64, 0.15) 0%, transparent 70%);
+  
+  --shadow-glow: 0 0 60px rgba(212, 170, 64, 0.35);
+  --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.6);
+  --border-subtle: rgba(212, 170, 64, 0.12);
+  
+  background: #0F0D0A !important;
+}
+
+/* === OPTION 3: MIDNIGHT EMBER === 
+   Deep blue-black with warm amber - Dramatic & refined
+   Tech-forward, futuristic, warm
+*/
+html[data-theme="midnight"],
+html[data-theme="midnight"] body {
+  --primary-yellow: #E8A040;
+  --primary-gold: #D48830;
+  --accent-lime: #E0B040;
+  --accent-orange: #D46830;
+  
+  --bg-primary: #06080C;
+  --bg-secondary: #0C1018;
+  --bg-tertiary: #141A24;
+  --bg-card: rgba(12, 16, 24, 0.95);
+  
+  --text-primary: #FFFFFF;
+  --text-secondary: #B8C0D0;
+  --text-muted: #808898;
+  
+  --gradient-primary: linear-gradient(135deg, #E8A040 0%, #D48830 50%, #D46830 100%);
+  --gradient-hero: linear-gradient(135deg, #06080C 0%, #0C1018 50%, #06080C 100%);
+  --gradient-glow: radial-gradient(circle, rgba(232, 160, 64, 0.2) 0%, transparent 70%);
+  
+  --shadow-glow: 0 0 60px rgba(232, 160, 64, 0.4);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.8);
+  --border-subtle: rgba(232, 160, 64, 0.15);
+  
+  background: #06080C !important;
+}
+
+/* Theme Switcher Styles */
+.theme-switcher {
+  position: fixed;
+  top: 100px;
+  right: 24px;
+  z-index: 9999;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 16px;
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-card);
+}
+
+.theme-switcher h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.theme-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-tertiary);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.theme-option:hover {
+  background: var(--bg-card);
+  border-color: var(--border-subtle);
+}
+
+.theme-option.active {
+  border-color: var(--primary-yellow);
+  color: var(--primary-yellow);
+  background: rgba(244, 185, 64, 0.1);
+}
+
+.theme-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+.theme-swatch.charcoal {
+  background: linear-gradient(135deg, #0A0A0A 50%, #FFD93D 50%);
+}
+
+.theme-swatch.slate {
+  background: linear-gradient(135deg, #12100E 50%, #F5C842 50%);
+}
+
+.theme-swatch.midnight {
+  background: linear-gradient(135deg, #08090C 50%, #FFAA00 50%);
+}
+
+.theme-name {
+  font-weight: 600;
+}
+
+.theme-desc {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Mobile: Move to bottom */
+@media (max-width: 768px) {
+  .theme-switcher {
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    padding: 12px;
+  }
+  
+  .theme-options {
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .theme-option {
+    flex-direction: column;
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+  
+  .theme-desc {
+    display: none;
+  }
+}
+

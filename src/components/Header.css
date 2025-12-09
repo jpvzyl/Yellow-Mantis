@@ -1,0 +1,131 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 20px 0;
+  transition: all 0.3s ease;
+}
+
+.header.scrolled {
+  background: rgba(13, 13, 13, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 15px 0;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  filter: drop-shadow(0 0 15px rgba(244, 185, 64, 0.5));
+  transition: transform 0.3s ease;
+}
+
+.logo-container:hover .logo-icon {
+  transform: scale(1.1);
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: 800;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+  padding: 8px 0;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary-yellow);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-cta .btn {
+  padding: 12px 28px;
+  font-size: 14px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .nav-container {
+    padding: 0 var(--spacing-md);
+  }
+  
+  .nav-links {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 15px 0;
+  }
+  
+  .nav-container {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  .logo-text {
+    font-size: 20px;
+  }
+  
+  .logo-icon {
+    font-size: 28px;
+  }
+  
+  .nav-cta .btn {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+}
+
