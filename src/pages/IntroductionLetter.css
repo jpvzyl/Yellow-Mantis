@@ -328,8 +328,9 @@
 }
 
 .venture-features li::before {
-  content: '→';
+  content: '•';
   position: absolute;
+  font-size: 1.2em;
   left: 0;
   color: var(--primary-yellow);
 }
