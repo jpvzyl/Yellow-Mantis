@@ -267,7 +267,7 @@ function IntroductionLetter() {
         <div className="founder-card">
           <div className="founder-info">
             <h3>JP van Zyl</h3>
-            <p className="founder-title">Founder & CEO</p>
+            <p className="founder-title">Founder</p>
             <p className="founder-bio">
               Full-stack developer with 10+ years building enterprise platforms. 
               From Salesforce integrations to quantum computing research — 

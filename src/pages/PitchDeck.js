@@ -762,7 +762,7 @@ class AIService:
           </a>
         </div>
         <div className="contact-info">
-          <p><strong>JP van Zyl</strong> — Founder & CEO</p>
+          <p><strong>JP van Zyl</strong> — Founder</p>
           <p>📧 jp@yellow-mantis.com • 📱 +27 76 486 3294</p>
         </div>
       </section>
