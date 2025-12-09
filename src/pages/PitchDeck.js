@@ -447,6 +447,96 @@ class AIService:
         </div>
       </section>
 
+      {/* Y-QA Platform Deep Dive */}
+      <section className="pitch-section venture-deep-dive yqa-section">
+        <div className="venture-badge">VENTURE 5</div>
+        <h2>🧪 Y-QA Platform</h2>
+        <span className="status-badge" style={{marginBottom: '20px', display: 'inline-block'}}>Rollout Q1 2026</span>
+        <p className="venture-tagline">"Quantum-Powered Quality Assurance"</p>
+
+        <div className="venture-content">
+          <div className="tech-highlight">
+            <h3>Revolutionary Testing Platform</h3>
+            <p>The world's first QA platform combining AI test generation with quantum computing optimization. 75+ features built over 12 months of intensive development.</p>
+          </div>
+
+          <div className="venture-grid">
+            <div className="venture-feature">
+              <h4>🤖 AI-Powered Testing</h4>
+              <ul>
+                <li>Multi-LLM support (GPT-4, Claude 3.5)</li>
+                <li>AI test case generation</li>
+                <li>Self-healing test scripts</li>
+                <li>Intelligent defect prediction</li>
+              </ul>
+            </div>
+            <div className="venture-feature">
+              <h4>⚛️ Quantum Optimization</h4>
+              <ul>
+                <li>D-Wave & IBM Quantum integration</li>
+                <li>Test suite prioritization</li>
+                <li>Multi-objective optimization</li>
+                <li>Quantum annealing for scheduling</li>
+              </ul>
+            </div>
+            <div className="venture-feature">
+              <h4>🔄 Digital Twin</h4>
+              <ul>
+                <li>Application modeling</li>
+                <li>Component relationship mapping</li>
+                <li>Impact analysis for code changes</li>
+                <li>Test recommendation engine</li>
+              </ul>
+            </div>
+            <div className="venture-feature">
+              <h4>🔗 Deep Integrations</h4>
+              <ul>
+                <li>GitHub real-time monitoring</li>
+                <li>Playwright browser automation</li>
+                <li>Visual regression testing</li>
+                <li>CI/CD pipeline ready</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="quantum-connection">
+            <h3>The Quantum Advantage</h3>
+            <div className="connection-diagram">
+              <div className="conn-step">Test Suite</div>
+              <div className="conn-arrow">→</div>
+              <div className="conn-step">AI Analysis</div>
+              <div className="conn-arrow">→</div>
+              <div className="conn-step highlight">Quantum Optimization</div>
+              <div className="conn-arrow">→</div>
+              <div className="conn-step">Optimal Execution</div>
+            </div>
+            <p className="connection-desc">Quantum computers solve the NP-hard test prioritization problem, reducing test time by up to 60% while maintaining coverage.</p>
+          </div>
+
+          <div className="venture-traction">
+            <h3>Platform Metrics</h3>
+            <div className="traction-grid">
+              <div className="traction-item">
+                <span className="traction-value">75+</span>
+                <span className="traction-label">Features Built</span>
+              </div>
+              <div className="traction-item">
+                <span className="traction-value">60%</span>
+                <span className="traction-label">Test Time Reduction</span>
+              </div>
+              <div className="traction-item">
+                <span className="traction-value">R15M</span>
+                <span className="traction-label">IP Valuation</span>
+              </div>
+              <div className="traction-item">
+                <span className="traction-value">12mo</span>
+                <span className="traction-label">Development</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Technical Excellence - from TECHNICAL_DEEP_DIVE.md & FULL_FEATURE_LIST.md */}
       <section className="pitch-section venture-deep-dive tech-excellence-section">
         <div className="venture-badge">TECHNICAL EXCELLENCE</div>
