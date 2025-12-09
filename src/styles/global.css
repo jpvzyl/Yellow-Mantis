@@ -1,5 +1,10 @@
 /* CSS Variables - Yellow Mantis Theme */
 /* Default: Deep Charcoal - Ultra dark with soft pale gold */
+
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   /* Primary Colors - Soft pale gold */
   --primary-yellow: #F2D974;

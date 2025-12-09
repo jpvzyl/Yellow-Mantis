@@ -18,47 +18,47 @@ function PitchDeck() {
       <section className="pitch-section">
         <h2>The Yellow Mantis Portfolio</h2>
         <div className="portfolio-overview">
-          <div className="portfolio-card">
+          <a href="#quantum-bridge" className="portfolio-card clickable">
             <div className="portfolio-icon">🔮</div>
             <h3>Quantum Bridge</h3>
             <p className="portfolio-stage">Research</p>
             <p className="portfolio-market">Revolutionary Technology</p>
             <p>Bridging classical and quantum computing</p>
-          </div>
-          <div className="portfolio-card">
+          </a>
+          <a href="#qyvella-robotics" className="portfolio-card clickable">
             <div className="portfolio-icon">🤖</div>
             <h3>Qyvella Robotics</h3>
             <p className="portfolio-stage">Final R&D Stage</p>
             <p className="portfolio-market">Accessible Innovation</p>
             <p>AI-powered accessible robotics</p>
-          </div>
-          <div className="portfolio-card production">
+          </a>
+          <a href="#faces-group" className="portfolio-card production clickable">
             <div className="portfolio-icon">📱</div>
             <h3>Faces Group</h3>
             <p className="portfolio-stage live">✓ Production</p>
             <p className="portfolio-market">60,000+ Athletes</p>
             <p>Race tracking & athlete platforms</p>
-          </div>
-          <div className="portfolio-card">
+          </a>
+          <a href="#y-accounting" className="portfolio-card clickable">
             <div className="portfolio-icon">💰</div>
             <h3>Y-Accounting</h3>
             <p className="portfolio-note">(In conjunction with a third party)</p>
             <p className="portfolio-stage">Rollout Q1 2026</p>
             <p className="portfolio-market">AI-Native Platform</p>
             <p>Autonomous financial management</p>
-          </div>
-          <div className="portfolio-card">
+          </a>
+          <a href="#y-qa" className="portfolio-card clickable">
             <div className="portfolio-icon">🧪</div>
             <h3>Y-QA</h3>
             <p className="portfolio-stage">Rollout Q1 2026</p>
             <p className="portfolio-market">Quantum-Powered</p>
             <p>AI test optimization</p>
-          </div>
+          </a>
         </div>
       </section>
 
       {/* QUANTUM BRIDGE Deep Dive */}
-      <section className="pitch-section venture-deep-dive quantum-section">
+      <section id="quantum-bridge" className="pitch-section venture-deep-dive quantum-section">
         <div className="venture-badge">VENTURE 1</div>
         <h2>🔮 Quantum Bridge</h2>
         <p className="venture-tagline">"Breaking the Impossible"</p>
@@ -142,7 +142,7 @@ function PitchDeck() {
       </section>
 
       {/* NOVA ROBOTICS Deep Dive */}
-      <section className="pitch-section venture-deep-dive robotics-section">
+      <section id="qyvella-robotics" className="pitch-section venture-deep-dive robotics-section">
         <div className="venture-badge">VENTURE 2</div>
         <h2>🤖 Qyvella Robotics</h2>
         <p className="venture-tagline">"AI-Powered Robotics for Everyone"</p>
@@ -241,7 +241,7 @@ function PitchDeck() {
       </section>
 
       {/* FACES GROUP Deep Dive */}
-      <section className="pitch-section venture-deep-dive faces-section">
+      <section id="faces-group" className="pitch-section venture-deep-dive faces-section">
         <div className="venture-badge live">VENTURE 3 • LIVE</div>
         <h2>📱 Faces Group</h2>
         <p className="venture-tagline">"60,000+ Athletes. Production Proven."</p>
@@ -346,7 +346,7 @@ function PitchDeck() {
       </section>
 
       {/* Y-Accounting Deep Dive */}
-      <section className="pitch-section venture-deep-dive yqa-section">
+      <section id="y-accounting" className="pitch-section venture-deep-dive yqa-section">
         <div className="venture-badge">VENTURE 4</div>
         <h2>💰 Y-Accounting</h2>
         <p className="venture-note-centered">(In conjunction with a third party)</p>
@@ -448,7 +448,7 @@ class AIService:
       </section>
 
       {/* Y-QA Platform Deep Dive */}
-      <section className="pitch-section venture-deep-dive yqa-section">
+      <section id="y-qa" className="pitch-section venture-deep-dive yqa-section">
         <div className="venture-badge">VENTURE 5</div>
         <h2>🧪 Y-QA Platform</h2>
         <span className="status-badge" style={{marginBottom: '20px', display: 'inline-block'}}>Rollout Q1 2026</span>

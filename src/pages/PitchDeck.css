@@ -94,11 +94,18 @@
   padding: 30px;
   text-align: center;
   transition: all 0.3s ease;
+  text-decoration: none;
+  display: block;
+}
+
+.portfolio-card.clickable {
+  cursor: pointer;
 }
 
 .portfolio-card:hover {
   border-color: var(--primary-yellow);
   transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(242, 217, 116, 0.15);
 }
 
 .portfolio-card.production {
