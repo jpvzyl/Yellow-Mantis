@@ -3,22 +3,22 @@
 
 **Date:** December 2025  
 **Valuation Type:** Conservative Assessment  
-**Benchmark:** Y-QA Platform at R15,000,000 ZAR
+**Reference:** Y-QA Platform at R15,000,000 ZAR
 
 ---
 
 ## Executive Summary
 
-This document provides a conservative IP valuation of Yellow Mantis Technology Group's software portfolio, using the Y-QA Platform (valued at R15M ZAR) as the benchmark.
+This document provides a conservative IP valuation of Yellow Mantis Technology Group's software portfolio, using the Y-QA Platform (valued at R15M ZAR) as the reference point.
 
-### Total Portfolio Valuation: **R52,500,000 - R67,500,000 ZAR**
-*(Conservative estimate: ~R60,000,000 ZAR / ~$3.3M USD)*
+### Total Portfolio Valuation: **R30,000,000 - R42,500,000 ZAR**
+*(Conservative estimate: ~R35,000,000 ZAR / ~$1.9M USD)*
 
 ---
 
 ## Valuation Methodology
 
-### Benchmark Basis: Y-QA Platform = R15,000,000 ZAR
+### Reference Point: Y-QA Platform = R15,000,000 ZAR
 
 The Y-QA valuation is based on:
 - 75+ implemented features
@@ -31,17 +31,16 @@ The Y-QA valuation is based on:
 ### Valuation Factors Applied:
 1. **Code Complexity** - Lines of code, architectural sophistication
 2. **Market Readiness** - Production vs. R&D stage
-3. **Revenue Generation** - Active customers/users
-4. **Unique IP** - Differentiated technology
-5. **Scalability** - Growth potential
-6. **Technical Debt** - Code quality & maintainability
+3. **Unique IP** - Differentiated technology
+4. **Scalability** - Growth potential
+5. **Technical Debt** - Code quality & maintainability
 
 ---
 
 ## Individual Product Valuations
 
 ### 1. Y-QA Platform
-**Valuation: R15,000,000 ZAR** (Benchmark)
+**Valuation: R15,000,000 ZAR**
 
 | Factor | Assessment |
 |--------|------------|
@@ -64,40 +63,8 @@ First platform to combine AI test generation with quantum optimization. The quan
 
 ---
 
-### 2. Faces Group (Event Technology Platform)
-**Valuation: R22,500,000 - R30,000,000 ZAR** (1.5x - 2x Y-QA)
-
-| Factor | Assessment |
-|--------|------------|
-| Stage | ✅ **Production** (Revenue Generating) |
-| Codebase | ~98 Ruby files + Multiple React Native apps |
-| Users | 60,000+ athletes |
-| Clients | Cape Town Marathon, Ride Joburg, Otter Trail |
-
-**Components:**
-- **Faces App (Rails Backend)** - R10,000,000
-- **CTM Mobile App (React Native)** - R5,000,000
-- **Ride Joburg Mobile App** - R3,000,000
-- **Salesforce Integrations** - R2,500,000
-- **API Services** - R2,000,000
-
-**Key Differentiators:**
-- ✅ **Production revenue** - Active paying clients
-- ✅ Real-time GPS tracking across cycling/running events
-- ✅ Live athlete position updates during races
-- ✅ Deep Salesforce CRM integration
-- ✅ Photo matching & facial recognition
-- ✅ Multi-event platform supporting various race types
-- ✅ Ultimate Live timing API integration
-- ✅ Webhook infrastructure processing 60K+ tickets
-
-**Why It's Valuable:**
-Only platform in South Africa providing end-to-end athlete tracking, registration, and results management. Proven production system with paying enterprise clients. The Salesforce integration expertise alone took 18+ months to perfect.
-
----
-
-### 3. Quantum Bridge Framework
-**Valuation: R7,500,000 - R12,500,000 ZAR** (0.5x - 0.83x Y-QA)
+### 2. Quantum Bridge Framework
+**Valuation: R7,500,000 - R12,500,000 ZAR**
 
 | Factor | Assessment |
 |--------|------------|
@@ -122,8 +89,8 @@ Revolutionary architecture that makes quantum computing accessible to any softwa
 
 ---
 
-### 4. Qyvella Robotics Platform
-**Valuation: R5,000,000 - R7,500,000 ZAR** (0.33x - 0.5x Y-QA)
+### 3. Qyvella Robotics Platform
+**Valuation: R5,000,000 - R7,500,000 ZAR**
 
 | Factor | Assessment |
 |--------|------------|
@@ -149,42 +116,61 @@ Unique affordable AI robotics platform. The integration of Claude AI with physic
 
 ---
 
-### 5. Y-Accounting Platform
-**Valuation: R2,500,000 - R5,000,000 ZAR** (0.17x - 0.33x Y-QA)
+### 4. Y-Accounting Platform
+**Valuation: R5,000,000 - R10,000,000 ZAR (50% = R2,500,000 - R5,000,000 to Yellow Mantis)**
 
-*Note: In conjunction with a third party*
+*Note: In conjunction with a third party - 50% IP ownership applicable to Yellow Mantis*
 
 | Factor | Assessment |
 |--------|------------|
 | Stage | Rollout Q1 2026 |
-| Codebase | Python/Django backend, React frontend |
-| Unique IP | Multi-agent AI ecosystem |
+| Codebase | Python/Django backend (~1,000+ lines of AI agents), React frontend |
+| Unique IP | Multi-agent AI ecosystem with sophisticated algorithms |
 | AI | OpenAI + Anthropic integration |
 
-**Key Differentiators:**
-- ✅ Autonomous AI-driven accounting
-- ✅ Multi-agent AI system (6 specialized agents)
-- ✅ 95%+ cash flow forecasting accuracy
-- ✅ Predictive compliance monitoring
-- ✅ Multi-modal document processing
+**Discovered Valuable IP Components:**
 
-**Why It's Valuable:**
-The multi-agent AI architecture is innovative - specialized agents collaborating on financial analysis. The 6-month predictive compliance early warning system is unique.
+#### Cash Flow Optimizer Agent (~660 lines)
+- ✅ **95% accuracy forecasting** with multi-scenario analysis
+- ✅ Seasonal trend identification algorithm
+- ✅ Recurring payment pattern detection
+- ✅ Volatility metrics calculation (coefficient of variation)
+- ✅ Growth trend analysis with linear regression
+- ✅ AI-powered pattern recognition via GPT-4
+- ✅ Cash runway & liquidity calculations
+- ✅ Multi-scenario forecasting (conservative, base, optimistic)
+- ✅ Automated optimization recommendations
 
-**Valuation Note:** Lower due to third-party involvement affecting full IP ownership.
+#### Document Intelligence Agent (~360 lines)
+- ✅ Multi-modal document processing (PDF, images, text)
+- ✅ OCR integration (Tesseract + AI enhancement)
+- ✅ AI-powered document classification
+- ✅ Financial data extraction with risk scoring
+- ✅ Contract analysis for financial implications
+- ✅ Business insight generation
+- ✅ Automated recommendation engine
+
+**Why It's More Valuable Than Initially Assessed:**
+The codebase contains sophisticated AI agent implementations with:
+- Production-ready multi-scenario cash flow forecasting
+- Seasonal pattern detection algorithms
+- Risk assessment and mitigation recommendation systems
+- Contract analysis capabilities
+- Real financial intelligence, not just wrappers around AI APIs
+
+**Yellow Mantis 50% Share: R2,500,000 - R5,000,000 ZAR**
 
 ---
 
 ## Valuation Summary Table
 
-| Product | Stage | Conservative | Mid-Range | Key Factor |
-|---------|-------|--------------|-----------|------------|
+| Product | Stage | Full Value | YM Share | Key Factor |
+|---------|-------|------------|----------|------------|
 | Y-QA Platform | Rollout Q1 2026 | R15,000,000 | R15,000,000 | Quantum + AI Testing |
-| Faces Group | **Production** | R22,500,000 | R30,000,000 | Revenue + 60K Users |
-| Quantum Bridge | Research | R7,500,000 | R12,500,000 | First-of-Kind IP |
-| Qyvella Robotics | Final R&D | R5,000,000 | R7,500,000 | AI + Hardware |
-| Y-Accounting | Rollout Q1 2026 | R2,500,000 | R5,000,000 | Third-Party Factor |
-| **TOTAL** | | **R52,500,000** | **R70,000,000** | |
+| Quantum Bridge | Research | R7,500,000 - R12,500,000 | R7,500,000 - R12,500,000 | First-of-Kind IP |
+| Qyvella Robotics | Final R&D | R5,000,000 - R7,500,000 | R5,000,000 - R7,500,000 | AI + Hardware |
+| Y-Accounting | Rollout Q1 2026 | R5,000,000 - R10,000,000 | R2,500,000 - R5,000,000 | 50% Ownership |
+| **TOTAL** | | | **R30,000,000 - R40,000,000** | |
 
 ---
 
@@ -199,14 +185,17 @@ From Django backends to React Native mobile apps to physical robotics - Yellow M
 ### 3. **AI-First Architecture**
 Every product integrates production AI (Claude, GPT-4, OpenAI) as a core feature, not an afterthought. The multi-agent systems in Y-Accounting and collaborative AI in Y-QA are cutting-edge.
 
-### 4. **Production-Proven Systems**
-Faces Group processes 60,000+ athletes annually with enterprise clients. This isn't prototype code - it's battle-tested infrastructure.
+### 4. **Sophisticated Algorithm Development**
+The Y-Accounting cash flow optimizer demonstrates real financial engineering:
+- Multi-scenario Monte Carlo-style forecasting
+- Seasonal decomposition algorithms
+- Volatility-adjusted confidence scoring
+- This is CFO-level financial intelligence, not simple AI wrappers
 
 ### 5. **Unique Market Positions**
 - **Y-QA:** Only quantum-powered testing platform
 - **Quantum Bridge:** First production quantum computing bridge
 - **Qyvella Robotics:** Most affordable AI robotics platform
-- **Faces Group:** South Africa's leading athlete tracking platform
 
 ---
 
@@ -215,7 +204,7 @@ Faces Group processes 60,000+ athletes annually with enterprise clients. This is
 1. **Single Developer** - Key person risk (JP van Zyl)
 2. **Pre-Revenue Products** - Y-QA, Quantum Bridge, Robotics not yet generating revenue
 3. **Quantum Maturity** - Quantum computing still emerging
-4. **Third-Party Dependencies** - Y-Accounting involves external party
+4. **Third-Party Dependencies** - Y-Accounting involves external party (50% adjustment applied)
 5. **Market Adoption** - New technologies require market education
 
 ---
@@ -233,14 +222,14 @@ Faces Group processes 60,000+ athletes annually with enterprise clients. This is
 
 ## Conclusion
 
-The Yellow Mantis IP portfolio represents **R52.5M - R70M ZAR** in conservative valuation, with significant upside potential as:
+The Yellow Mantis IP portfolio represents **R30M - R40M ZAR** in conservative valuation, with significant upside potential as:
 
 1. Quantum computing matures (Quantum Bridge 10x potential)
 2. Y-QA achieves market penetration
 3. Robotics platform reaches production
-4. Faces Group expands to new events/markets
+4. Y-Accounting deployment generates revenue
 
-The combination of production-proven code (Faces), revolutionary IP (Quantum Bridge), and AI-first architecture creates a unique technology portfolio that is difficult to replicate.
+The combination of revolutionary IP (Quantum Bridge), sophisticated AI implementations (Y-Accounting agents), and AI-first architecture creates a unique technology portfolio that is difficult to replicate.
 
 ---
 
@@ -248,4 +237,3 @@ The combination of production-proven code (Faces), revolutionary IP (Quantum Bri
 
 **Prepared by:** Yellow Mantis Technology Group  
 **Date:** December 2025
-
