@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MantisIcon from '../components/MantisIcon';
+import ThemeSwitcher from '../components/ThemeSwitcher';
 import './FundingRequirements.css';
 
 const FundingRequirements = () => {
@@ -118,6 +119,21 @@ const FundingRequirements = () => {
   const [savedVersion, setSavedVersion] = useState(null);
   const [showSaved, setShowSaved] = useState(false);
   const [activeTab, setActiveTab] = useState('yqa');
+  const [currentTheme, setCurrentTheme] = useState('charcoal');
+
+  // Handle theme change
+  const handleThemeChange = (themeId) => {
+    setCurrentTheme(themeId);
+    document.documentElement.setAttribute('data-theme', themeId);
+    localStorage.setItem('yellowMantis_theme', themeId);
+  };
+
+  // Load theme on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('yellowMantis_theme') || 'charcoal';
+    setCurrentTheme(savedTheme);
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  }, []);
 
   // Load saved data on mount
   useEffect(() => {
@@ -346,24 +362,23 @@ const FundingRequirements = () => {
 
   return (
     <div className="funding-page">
-      {/* Header */}
-      <div className="funding-header">
-        <div className="header-logo">
-          <MantisIcon size={50} />
-          <div className="header-text">
-            <h1>Funding Requirements</h1>
-            <p>Interactive Budget Planner</p>
-          </div>
-        </div>
-        <div className="header-actions">
-          <button className="action-btn save-btn" onClick={saveData}>
-            💾 Save
+      <ThemeSwitcher currentTheme={currentTheme} onThemeChange={handleThemeChange} />
+      
+      {/* Hero Section */}
+      <div className="funding-hero">
+        <div className="funding-hero-bg"></div>
+        <MantisIcon size={80} className="funding-hero-logo" />
+        <h1>Funding Requirements</h1>
+        <p className="funding-subtitle">Yellow Mantis Technology Group — Interactive Budget Planner</p>
+        <div className="hero-actions">
+          <button className="btn btn-primary" onClick={saveData}>
+            💾 Save Progress
           </button>
-          <button className="action-btn export-btn" onClick={exportData}>
-            📤 Export
+          <button className="btn btn-secondary" onClick={exportData}>
+            📤 Export JSON
           </button>
-          <button className="action-btn clear-btn" onClick={clearData}>
-            🗑️ Clear
+          <button className="btn btn-danger" onClick={clearData}>
+            🗑️ Clear All
           </button>
         </div>
         {showSaved && (
