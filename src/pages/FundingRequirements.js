@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import MantisIcon from '../components/MantisIcon';
-import ThemeSwitcher from '../components/ThemeSwitcher';
 import './FundingRequirements.css';
 
 const FundingRequirements = () => {
@@ -119,21 +118,6 @@ const FundingRequirements = () => {
   const [savedVersion, setSavedVersion] = useState(null);
   const [showSaved, setShowSaved] = useState(false);
   const [activeTab, setActiveTab] = useState('yqa');
-  const [currentTheme, setCurrentTheme] = useState('charcoal');
-
-  // Handle theme change
-  const handleThemeChange = (themeId) => {
-    setCurrentTheme(themeId);
-    document.documentElement.setAttribute('data-theme', themeId);
-    localStorage.setItem('yellowMantis_theme', themeId);
-  };
-
-  // Load theme on mount
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('yellowMantis_theme') || 'charcoal';
-    setCurrentTheme(savedTheme);
-    document.documentElement.setAttribute('data-theme', savedTheme);
-  }, []);
 
   // Load saved data on mount
   useEffect(() => {
@@ -362,8 +346,6 @@ const FundingRequirements = () => {
 
   return (
     <div className="funding-page">
-      <ThemeSwitcher currentTheme={currentTheme} onThemeChange={handleThemeChange} />
-      
       {/* Hero Section */}
       <div className="funding-hero">
         <div className="funding-hero-bg"></div>
