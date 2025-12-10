@@ -55,6 +55,9 @@ const FundingRequirements = () => {
         { name: 'Power supplies', monthly: '', description: '' },
         { name: 'Prototype units', monthly: '', description: '' },
       ]},
+      { category: 'Completed Unit Cost', items: [
+        { name: 'Cost per completed unit', monthly: '', description: '', isUnitCost: true },
+      ]},
       { category: 'Facilities', items: [
         { name: 'Workshop / lab rent', monthly: '', description: '' },
         { name: 'Equipment & tools', monthly: '', description: '' },
@@ -64,6 +67,7 @@ const FundingRequirements = () => {
         { name: 'First production run', monthly: '', description: '' },
       ]},
     ],
+    unitQuantity: '',
     milestones: [
       { name: '', targetDate: '', fundingUnlocked: '' },
       { name: '', targetDate: '', fundingUnlocked: '' },
@@ -136,9 +140,16 @@ const FundingRequirements = () => {
     if (!project || !project.expenses) return 0;
     let total = 0;
     project.expenses.forEach(category => {
+      const isUnitCostCategory = category.category === 'Completed Unit Cost';
       category.items.forEach(item => {
         const monthly = parseFloat(item.monthly) || 0;
-        total += monthly * 12;
+        if (isUnitCostCategory) {
+          // For unit costs, multiply by quantity instead of 12
+          const quantity = parseFloat(project.unitQuantity) || 0;
+          total += monthly * quantity;
+        } else {
+          total += monthly * 12;
+        }
       });
     });
     return total;
@@ -230,55 +241,116 @@ const FundingRequirements = () => {
     URL.revokeObjectURL(url);
   };
 
+  // Handle unit quantity change for robotics
+  const handleUnitQuantityChange = (projectKey, value) => {
+    setData(prev => ({
+      ...prev,
+      [projectKey]: {
+        ...prev[projectKey],
+        unitQuantity: value
+      }
+    }));
+  };
+
   // Render expense table for a project
   const renderExpenseTable = (projectKey, projectData) => {
     if (!projectData || !projectData.expenses) return null;
     
     return (
       <div className="expense-tables">
-        {projectData.expenses.map((category, catIndex) => (
-          <div key={catIndex} className="expense-category">
-            <h4 className="category-title">{category.category}</h4>
-            <table className="expense-table">
-              <thead>
-                <tr>
-                  <th>Expense Item</th>
-                  <th>Monthly Cost (R)</th>
-                  <th>12-Month Total</th>
-                  <th>Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {category.items.map((item, itemIndex) => (
-                  <tr key={itemIndex}>
-                    <td className="item-name">{item.name}</td>
-                    <td>
-                      <input
-                        type="number"
-                        value={item.monthly}
-                        onChange={(e) => handleExpenseChange(projectKey, catIndex, itemIndex, 'monthly', e.target.value)}
-                        placeholder="0"
-                        className="currency-input"
-                      />
-                    </td>
-                    <td className="calculated-total">
-                      {formatCurrency((parseFloat(item.monthly) || 0) * 12)}
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        value={item.description}
-                        onChange={(e) => handleExpenseChange(projectKey, catIndex, itemIndex, 'description', e.target.value)}
-                        placeholder="Notes..."
-                        className="notes-input"
-                      />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ))}
+        {projectData.expenses.map((category, catIndex) => {
+          const isUnitCostCategory = category.category === 'Completed Unit Cost';
+          
+          return (
+            <div key={catIndex} className="expense-category">
+              <h4 className="category-title">{category.category}</h4>
+              {isUnitCostCategory ? (
+                <div className="unit-cost-section">
+                  <table className="expense-table">
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Cost Per Unit (R)</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {category.items.map((item, itemIndex) => (
+                        <tr key={itemIndex}>
+                          <td className="item-name">{item.name}</td>
+                          <td>
+                            <input
+                              type="number"
+                              value={item.monthly}
+                              onChange={(e) => handleExpenseChange(projectKey, catIndex, itemIndex, 'monthly', e.target.value)}
+                              placeholder="0"
+                              className="currency-input"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              value={projectData.unitQuantity || ''}
+                              onChange={(e) => handleUnitQuantityChange(projectKey, e.target.value)}
+                              placeholder="0"
+                              className="quantity-input"
+                            />
+                          </td>
+                          <td className="calculated-total">
+                            {formatCurrency((parseFloat(item.monthly) || 0) * (parseFloat(projectData.unitQuantity) || 0))}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <p className="unit-cost-note">
+                    Enter the quoted cost per completed robot unit and the number of units to produce.
+                  </p>
+                </div>
+              ) : (
+                <table className="expense-table">
+                  <thead>
+                    <tr>
+                      <th>Expense Item</th>
+                      <th>Monthly Cost (R)</th>
+                      <th>12-Month Total</th>
+                      <th>Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {category.items.map((item, itemIndex) => (
+                      <tr key={itemIndex}>
+                        <td className="item-name">{item.name}</td>
+                        <td>
+                          <input
+                            type="number"
+                            value={item.monthly}
+                            onChange={(e) => handleExpenseChange(projectKey, catIndex, itemIndex, 'monthly', e.target.value)}
+                            placeholder="0"
+                            className="currency-input"
+                          />
+                        </td>
+                        <td className="calculated-total">
+                          {formatCurrency((parseFloat(item.monthly) || 0) * 12)}
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            value={item.description}
+                            onChange={(e) => handleExpenseChange(projectKey, catIndex, itemIndex, 'description', e.target.value)}
+                            placeholder="Notes..."
+                            className="notes-input"
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          );
+        })}
         
         <div className="project-subtotal">
           <span>Project Subtotal (12 months):</span>
