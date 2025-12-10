@@ -18,7 +18,8 @@ function Header() {
   const navLinks = [
     { path: '/introduction-letter', label: 'Introduction' },
     { path: '/pitch-deck', label: 'Pitch Deck' },
-    { path: '/full-features', label: 'Features' }
+    { path: '/full-features', label: 'Features' },
+    { path: '/funding', label: 'Funding' }
   ];
 
   return (
