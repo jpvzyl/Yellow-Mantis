@@ -30,6 +30,22 @@ All products are wholly owned by Yellow Mantis Technology Group (except Y-Accoun
 
 ---
 
+## Total Addressable Market (TAM) by Product
+
+| Product | TAM (Global) | Growth Rate | Yellow Mantis Position |
+|---------|--------------|-------------|------------------------|
+| **Y-QA Platform** | $4.8B (Software Testing) | 12% CAGR | Quantum differentiation |
+| **Quantum Bridge** | $1.3B → $8.6B (Quantum Software) | 32% CAGR | First-mover advantage |
+| **Qyvella Robotics** | $18.4B (Personal/Educational Robotics) | 15% CAGR | Affordable AI positioning |
+| **Y-Accounting** | $19.6B (Accounting Software) | 8% CAGR | AI-native differentiation |
+
+### Combined TAM Opportunity: **$44B+**
+
+> **What is TAM?**  
+> TAM (Total Addressable Market) represents the total global revenue opportunity available if a product achieves 100% market share. It indicates the maximum potential size of the market a company is targeting. While no company captures 100% of TAM, it demonstrates the scale of opportunity and guides growth potential assessments. Even capturing 0.1% of a $44B TAM represents $44M in revenue potential.
+
+---
+
 # Current Valuation Breakdown
 
 ## 1. Y-QA Platform — R15,000,000
