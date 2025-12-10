@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import IntroductionLetter from './pages/IntroductionLetter';
@@ -8,9 +8,12 @@ import FullFeatures from './pages/FullFeatures';
 import FundingRequirements from './pages/FundingRequirements';
 
 function App() {
+  const location = useLocation();
+  const isFundingPage = location.pathname === '/funding';
+
   return (
     <div className="app">
-      <Header />
+      {!isFundingPage && <Header />}
       <main>
         <Routes>
           <Route path="/" element={<Navigate to="/introduction-letter" replace />} />
@@ -20,7 +23,7 @@ function App() {
           <Route path="/funding" element={<FundingRequirements />} />
         </Routes>
       </main>
-      <Footer />
+      {!isFundingPage && <Footer />}
     </div>
   );
 }
