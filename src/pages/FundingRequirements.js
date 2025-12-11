@@ -318,12 +318,22 @@ const FundingRequirements = () => {
     });
   };
 
-  // Calculate total share purchase amount
+  // Calculate total share purchase amount (from manual inputs)
   const calculateTotalSharePurchase = () => {
     let total = 0;
     const sharePurchase = data.sharePurchase || {};
     Object.keys(sharePurchase).forEach(key => {
       total += parseFloat(sharePurchase[key]?.amount) || 0;
+    });
+    return total;
+  };
+
+  // Calculate total growth value (from growth percentages)
+  const calculateTotalGrowthValue = () => {
+    let total = 0;
+    Object.keys(valuations).forEach(key => {
+      const projectVal = getProjectValuationWithGrowth(key);
+      total += projectVal.growth;
     });
     return total;
   };
@@ -1018,9 +1028,9 @@ const FundingRequirements = () => {
                   </div>
                 </div>
                 <div className="share-card-total">
-                  <span>Share Purchase:</span>
-                  <span className="card-total-value">{formatCurrency(parseFloat(sharePurchase.amount) || 0)}</span>
-                  <span className="card-total-percent">({parseFloat(sharePurchase.percent) || 0}%)</span>
+                  <span>Growth Value:</span>
+                  <span className="card-total-value">{formatCurrency(projectVal.growth)}</span>
+                  <span className="card-total-percent">({parseFloat(data.growthPercentages?.[key]) || 0}% of IP)</span>
                 </div>
               </div>
             );
@@ -1028,8 +1038,8 @@ const FundingRequirements = () => {
         </div>
         <div className="share-purchase-totals">
           <div className="share-total-row">
-            <span className="total-label">Total Amount:</span>
-            <span className="total-value">{formatCurrency(calculateTotalSharePurchase())}</span>
+            <span className="total-label">Total Growth Value:</span>
+            <span className="total-value">{formatCurrency(calculateTotalGrowthValue())}</span>
           </div>
           <div className="share-total-row">
             <span className="total-label">Total Equity:</span>
@@ -1051,12 +1061,12 @@ const FundingRequirements = () => {
             <span className="breakdown-value">{formatCurrency(calculateGrandTotal())}</span>
           </div>
           <div className="breakdown-row">
-            <span className="breakdown-label">💼 Total Share Valuation</span>
-            <span className="breakdown-value">{formatCurrency(calculateTotalSharePurchase())}</span>
+            <span className="breakdown-label">💼 Total Growth Value</span>
+            <span className="breakdown-value">{formatCurrency(calculateTotalGrowthValue())}</span>
           </div>
           <div className="breakdown-row total-row">
             <span className="breakdown-label">TOTAL INVESTMENT ASK</span>
-            <span className="breakdown-value">{formatCurrency(calculateGrandTotal() + calculateTotalSharePurchase())}</span>
+            <span className="breakdown-value">{formatCurrency(calculateGrandTotal() + calculateTotalGrowthValue())}</span>
           </div>
         </div>
       </section>
