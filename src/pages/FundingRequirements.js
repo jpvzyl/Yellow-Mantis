@@ -835,9 +835,9 @@ const FundingRequirements = () => {
         </div>
       </section>
 
-      {/* Total Summary */}
+      {/* Operational Funding */}
       <section className="total-summary">
-        <h2>📈 Total Funding Summary</h2>
+        <h2>📈 Operational Funding</h2>
         <div className="summary-breakdown">
           <div className="breakdown-row">
             <span className="breakdown-label">🧪 Y-QA Platform</span>
@@ -859,13 +859,56 @@ const FundingRequirements = () => {
             <span className="breakdown-label">🏢 General Operating</span>
             <span className="breakdown-value">{formatCurrency(calculateProjectTotal(data.operating))}</span>
           </div>
-          <div className="breakdown-row total-row">
-            <span className="breakdown-label">TOTAL FUNDING ASK (12 months)</span>
+          <div className="breakdown-row subtotal-row">
+            <span className="breakdown-label">OPERATIONAL TOTAL (12 months)</span>
             <span className="breakdown-value">{formatCurrency(calculateGrandTotal())}</span>
           </div>
           <div className="breakdown-row monthly-row">
             <span className="breakdown-label">Monthly Burn Rate</span>
             <span className="breakdown-value">{formatCurrency(calculateGrandTotal() / 12)}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Share Purchase */}
+      <section className="share-purchase-section">
+        <h2>💼 Share Purchase</h2>
+        <div className="summary-breakdown">
+          <div className="breakdown-row input-row">
+            <span className="breakdown-label">Share Purchase Amount</span>
+            <div className="breakdown-input-wrapper">
+              <span>R</span>
+              <input
+                type="number"
+                value={data.executive.sharePurchase || ''}
+                onChange={(e) => handleExecutiveChange('sharePurchase', e.target.value)}
+                placeholder="0"
+                className="breakdown-input"
+              />
+            </div>
+          </div>
+          <div className="breakdown-row info-row">
+            <span className="breakdown-label">Based on Total Valuation</span>
+            <span className="breakdown-value">{formatCurrency(calculateTotalValuation())}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Total Investment Required */}
+      <section className="total-investment-section">
+        <h2>🎯 Total Investment Required</h2>
+        <div className="summary-breakdown">
+          <div className="breakdown-row">
+            <span className="breakdown-label">Operational Funding</span>
+            <span className="breakdown-value">{formatCurrency(calculateGrandTotal())}</span>
+          </div>
+          <div className="breakdown-row">
+            <span className="breakdown-label">Share Purchase</span>
+            <span className="breakdown-value">{formatCurrency(parseFloat(data.executive.sharePurchase) || 0)}</span>
+          </div>
+          <div className="breakdown-row total-row">
+            <span className="breakdown-label">TOTAL INVESTMENT ASK</span>
+            <span className="breakdown-value">{formatCurrency(calculateGrandTotal() + (parseFloat(data.executive.sharePurchase) || 0))}</span>
           </div>
         </div>
       </section>
