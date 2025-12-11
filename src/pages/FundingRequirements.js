@@ -692,6 +692,7 @@ const FundingRequirements = () => {
                 <h3>🧪 Y-QA Platform</h3>
                 <div className="project-meta">
                   <span className="valuation">Valuation: {formatCurrency(valuations.yqa.min)}</span>
+                  <span className="tam-inline">TAM: {valuations.yqa.tam.value}</span>
                   <span className="stage">{valuations.yqa.stage}</span>
                 </div>
               </div>
@@ -724,6 +725,7 @@ const FundingRequirements = () => {
                 <h3>🔮 Quantum Bridge Framework</h3>
                 <div className="project-meta">
                   <span className="valuation">Valuation: {formatCurrency(valuations.quantum.min)} - {formatCurrency(valuations.quantum.max)}</span>
+                  <span className="tam-inline">TAM: {valuations.quantum.tam.value}</span>
                   <span className="stage">{valuations.quantum.stage}</span>
                 </div>
               </div>
@@ -757,6 +759,7 @@ const FundingRequirements = () => {
                 <h3>🤖 Qyvella Robotics</h3>
                 <div className="project-meta">
                   <span className="valuation">Valuation: {formatCurrency(valuations.robotics.min)} - {formatCurrency(valuations.robotics.max)}</span>
+                  <span className="tam-inline">TAM: {valuations.robotics.tam.value}</span>
                   <span className="stage">{valuations.robotics.stage}</span>
                 </div>
               </div>
@@ -789,6 +792,7 @@ const FundingRequirements = () => {
                 <h3>💰 Y-Accounting</h3>
                 <div className="project-meta">
                   <span className="valuation">Valuation: {formatCurrency(valuations.accounting.min)} - {formatCurrency(valuations.accounting.max)}</span>
+                  <span className="tam-inline">TAM: {valuations.accounting.tam.value}</span>
                   <span className="stage">{valuations.accounting.stage}</span>
                 </div>
                 <p className="third-party-note">In conjunction with a third party (50% ownership)</p>

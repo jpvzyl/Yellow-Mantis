@@ -599,6 +599,11 @@
   font-weight: 600;
 }
 
+.project-meta .tam-inline {
+  color: #3498db;
+  font-weight: 600;
+}
+
 .project-meta .stage {
   color: var(--text-muted);
   font-size: 0.9rem;
