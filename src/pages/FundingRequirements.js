@@ -1095,6 +1095,21 @@ const FundingRequirements = () => {
             <span className="breakdown-value">{formatCurrency(calculateTotalEquityPurchase())}</span>
             <span className="breakdown-note">({calculateTotalEquityPercent().toFixed(2)}% equity)</span>
           </div>
+          <div className="breakdown-row founder-row">
+            <span className="breakdown-label">🔄 Founder Re-investment</span>
+            <div className="founder-input-wrapper">
+              <input
+                type="number"
+                value={data.executive.founderReinvestPercent || ''}
+                onChange={(e) => handleExecutiveChange('founderReinvestPercent', e.target.value)}
+                placeholder="0"
+                step="0.1"
+                className="founder-percent-input"
+              />
+              <span>%</span>
+            </div>
+            <span className="breakdown-value">{formatCurrency(calculateTotalEquityPurchase() * (parseFloat(data.executive.founderReinvestPercent) || 0) / 100)}</span>
+          </div>
           <div className="breakdown-row total-row">
             <span className="breakdown-label">TOTAL INVESTMENT ASK</span>
             <span className="breakdown-value">{formatCurrency(calculateTotalRunningCostContribution() + calculateTotalEquityPurchase())}</span>
