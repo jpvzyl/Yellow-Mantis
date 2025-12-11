@@ -18,6 +18,7 @@ function Header() {
   const navLinks = [
     { path: '/introduction-letter', label: 'Introduction' },
     { path: '/pitch-deck', label: 'Pitch Deck' },
+    { path: '/quantum-guide', label: 'Quantum Guide' },
     { path: '/full-features', label: 'Features' }
   ];
 

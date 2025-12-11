@@ -6,6 +6,7 @@ import IntroductionLetter from './pages/IntroductionLetter';
 import PitchDeck from './pages/PitchDeck';
 import FullFeatures from './pages/FullFeatures';
 import FundingRequirements from './pages/FundingRequirements';
+import QuantumForInvestors from './pages/QuantumForInvestors';
 
 function App() {
   const location = useLocation();
@@ -21,6 +22,7 @@ function App() {
           <Route path="/pitch-deck" element={<PitchDeck />} />
           <Route path="/full-features" element={<FullFeatures />} />
           <Route path="/funding" element={<FundingRequirements />} />
+          <Route path="/quantum-guide" element={<QuantumForInvestors />} />
         </Routes>
       </main>
       {!isFundingPage && <Footer />}

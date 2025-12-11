@@ -163,10 +163,10 @@ const FundingRequirements = () => {
       accounting: '',
     },
     sharePurchase: {
-      yqa: { amount: '', percent: '' },
-      quantum: { amount: '', percent: '' },
-      robotics: { amount: '', percent: '' },
-      accounting: { amount: '', percent: '' },
+      yqa: { amount: '', percent: '', runningCost: '' },
+      quantum: { amount: '', percent: '', runningCost: '' },
+      robotics: { amount: '', percent: '', runningCost: '' },
+      accounting: { amount: '', percent: '', runningCost: '' },
     },
     notes: '',
   });
@@ -177,10 +177,10 @@ const FundingRequirements = () => {
 
   // Default sharePurchase structure
   const defaultSharePurchase = {
-    yqa: { amount: '', percent: '' },
-    quantum: { amount: '', percent: '' },
-    robotics: { amount: '', percent: '' },
-    accounting: { amount: '', percent: '' },
+    yqa: { amount: '', percent: '', runningCost: '' },
+    quantum: { amount: '', percent: '', runningCost: '' },
+    robotics: { amount: '', percent: '', runningCost: '' },
+    accounting: { amount: '', percent: '', runningCost: '' },
   };
 
   // Default growthPercentages structure
@@ -301,28 +301,22 @@ const FundingRequirements = () => {
     };
   };
 
-  // Handle share purchase changes
+  // Handle share purchase changes - fields are independent for negotiation
   const handleSharePurchaseChange = (projectKey, field, value) => {
-    const projectVal = getProjectValuationWithGrowth(projectKey);
-    
     setData(prev => {
       const newSharePurchase = { ...(prev.sharePurchase || defaultSharePurchase) };
+      const currentProject = newSharePurchase[projectKey] || { amount: '', percent: '', runningCost: '' };
       
-      if (field === 'amount') {
-        const amount = parseFloat(value) || 0;
-        const percent = projectVal.total > 0 ? ((amount / projectVal.total) * 100).toFixed(2) : 0;
-        newSharePurchase[projectKey] = { amount: value, percent: percent.toString() };
-      } else if (field === 'percent') {
-        const percent = parseFloat(value) || 0;
-        const amount = (projectVal.total * (percent / 100)).toFixed(0);
-        newSharePurchase[projectKey] = { amount: amount.toString(), percent: value };
-      }
+      newSharePurchase[projectKey] = {
+        ...currentProject,
+        [field]: value
+      };
       
       return { ...prev, sharePurchase: newSharePurchase };
     });
   };
 
-  // Calculate total share purchase
+  // Calculate total share purchase amount
   const calculateTotalSharePurchase = () => {
     let total = 0;
     const sharePurchase = data.sharePurchase || {};
@@ -332,13 +326,34 @@ const FundingRequirements = () => {
     return total;
   };
 
+  // Calculate total equity percentage
+  const calculateTotalEquityPercent = () => {
+    let total = 0;
+    const sharePurchase = data.sharePurchase || {};
+    Object.keys(sharePurchase).forEach(key => {
+      total += parseFloat(sharePurchase[key]?.percent) || 0;
+    });
+    return total;
+  };
+
+  // Calculate total running cost percentage
+  const calculateTotalRunningCost = () => {
+    let total = 0;
+    const sharePurchase = data.sharePurchase || {};
+    Object.keys(sharePurchase).forEach(key => {
+      total += parseFloat(sharePurchase[key]?.runningCost) || 0;
+    });
+    return total;
+  };
+
   // Get share purchase for a project
   const getProjectSharePurchase = (projectKey) => {
     const sharePurchase = data.sharePurchase || {};
-    const projectShare = sharePurchase[projectKey] || { amount: '', percent: '' };
+    const projectShare = sharePurchase[projectKey] || { amount: '', percent: '', runningCost: '' };
     return {
       amount: parseFloat(projectShare.amount) || 0,
-      percent: parseFloat(projectShare.percent) || 0
+      percent: parseFloat(projectShare.percent) || 0,
+      runningCost: parseFloat(projectShare.runningCost) || 0
     };
   };
 
@@ -989,14 +1004,39 @@ const FundingRequirements = () => {
                       step="0.1"
                     />
                   </div>
+                  <div className="share-input-group">
+                    <label>Running Cost (%)</label>
+                    <input
+                      type="number"
+                      value={sharePurchase.runningCost || ''}
+                      onChange={(e) => handleSharePurchaseChange(key, 'runningCost', e.target.value)}
+                      placeholder="0"
+                      step="0.1"
+                    />
+                  </div>
+                </div>
+                <div className="share-card-total">
+                  <span>Share Purchase:</span>
+                  <span className="card-total-value">{formatCurrency(parseFloat(sharePurchase.amount) || 0)}</span>
+                  <span className="card-total-percent">({parseFloat(sharePurchase.percent) || 0}%)</span>
                 </div>
               </div>
             );
           })}
         </div>
-        <div className="share-purchase-total">
-          <span>Total Share Purchase:</span>
-          <span className="total-value">{formatCurrency(calculateTotalSharePurchase())}</span>
+        <div className="share-purchase-totals">
+          <div className="share-total-row">
+            <span className="total-label">Total Amount:</span>
+            <span className="total-value">{formatCurrency(calculateTotalSharePurchase())}</span>
+          </div>
+          <div className="share-total-row">
+            <span className="total-label">Total Equity:</span>
+            <span className="total-value">{calculateTotalEquityPercent().toFixed(2)}%</span>
+          </div>
+          <div className="share-total-row">
+            <span className="total-label">Total Running Cost:</span>
+            <span className="total-value">{calculateTotalRunningCost().toFixed(2)}%</span>
+          </div>
         </div>
       </section>
 
