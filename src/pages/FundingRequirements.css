@@ -1040,6 +1040,10 @@
   border-color: var(--primary-yellow);
 }
 
+.company-total-card.sales-card {
+  border-color: #9b59b6;
+}
+
 .company-total-card.equity-card {
   border-color: #3498db;
 }
@@ -1065,6 +1069,10 @@
 
 .company-total-card.valuation-card .company-value {
   color: var(--primary-yellow);
+}
+
+.company-total-card.sales-card .company-value {
+  color: #9b59b6;
 }
 
 .company-total-card.equity-card .company-value {

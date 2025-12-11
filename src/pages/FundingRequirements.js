@@ -1027,7 +1027,7 @@ const FundingRequirements = () => {
                 </div>
                 <div className="share-inputs">
                   <div className="share-input-group">
-                    <label>Amount (R)</label>
+                    <label>Share Sales (R)</label>
                     <input
                       type="number"
                       value={sharePurchase.amount}
@@ -1081,6 +1081,23 @@ const FundingRequirements = () => {
                   <span>{formatCurrency(getProjectValuationWithGrowth(key).total)}</span>
                 </div>
               ))}
+            </div>
+          </div>
+          <div className="company-total-card sales-card">
+            <h4>Total Share Sales</h4>
+            <div className="company-value">{formatCurrency(calculateTotalSharePurchase())}</div>
+            <div className="company-percent">Manual entries</div>
+            <div className="company-breakdown">
+              {Object.entries(valuations).map(([key, val]) => {
+                const sharePurchaseData = data.sharePurchase || {};
+                const amount = parseFloat(sharePurchaseData[key]?.amount) || 0;
+                return (
+                  <div key={key} className="company-breakdown-row">
+                    <span>{val.label}</span>
+                    <span>{formatCurrency(amount)}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="company-total-card equity-card">
