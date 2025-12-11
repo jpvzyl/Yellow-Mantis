@@ -529,7 +529,7 @@
   background: var(--bg-secondary);
   border: 2px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 15px 25px;
+  padding: 12px 15px;
   color: var(--text-secondary);
   font-weight: 600;
   cursor: pointer;
@@ -537,8 +537,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  min-width: 150px;
+  gap: 4px;
+  min-width: 120px;
+  max-width: 180px;
+  text-align: center;
+  overflow: hidden;
 }
 
 .project-tab:hover {
@@ -554,15 +557,17 @@
 }
 
 .tab-total {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--primary-yellow);
   font-weight: 600;
+  word-break: break-word;
 }
 
 .tab-share {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: #3498db;
   font-weight: 600;
+  word-break: break-word;
 }
 
 /* Project Content */
@@ -819,6 +824,8 @@
   align-items: center;
   padding: 15px 0;
   border-bottom: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .breakdown-row:last-child {
@@ -929,11 +936,12 @@
 
 .share-valuation {
   color: var(--primary-yellow);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid var(--border-subtle);
+  word-break: break-word;
 }
 
 .share-inputs {
@@ -973,12 +981,13 @@
 
 .share-card-total {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   margin-top: 15px;
   padding-top: 15px;
   border-top: 1px solid var(--border-subtle);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .share-card-total span:first-child {
@@ -988,11 +997,14 @@
 .share-card-total .card-total-value {
   color: var(--primary-yellow);
   font-weight: 700;
+  word-break: break-word;
 }
 
 .share-card-total .card-total-percent {
   color: #3498db;
   font-weight: 600;
+  font-size: 0.75rem;
+  word-break: break-word;
 }
 
 /* Company Total Section */
@@ -1038,16 +1050,17 @@
 
 .company-total-card h4 {
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 15px;
 }
 
 .company-value {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 800;
   margin-bottom: 5px;
+  word-break: break-word;
 }
 
 .company-total-card.valuation-card .company-value {
@@ -1078,17 +1091,25 @@
 .company-breakdown-row {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0;
-  font-size: 0.9rem;
+  padding: 6px 0;
+  font-size: 0.8rem;
+  gap: 10px;
 }
 
 .company-breakdown-row span:first-child {
   color: var(--text-muted);
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .company-breakdown-row span:last-child {
   color: var(--text-primary);
   font-weight: 600;
+  flex-shrink: 0;
+  text-align: right;
 }
 
 .breakdown-row.input-row {
@@ -1169,7 +1190,8 @@
 }
 
 .total-investment-section .breakdown-row.total-row .breakdown-value {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
+  word-break: break-word;
 }
 
 .breakdown-row.founder-row {
