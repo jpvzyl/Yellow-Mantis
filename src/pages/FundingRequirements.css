@@ -995,35 +995,100 @@
   font-weight: 600;
 }
 
-.share-purchase-totals {
-  display: flex;
-  justify-content: space-around;
-  padding: 25px;
-  background: rgba(52, 152, 219, 0.1);
-  border: 1px solid #3498db;
-  border-radius: var(--radius-md);
-  flex-wrap: wrap;
-  gap: 20px;
+/* Company Total Section */
+.company-total-section {
+  background: var(--bg-secondary);
+  padding: 60px 40px;
 }
 
-.share-total-row {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
+.company-total-section h2 {
+  font-size: 2rem;
+  color: var(--primary-yellow);
+  text-align: center;
+  margin-bottom: 40px;
 }
 
-.share-total-row .total-label {
+.company-total-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.company-total-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  transition: all 0.3s ease;
+}
+
+.company-total-card.valuation-card {
+  border-color: var(--primary-yellow);
+}
+
+.company-total-card.equity-card {
+  border-color: #3498db;
+}
+
+.company-total-card.running-card {
+  border-color: #27ae60;
+}
+
+.company-total-card h4 {
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
 }
 
-.share-total-row .total-value {
-  font-size: 1.5rem;
+.company-value {
+  font-size: 2rem;
   font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.company-total-card.valuation-card .company-value {
+  color: var(--primary-yellow);
+}
+
+.company-total-card.equity-card .company-value {
   color: #3498db;
+}
+
+.company-total-card.running-card .company-value {
+  color: #27ae60;
+}
+
+.company-percent,
+.company-amount {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.company-breakdown {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 15px;
+  margin-top: 15px;
+}
+
+.company-breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 0.9rem;
+}
+
+.company-breakdown-row span:first-child {
+  color: var(--text-muted);
+}
+
+.company-breakdown-row span:last-child {
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
 .breakdown-row.input-row {

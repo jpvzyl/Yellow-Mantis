@@ -1011,14 +1011,14 @@ const FundingRequirements = () => {
         </div>
       </section>
 
-      {/* Share Purchase */}
+      {/* Share Purchase by Project */}
       <section className="share-purchase-section">
         <h2>💼 Share Purchase by Project</h2>
         <div className="share-purchase-grid">
           {Object.entries(valuations).map(([key, val]) => {
             const projectVal = getProjectValuationWithGrowth(key);
             const sharePurchaseData = data.sharePurchase || {};
-            const sharePurchase = sharePurchaseData[key] || { amount: '', percent: '' };
+            const sharePurchase = sharePurchaseData[key] || { amount: '', percent: '', runningCost: '' };
             return (
               <div key={key} className="share-purchase-card">
                 <h4>{val.label}</h4>
@@ -1065,18 +1065,49 @@ const FundingRequirements = () => {
             );
           })}
         </div>
-        <div className="share-purchase-totals">
-          <div className="share-total-row">
-            <span className="total-label">Total Equity Purchase:</span>
-            <span className="total-value">{formatCurrency(calculateTotalEquityPurchase())}</span>
+      </section>
+
+      {/* Company Total */}
+      <section className="company-total-section">
+        <h2>🏢 Company Total</h2>
+        <div className="company-total-grid">
+          <div className="company-total-card valuation-card">
+            <h4>Total Company Valuation</h4>
+            <div className="company-value">{formatCurrency(Object.keys(valuations).reduce((sum, key) => sum + getProjectValuationWithGrowth(key).total, 0))}</div>
+            <div className="company-breakdown">
+              {Object.entries(valuations).map(([key, val]) => (
+                <div key={key} className="company-breakdown-row">
+                  <span>{val.label}</span>
+                  <span>{formatCurrency(getProjectValuationWithGrowth(key).total)}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="share-total-row">
-            <span className="total-label">Total Equity %:</span>
-            <span className="total-value">{calculateTotalEquityPercent().toFixed(2)}%</span>
+          <div className="company-total-card equity-card">
+            <h4>Total Equity Purchase</h4>
+            <div className="company-value">{formatCurrency(calculateTotalEquityPurchase())}</div>
+            <div className="company-percent">{calculateTotalEquityPercent().toFixed(2)}% equity</div>
+            <div className="company-breakdown">
+              {Object.entries(valuations).map(([key, val]) => (
+                <div key={key} className="company-breakdown-row">
+                  <span>{val.label}</span>
+                  <span>{formatCurrency(getEquityPurchase(key))}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="share-total-row">
-            <span className="total-label">Total Running Cost %:</span>
-            <span className="total-value">{calculateTotalRunningCost().toFixed(2)}%</span>
+          <div className="company-total-card running-card">
+            <h4>Total Running Cost</h4>
+            <div className="company-value">{calculateTotalRunningCost().toFixed(2)}%</div>
+            <div className="company-amount">{formatCurrency(calculateTotalRunningCostContribution())}</div>
+            <div className="company-breakdown">
+              {Object.entries(valuations).map(([key, val]) => (
+                <div key={key} className="company-breakdown-row">
+                  <span>{val.label}</span>
+                  <span>{formatCurrency(getRunningCostContribution(key))}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
