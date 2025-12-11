@@ -9,6 +9,7 @@ const FundingRequirements = () => {
       min: 15000000, max: 15000000, 
       label: 'Y-QA Platform', 
       stage: 'Rollout Q1 2026',
+      tam: { value: '$4.8B', market: 'Software Testing', cagr: '12%' },
       growth: {
         moderate: { multiplier: 1.5, value: 22500000, timeline: '12-18 months' },
         high: { multiplier: 2.5, value: 37500000, timeline: '24-36 months' },
@@ -19,6 +20,7 @@ const FundingRequirements = () => {
       min: 7500000, max: 12500000, 
       label: 'Quantum Bridge', 
       stage: 'Research/Alpha',
+      tam: { value: '$1.3B → $8.6B', market: 'Quantum Software', cagr: '32%' },
       growth: {
         moderate: { multiplier: 1.3, valueMin: 13000000, valueMax: 16250000, timeline: '12-18 months' },
         high: { multiplier: '5x-10x', valueMin: 37500000, valueMax: 125000000, timeline: '24-36 months' },
@@ -29,6 +31,7 @@ const FundingRequirements = () => {
       min: 5000000, max: 7500000, 
       label: 'Qyvella Robotics', 
       stage: 'Final R&D',
+      tam: { value: '$18.4B', market: 'Personal/Educational Robotics', cagr: '15%' },
       growth: {
         moderate: { multiplier: 1.3, valueMin: 6500000, valueMax: 9750000, timeline: '12-18 months' },
         high: { multiplier: '3x-5x', valueMin: 15000000, valueMax: 37500000, timeline: '24-36 months' },
@@ -39,6 +42,7 @@ const FundingRequirements = () => {
       min: 2500000, max: 5000000, 
       label: 'Y-Accounting (50%)', 
       stage: 'Rollout Q1 2026',
+      tam: { value: '$19.6B', market: 'Accounting Software', cagr: '8%' },
       growth: {
         moderate: { multiplier: 1.4, valueMin: 3500000, valueMax: 7000000, timeline: '12-18 months' },
         high: { multiplier: 2, valueMin: 5000000, valueMax: 10000000, timeline: '24-36 months' },
@@ -621,6 +625,14 @@ const FundingRequirements = () => {
             return (
               <div key={key} className="valuation-card">
                 <h4>{val.label}</h4>
+                
+                {/* TAM Badge */}
+                <div className="tam-badge">
+                  <span className="tam-value">{val.tam.value}</span>
+                  <span className="tam-market">{val.tam.market}</span>
+                  <span className="tam-cagr">{val.tam.cagr} CAGR</span>
+                </div>
+
                 <div className="valuation-breakdown">
                   <div className="val-row">
                     <span className="val-label">IP Value:</span>

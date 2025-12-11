@@ -289,8 +289,40 @@
 .valuation-card h4 {
   color: var(--text-primary);
   font-size: 1rem;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* TAM Badge */
+.tam-badge {
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(155, 89, 182, 0.1) 100%);
+  border: 1px solid rgba(52, 152, 219, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 12px;
   margin-bottom: 15px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tam-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #3498db;
+}
+
+.tam-market {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tam-cagr {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #2ecc71;
 }
 
 .valuation-breakdown {
