@@ -85,6 +85,8 @@ const FundingRequirements = () => {
       { category: 'Personnel / Resources', items: [
         { name: 'Robotics engineer', monthly: '', description: '' },
         { name: 'AI/ML developer', monthly: '', description: '' },
+        { name: 'Electrical engineer', monthly: '', description: '' },
+        { name: 'ISO auditor', monthly: '', description: '' },
         { name: 'Other personnel', monthly: '', description: '' },
       ]},
       { category: 'Hardware Costs', items: [
