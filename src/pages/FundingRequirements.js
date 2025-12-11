@@ -1112,7 +1112,7 @@ const FundingRequirements = () => {
           </div>
           <div className="breakdown-row total-row">
             <span className="breakdown-label">TOTAL INVESTMENT ASK</span>
-            <span className="breakdown-value">{formatCurrency(calculateTotalRunningCostContribution() + calculateTotalEquityPurchase())}</span>
+            <span className="breakdown-value">{formatCurrency(calculateTotalRunningCostContribution() + calculateTotalEquityPurchase() - (calculateTotalEquityPurchase() * (parseFloat(data.executive.founderReinvestPercent) || 0) / 100))}</span>
           </div>
         </div>
       </section>
