@@ -3,12 +3,48 @@ import MantisIcon from '../components/MantisIcon';
 import './FundingRequirements.css';
 
 const FundingRequirements = () => {
-  // Valuations from IP_VALUATION_ANALYSIS.md
+  // Valuations from IP_VALUATION_ANALYSIS.md with growth potential
   const valuations = {
-    yqa: { min: 15000000, max: 15000000, label: 'Y-QA Platform', stage: 'Rollout Q1 2026' },
-    quantum: { min: 7500000, max: 12500000, label: 'Quantum Bridge', stage: 'Research/Alpha' },
-    robotics: { min: 5000000, max: 7500000, label: 'Qyvella Robotics', stage: 'Final R&D' },
-    accounting: { min: 2500000, max: 5000000, label: 'Y-Accounting (50%)', stage: 'Rollout Q1 2026' },
+    yqa: { 
+      min: 15000000, max: 15000000, 
+      label: 'Y-QA Platform', 
+      stage: 'Rollout Q1 2026',
+      growth: {
+        moderate: { multiplier: 1.5, value: 22500000, timeline: '12-18 months' },
+        high: { multiplier: 2.5, value: 37500000, timeline: '24-36 months' },
+        maturity: { min: 30000000, max: 50000000 }
+      }
+    },
+    quantum: { 
+      min: 7500000, max: 12500000, 
+      label: 'Quantum Bridge', 
+      stage: 'Research/Alpha',
+      growth: {
+        moderate: { multiplier: 1.3, valueMin: 13000000, valueMax: 16250000, timeline: '12-18 months' },
+        high: { multiplier: '5x-10x', valueMin: 37500000, valueMax: 125000000, timeline: '24-36 months' },
+        maturity: { min: 50000000, max: 150000000 }
+      }
+    },
+    robotics: { 
+      min: 5000000, max: 7500000, 
+      label: 'Qyvella Robotics', 
+      stage: 'Final R&D',
+      growth: {
+        moderate: { multiplier: 1.3, valueMin: 6500000, valueMax: 9750000, timeline: '12-18 months' },
+        high: { multiplier: '3x-5x', valueMin: 15000000, valueMax: 37500000, timeline: '24-36 months' },
+        maturity: { min: 15000000, max: 40000000 }
+      }
+    },
+    accounting: { 
+      min: 2500000, max: 5000000, 
+      label: 'Y-Accounting (50%)', 
+      stage: 'Rollout Q1 2026',
+      growth: {
+        moderate: { multiplier: 1.4, valueMin: 3500000, valueMax: 7000000, timeline: '12-18 months' },
+        high: { multiplier: 2, valueMin: 5000000, valueMax: 10000000, timeline: '24-36 months' },
+        maturity: { min: 5000000, max: 12500000 }
+      }
+    },
   };
 
   // Initial state for all projects
@@ -116,6 +152,12 @@ const FundingRequirements = () => {
       equityOffered: '',
       minimumInvestment: '',
     },
+    growthPercentages: {
+      yqa: '',
+      quantum: '',
+      robotics: '',
+      accounting: '',
+    },
     notes: '',
   });
 
@@ -170,6 +212,54 @@ const FundingRequirements = () => {
   const formatCurrency = (value) => {
     if (!value) return 'R0';
     return 'R' + parseInt(value).toLocaleString('en-ZA');
+  };
+
+  // Handle growth percentage changes
+  const handleGrowthChange = (projectKey, value) => {
+    setData(prev => ({
+      ...prev,
+      growthPercentages: {
+        ...prev.growthPercentages,
+        [projectKey]: value
+      }
+    }));
+  };
+
+  // Calculate IP valuation (base/current)
+  const calculateIPValuation = () => {
+    let total = 0;
+    Object.keys(valuations).forEach(key => {
+      total += (valuations[key].min + valuations[key].max) / 2;
+    });
+    return total;
+  };
+
+  // Calculate growth valuation based on percentages
+  const calculateGrowthValuation = () => {
+    let total = 0;
+    Object.keys(valuations).forEach(key => {
+      const baseValue = (valuations[key].min + valuations[key].max) / 2;
+      const growthPercent = parseFloat(data.growthPercentages[key]) || 0;
+      total += baseValue * (growthPercent / 100);
+    });
+    return total;
+  };
+
+  // Calculate total valuation (IP + Growth)
+  const calculateTotalValuation = () => {
+    return calculateIPValuation() + calculateGrowthValuation();
+  };
+
+  // Get project valuation with growth
+  const getProjectValuationWithGrowth = (projectKey) => {
+    const baseValue = (valuations[projectKey].min + valuations[projectKey].max) / 2;
+    const growthPercent = parseFloat(data.growthPercentages[projectKey]) || 0;
+    const growthValue = baseValue * (growthPercent / 100);
+    return {
+      base: baseValue,
+      growth: growthValue,
+      total: baseValue + growthValue
+    };
   };
 
   // Handle input changes
@@ -504,26 +594,64 @@ const FundingRequirements = () => {
       {/* Current Valuations */}
       <section className="valuations-section">
         <h2>💎 Current Portfolio Valuations</h2>
-        <div className="valuations-grid">
-          {Object.entries(valuations).map(([key, val]) => (
-            <div key={key} className="valuation-card">
-              <h4>{val.label}</h4>
-              <div className="valuation-range">
-                {val.min === val.max 
-                  ? formatCurrency(val.min)
-                  : `${formatCurrency(val.min)} - ${formatCurrency(val.max)}`
-                }
-              </div>
-              <span className="stage-badge">{val.stage}</span>
-            </div>
-          ))}
-          <div className="valuation-card total-valuation">
-            <h4>Total Portfolio</h4>
-            <div className="valuation-range">
-              R30,000,000 - R40,000,000
-            </div>
-            <span className="stage-badge">Conservative</span>
+        
+        {/* Valuation Summary */}
+        <div className="valuation-summary">
+          <div className="valuation-summary-card ip">
+            <span className="summary-label">IP Valuation</span>
+            <span className="summary-value">{formatCurrency(calculateIPValuation())}</span>
+            <span className="summary-note">Base/Current Value</span>
           </div>
+          <div className="valuation-summary-card growth">
+            <span className="summary-label">Growth Valuation</span>
+            <span className="summary-value">{formatCurrency(calculateGrowthValuation())}</span>
+            <span className="summary-note">Based on % below</span>
+          </div>
+          <div className="valuation-summary-card total">
+            <span className="summary-label">Total Valuation</span>
+            <span className="summary-value">{formatCurrency(calculateTotalValuation())}</span>
+            <span className="summary-note">For investment breakdown</span>
+          </div>
+        </div>
+
+        {/* Per-project breakdown */}
+        <div className="valuations-grid">
+          {Object.entries(valuations).map(([key, val]) => {
+            const projectVal = getProjectValuationWithGrowth(key);
+            return (
+              <div key={key} className="valuation-card">
+                <h4>{val.label}</h4>
+                <div className="valuation-breakdown">
+                  <div className="val-row">
+                    <span className="val-label">IP Value:</span>
+                    <span className="val-amount">{formatCurrency(projectVal.base)}</span>
+                  </div>
+                  <div className="val-row growth-row">
+                    <span className="val-label">Growth %:</span>
+                    <div className="growth-input-wrapper">
+                      <input
+                        type="number"
+                        value={data.growthPercentages[key]}
+                        onChange={(e) => handleGrowthChange(key, e.target.value)}
+                        placeholder="0"
+                        className="growth-input"
+                      />
+                      <span>%</span>
+                    </div>
+                  </div>
+                  <div className="val-row">
+                    <span className="val-label">Growth Value:</span>
+                    <span className="val-amount growth-amount">+{formatCurrency(projectVal.growth)}</span>
+                  </div>
+                  <div className="val-row total-row">
+                    <span className="val-label">Total:</span>
+                    <span className="val-amount total-amount">{formatCurrency(projectVal.total)}</span>
+                  </div>
+                </div>
+                <span className="stage-badge">{val.stage}</span>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -555,6 +683,25 @@ const FundingRequirements = () => {
                   <span className="stage">{valuations.yqa.stage}</span>
                 </div>
               </div>
+              <div className="growth-potential-box">
+                <h4>📈 Growth Potential</h4>
+                <div className="growth-scenarios">
+                  <div className="growth-scenario">
+                    <span className="scenario-label">Moderate ({valuations.yqa.growth.moderate.timeline})</span>
+                    <span className="scenario-value">{formatCurrency(valuations.yqa.growth.moderate.value)}</span>
+                    <span className="scenario-multiplier">{valuations.yqa.growth.moderate.multiplier}x</span>
+                  </div>
+                  <div className="growth-scenario">
+                    <span className="scenario-label">High Growth ({valuations.yqa.growth.high.timeline})</span>
+                    <span className="scenario-value">{formatCurrency(valuations.yqa.growth.high.value)}</span>
+                    <span className="scenario-multiplier">{valuations.yqa.growth.high.multiplier}x</span>
+                  </div>
+                  <div className="growth-scenario maturity">
+                    <span className="scenario-label">At Maturity</span>
+                    <span className="scenario-value">{formatCurrency(valuations.yqa.growth.maturity.min)} - {formatCurrency(valuations.yqa.growth.maturity.max)}</span>
+                  </div>
+                </div>
+              </div>
               {renderExpenseTable('yqa', data.yqa)}
             </div>
           )}
@@ -568,6 +715,26 @@ const FundingRequirements = () => {
                   <span className="stage">{valuations.quantum.stage}</span>
                 </div>
               </div>
+              <div className="growth-potential-box highest-upside">
+                <h4>📈 Growth Potential <span className="upside-badge">Highest Upside</span></h4>
+                <div className="growth-scenarios">
+                  <div className="growth-scenario">
+                    <span className="scenario-label">Moderate ({valuations.quantum.growth.moderate.timeline})</span>
+                    <span className="scenario-value">{formatCurrency(valuations.quantum.growth.moderate.valueMin)} - {formatCurrency(valuations.quantum.growth.moderate.valueMax)}</span>
+                    <span className="scenario-multiplier">{valuations.quantum.growth.moderate.multiplier}x</span>
+                  </div>
+                  <div className="growth-scenario">
+                    <span className="scenario-label">High Growth ({valuations.quantum.growth.high.timeline})</span>
+                    <span className="scenario-value">{formatCurrency(valuations.quantum.growth.high.valueMin)} - {formatCurrency(valuations.quantum.growth.high.valueMax)}</span>
+                    <span className="scenario-multiplier">{valuations.quantum.growth.high.multiplier}</span>
+                  </div>
+                  <div className="growth-scenario maturity">
+                    <span className="scenario-label">At Maturity</span>
+                    <span className="scenario-value">{formatCurrency(valuations.quantum.growth.maturity.min)} - {formatCurrency(valuations.quantum.growth.maturity.max)}</span>
+                  </div>
+                </div>
+                <p className="growth-note">"Could become the Stripe of Quantum Computing"</p>
+              </div>
               {renderExpenseTable('quantum', data.quantum)}
             </div>
           )}
@@ -579,6 +746,25 @@ const FundingRequirements = () => {
                 <div className="project-meta">
                   <span className="valuation">Valuation: {formatCurrency(valuations.robotics.min)} - {formatCurrency(valuations.robotics.max)}</span>
                   <span className="stage">{valuations.robotics.stage}</span>
+                </div>
+              </div>
+              <div className="growth-potential-box">
+                <h4>📈 Growth Potential</h4>
+                <div className="growth-scenarios">
+                  <div className="growth-scenario">
+                    <span className="scenario-label">Moderate ({valuations.robotics.growth.moderate.timeline})</span>
+                    <span className="scenario-value">{formatCurrency(valuations.robotics.growth.moderate.valueMin)} - {formatCurrency(valuations.robotics.growth.moderate.valueMax)}</span>
+                    <span className="scenario-multiplier">{valuations.robotics.growth.moderate.multiplier}x</span>
+                  </div>
+                  <div className="growth-scenario">
+                    <span className="scenario-label">High Growth ({valuations.robotics.growth.high.timeline})</span>
+                    <span className="scenario-value">{formatCurrency(valuations.robotics.growth.high.valueMin)} - {formatCurrency(valuations.robotics.growth.high.valueMax)}</span>
+                    <span className="scenario-multiplier">{valuations.robotics.growth.high.multiplier}</span>
+                  </div>
+                  <div className="growth-scenario maturity">
+                    <span className="scenario-label">At Maturity</span>
+                    <span className="scenario-value">{formatCurrency(valuations.robotics.growth.maturity.min)} - {formatCurrency(valuations.robotics.growth.maturity.max)}</span>
+                  </div>
                 </div>
               </div>
               {renderExpenseTable('robotics', data.robotics)}
@@ -594,6 +780,25 @@ const FundingRequirements = () => {
                   <span className="stage">{valuations.accounting.stage}</span>
                 </div>
                 <p className="third-party-note">In conjunction with a third party (50% ownership)</p>
+              </div>
+              <div className="growth-potential-box">
+                <h4>📈 Growth Potential</h4>
+                <div className="growth-scenarios">
+                  <div className="growth-scenario">
+                    <span className="scenario-label">Moderate ({valuations.accounting.growth.moderate.timeline})</span>
+                    <span className="scenario-value">{formatCurrency(valuations.accounting.growth.moderate.valueMin)} - {formatCurrency(valuations.accounting.growth.moderate.valueMax)}</span>
+                    <span className="scenario-multiplier">{valuations.accounting.growth.moderate.multiplier}x</span>
+                  </div>
+                  <div className="growth-scenario">
+                    <span className="scenario-label">High Growth ({valuations.accounting.growth.high.timeline})</span>
+                    <span className="scenario-value">{formatCurrency(valuations.accounting.growth.high.valueMin)} - {formatCurrency(valuations.accounting.growth.high.valueMax)}</span>
+                    <span className="scenario-multiplier">{valuations.accounting.growth.high.multiplier}x</span>
+                  </div>
+                  <div className="growth-scenario maturity">
+                    <span className="scenario-label">At Maturity</span>
+                    <span className="scenario-value">{formatCurrency(valuations.accounting.growth.maturity.min)} - {formatCurrency(valuations.accounting.growth.maturity.max)}</span>
+                  </div>
+                </div>
               </div>
               {renderExpenseTable('accounting', data.accounting)}
             </div>
