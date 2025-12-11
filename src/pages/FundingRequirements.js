@@ -162,6 +162,12 @@ const FundingRequirements = () => {
       robotics: '',
       accounting: '',
     },
+    sharePurchase: {
+      yqa: { amount: '', percent: '' },
+      quantum: { amount: '', percent: '' },
+      robotics: { amount: '', percent: '' },
+      accounting: { amount: '', percent: '' },
+    },
     notes: '',
   });
 
@@ -263,6 +269,44 @@ const FundingRequirements = () => {
       base: baseValue,
       growth: growthValue,
       total: baseValue + growthValue
+    };
+  };
+
+  // Handle share purchase changes
+  const handleSharePurchaseChange = (projectKey, field, value) => {
+    const projectVal = getProjectValuationWithGrowth(projectKey);
+    
+    setData(prev => {
+      const newSharePurchase = { ...prev.sharePurchase };
+      
+      if (field === 'amount') {
+        const amount = parseFloat(value) || 0;
+        const percent = projectVal.total > 0 ? ((amount / projectVal.total) * 100).toFixed(2) : 0;
+        newSharePurchase[projectKey] = { amount: value, percent: percent.toString() };
+      } else if (field === 'percent') {
+        const percent = parseFloat(value) || 0;
+        const amount = (projectVal.total * (percent / 100)).toFixed(0);
+        newSharePurchase[projectKey] = { amount: amount.toString(), percent: value };
+      }
+      
+      return { ...prev, sharePurchase: newSharePurchase };
+    });
+  };
+
+  // Calculate total share purchase
+  const calculateTotalSharePurchase = () => {
+    let total = 0;
+    Object.keys(data.sharePurchase).forEach(key => {
+      total += parseFloat(data.sharePurchase[key].amount) || 0;
+    });
+    return total;
+  };
+
+  // Get share purchase for a project
+  const getProjectSharePurchase = (projectKey) => {
+    return {
+      amount: parseFloat(data.sharePurchase[projectKey]?.amount) || 0,
+      percent: parseFloat(data.sharePurchase[projectKey]?.percent) || 0
     };
   };
 
@@ -670,19 +714,28 @@ const FundingRequirements = () => {
       {/* Project Tabs */}
       <section className="projects-section">
         <div className="project-tabs">
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              className={`project-tab ${activeTab === tab.id ? 'active' : ''}`}
-              onClick={() => setActiveTab(tab.id)}
-              style={{ '--tab-color': tab.color }}
-            >
-              {tab.label}
-              <span className="tab-total">
-                {formatCurrency(calculateProjectTotal(data[tab.id]))}
-              </span>
-            </button>
-          ))}
+          {tabs.map(tab => {
+            const hasValuation = tab.id !== 'operating';
+            const sharePurchase = hasValuation ? getProjectSharePurchase(tab.id) : null;
+            return (
+              <button
+                key={tab.id}
+                className={`project-tab ${activeTab === tab.id ? 'active' : ''}`}
+                onClick={() => setActiveTab(tab.id)}
+                style={{ '--tab-color': tab.color }}
+              >
+                {tab.label}
+                <span className="tab-total">
+                  Op: {formatCurrency(calculateProjectTotal(data[tab.id]))}
+                </span>
+                {hasValuation && (
+                  <span className="tab-share">
+                    Share: {formatCurrency(sharePurchase.amount)} ({sharePurchase.percent}%)
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
 
         <div className="project-content">
@@ -872,25 +925,45 @@ const FundingRequirements = () => {
 
       {/* Share Purchase */}
       <section className="share-purchase-section">
-        <h2>💼 Share Purchase</h2>
-        <div className="summary-breakdown">
-          <div className="breakdown-row input-row">
-            <span className="breakdown-label">Share Purchase Amount</span>
-            <div className="breakdown-input-wrapper">
-              <span>R</span>
-              <input
-                type="number"
-                value={data.executive.sharePurchase || ''}
-                onChange={(e) => handleExecutiveChange('sharePurchase', e.target.value)}
-                placeholder="0"
-                className="breakdown-input"
-              />
-            </div>
-          </div>
-          <div className="breakdown-row info-row">
-            <span className="breakdown-label">Based on Total Valuation</span>
-            <span className="breakdown-value">{formatCurrency(calculateTotalValuation())}</span>
-          </div>
+        <h2>💼 Share Purchase by Project</h2>
+        <div className="share-purchase-grid">
+          {Object.entries(valuations).map(([key, val]) => {
+            const projectVal = getProjectValuationWithGrowth(key);
+            const sharePurchase = data.sharePurchase[key] || { amount: '', percent: '' };
+            return (
+              <div key={key} className="share-purchase-card">
+                <h4>{val.label}</h4>
+                <div className="share-valuation">
+                  Valuation: {formatCurrency(projectVal.total)}
+                </div>
+                <div className="share-inputs">
+                  <div className="share-input-group">
+                    <label>Amount (R)</label>
+                    <input
+                      type="number"
+                      value={sharePurchase.amount}
+                      onChange={(e) => handleSharePurchaseChange(key, 'amount', e.target.value)}
+                      placeholder="0"
+                    />
+                  </div>
+                  <div className="share-input-group">
+                    <label>Equity (%)</label>
+                    <input
+                      type="number"
+                      value={sharePurchase.percent}
+                      onChange={(e) => handleSharePurchaseChange(key, 'percent', e.target.value)}
+                      placeholder="0"
+                      step="0.1"
+                    />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="share-purchase-total">
+          <span>Total Share Purchase:</span>
+          <span className="total-value">{formatCurrency(calculateTotalSharePurchase())}</span>
         </div>
       </section>
 
@@ -899,16 +972,16 @@ const FundingRequirements = () => {
         <h2>🎯 Total Investment Required</h2>
         <div className="summary-breakdown">
           <div className="breakdown-row">
-            <span className="breakdown-label">Operational Funding</span>
+            <span className="breakdown-label">📈 Total Company Operating Cost</span>
             <span className="breakdown-value">{formatCurrency(calculateGrandTotal())}</span>
           </div>
           <div className="breakdown-row">
-            <span className="breakdown-label">Share Purchase</span>
-            <span className="breakdown-value">{formatCurrency(parseFloat(data.executive.sharePurchase) || 0)}</span>
+            <span className="breakdown-label">💼 Total Share Valuation</span>
+            <span className="breakdown-value">{formatCurrency(calculateTotalSharePurchase())}</span>
           </div>
           <div className="breakdown-row total-row">
             <span className="breakdown-label">TOTAL INVESTMENT ASK</span>
-            <span className="breakdown-value">{formatCurrency(calculateGrandTotal() + (parseFloat(data.executive.sharePurchase) || 0))}</span>
+            <span className="breakdown-value">{formatCurrency(calculateGrandTotal() + calculateTotalSharePurchase())}</span>
           </div>
         </div>
       </section>
