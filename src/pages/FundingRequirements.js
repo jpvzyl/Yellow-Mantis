@@ -251,8 +251,8 @@ const FundingRequirements = () => {
 
   // Format currency
   const formatCurrency = (value) => {
-    if (!value) return 'R0';
-    return 'R' + parseInt(value).toLocaleString('en-ZA');
+    if (!value && value !== 0) return 'R0';
+    return 'R' + Math.round(Number(value)).toLocaleString('en-ZA');
   };
 
   // Handle growth percentage changes
