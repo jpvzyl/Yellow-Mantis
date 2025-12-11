@@ -175,12 +175,41 @@ const FundingRequirements = () => {
   const [showSaved, setShowSaved] = useState(false);
   const [activeTab, setActiveTab] = useState('yqa');
 
+  // Default sharePurchase structure
+  const defaultSharePurchase = {
+    yqa: { amount: '', percent: '' },
+    quantum: { amount: '', percent: '' },
+    robotics: { amount: '', percent: '' },
+    accounting: { amount: '', percent: '' },
+  };
+
+  // Default growthPercentages structure
+  const defaultGrowthPercentages = {
+    yqa: '',
+    quantum: '',
+    robotics: '',
+    accounting: '',
+  };
+
   // Load saved data on mount
   useEffect(() => {
     const saved = localStorage.getItem('yellowMantis_fundingRequirements');
     if (saved) {
       try {
-        setData(JSON.parse(saved));
+        const parsedData = JSON.parse(saved);
+        // Merge with defaults to ensure new fields exist
+        setData(prev => ({
+          ...prev,
+          ...parsedData,
+          growthPercentages: {
+            ...defaultGrowthPercentages,
+            ...(parsedData.growthPercentages || {}),
+          },
+          sharePurchase: {
+            ...defaultSharePurchase,
+            ...(parsedData.sharePurchase || {}),
+          },
+        }));
       } catch (e) {
         console.error('Error loading saved data:', e);
       }
@@ -277,7 +306,7 @@ const FundingRequirements = () => {
     const projectVal = getProjectValuationWithGrowth(projectKey);
     
     setData(prev => {
-      const newSharePurchase = { ...prev.sharePurchase };
+      const newSharePurchase = { ...(prev.sharePurchase || defaultSharePurchase) };
       
       if (field === 'amount') {
         const amount = parseFloat(value) || 0;
@@ -296,17 +325,20 @@ const FundingRequirements = () => {
   // Calculate total share purchase
   const calculateTotalSharePurchase = () => {
     let total = 0;
-    Object.keys(data.sharePurchase).forEach(key => {
-      total += parseFloat(data.sharePurchase[key].amount) || 0;
+    const sharePurchase = data.sharePurchase || {};
+    Object.keys(sharePurchase).forEach(key => {
+      total += parseFloat(sharePurchase[key]?.amount) || 0;
     });
     return total;
   };
 
   // Get share purchase for a project
   const getProjectSharePurchase = (projectKey) => {
+    const sharePurchase = data.sharePurchase || {};
+    const projectShare = sharePurchase[projectKey] || { amount: '', percent: '' };
     return {
-      amount: parseFloat(data.sharePurchase[projectKey]?.amount) || 0,
-      percent: parseFloat(data.sharePurchase[projectKey]?.percent) || 0
+      amount: parseFloat(projectShare.amount) || 0,
+      percent: parseFloat(projectShare.percent) || 0
     };
   };
 
@@ -929,7 +961,8 @@ const FundingRequirements = () => {
         <div className="share-purchase-grid">
           {Object.entries(valuations).map(([key, val]) => {
             const projectVal = getProjectValuationWithGrowth(key);
-            const sharePurchase = data.sharePurchase[key] || { amount: '', percent: '' };
+            const sharePurchaseData = data.sharePurchase || {};
+            const sharePurchase = sharePurchaseData[key] || { amount: '', percent: '' };
             return (
               <div key={key} className="share-purchase-card">
                 <h4>{val.label}</h4>
