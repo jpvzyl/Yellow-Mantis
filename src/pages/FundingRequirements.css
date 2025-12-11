@@ -836,6 +836,12 @@
   font-size: 1.1rem;
 }
 
+.breakdown-note {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-left: 10px;
+}
+
 .breakdown-row.subtotal-row {
   margin-top: 20px;
   padding-top: 25px;

@@ -292,15 +292,36 @@ const FundingRequirements = () => {
   };
 
   // Get project valuation with growth
+  // Valuation = IP Value × (1 + Growth%)
   const getProjectValuationWithGrowth = (projectKey) => {
     const baseValue = (valuations[projectKey].min + valuations[projectKey].max) / 2;
-    const growthPercent = parseFloat(data.growthPercentages[projectKey]) || 0;
-    const growthValue = baseValue * (growthPercent / 100);
+    const growthPercent = parseFloat(data.growthPercentages?.[projectKey]) || 0;
+    // Total = IP Value × (1 + Growth%/100) e.g. 15M × 1.5 = 22.5M for 50% growth
+    const total = baseValue * (1 + growthPercent / 100);
+    const growthValue = total - baseValue;
     return {
       base: baseValue,
       growth: growthValue,
-      total: baseValue + growthValue
+      total: total
     };
+  };
+
+  // Calculate Equity Purchase for a project
+  // Equity Purchase = Total Valuation × Equity %
+  const getEquityPurchase = (projectKey) => {
+    const projectVal = getProjectValuationWithGrowth(projectKey);
+    const sharePurchase = data.sharePurchase || {};
+    const equityPercent = parseFloat(sharePurchase[projectKey]?.percent) || 0;
+    return projectVal.total * (equityPercent / 100);
+  };
+
+  // Calculate Running Cost Contribution for a project
+  // Running Cost Contribution = Project Operating Cost × Running Cost %
+  const getRunningCostContribution = (projectKey) => {
+    const projectOperating = calculateProjectTotal(data[projectKey]);
+    const sharePurchase = data.sharePurchase || {};
+    const runningCostPercent = parseFloat(sharePurchase[projectKey]?.runningCost) || 0;
+    return projectOperating * (runningCostPercent / 100);
   };
 
   // Handle share purchase changes - fields are independent for negotiation
@@ -328,12 +349,20 @@ const FundingRequirements = () => {
     return total;
   };
 
-  // Calculate total growth value (from growth percentages)
-  const calculateTotalGrowthValue = () => {
+  // Calculate total equity purchase (Equity % × Total Valuation for each project)
+  const calculateTotalEquityPurchase = () => {
     let total = 0;
     Object.keys(valuations).forEach(key => {
-      const projectVal = getProjectValuationWithGrowth(key);
-      total += projectVal.growth;
+      total += getEquityPurchase(key);
+    });
+    return total;
+  };
+
+  // Calculate total running cost contribution
+  const calculateTotalRunningCostContribution = () => {
+    let total = 0;
+    Object.keys(valuations).forEach(key => {
+      total += getRunningCostContribution(key);
     });
     return total;
   };
@@ -1028,9 +1057,9 @@ const FundingRequirements = () => {
                   </div>
                 </div>
                 <div className="share-card-total">
-                  <span>Growth Value:</span>
-                  <span className="card-total-value">{formatCurrency(projectVal.growth)}</span>
-                  <span className="card-total-percent">({parseFloat(data.growthPercentages?.[key]) || 0}% of IP)</span>
+                  <span>Equity Purchase:</span>
+                  <span className="card-total-value">{formatCurrency(getEquityPurchase(key))}</span>
+                  <span className="card-total-percent">({parseFloat(sharePurchase.percent) || 0}% of {formatCurrency(projectVal.total)})</span>
                 </div>
               </div>
             );
@@ -1038,15 +1067,15 @@ const FundingRequirements = () => {
         </div>
         <div className="share-purchase-totals">
           <div className="share-total-row">
-            <span className="total-label">Total Growth Value:</span>
-            <span className="total-value">{formatCurrency(calculateTotalGrowthValue())}</span>
+            <span className="total-label">Total Equity Purchase:</span>
+            <span className="total-value">{formatCurrency(calculateTotalEquityPurchase())}</span>
           </div>
           <div className="share-total-row">
-            <span className="total-label">Total Equity:</span>
+            <span className="total-label">Total Equity %:</span>
             <span className="total-value">{calculateTotalEquityPercent().toFixed(2)}%</span>
           </div>
           <div className="share-total-row">
-            <span className="total-label">Total Running Cost:</span>
+            <span className="total-label">Total Running Cost %:</span>
             <span className="total-value">{calculateTotalRunningCost().toFixed(2)}%</span>
           </div>
         </div>
@@ -1058,15 +1087,17 @@ const FundingRequirements = () => {
         <div className="summary-breakdown">
           <div className="breakdown-row">
             <span className="breakdown-label">📈 Total Company Operating Cost</span>
-            <span className="breakdown-value">{formatCurrency(calculateGrandTotal())}</span>
+            <span className="breakdown-value">{formatCurrency(calculateTotalRunningCostContribution())}</span>
+            <span className="breakdown-note">({calculateTotalRunningCost().toFixed(2)}% of {formatCurrency(calculateGrandTotal())})</span>
           </div>
           <div className="breakdown-row">
-            <span className="breakdown-label">💼 Total Growth Value</span>
-            <span className="breakdown-value">{formatCurrency(calculateTotalGrowthValue())}</span>
+            <span className="breakdown-label">💼 Equity Purchase</span>
+            <span className="breakdown-value">{formatCurrency(calculateTotalEquityPurchase())}</span>
+            <span className="breakdown-note">({calculateTotalEquityPercent().toFixed(2)}% equity)</span>
           </div>
           <div className="breakdown-row total-row">
             <span className="breakdown-label">TOTAL INVESTMENT ASK</span>
-            <span className="breakdown-value">{formatCurrency(calculateGrandTotal() + calculateTotalGrowthValue())}</span>
+            <span className="breakdown-value">{formatCurrency(calculateTotalRunningCostContribution() + calculateTotalEquityPurchase())}</span>
           </div>
         </div>
       </section>
