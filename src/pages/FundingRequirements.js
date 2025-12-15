@@ -218,20 +218,26 @@ const FundingRequirements = () => {
     }
   }, []);
 
-  // Calculate 12-month total for a project
+  // Get runway months from executive settings
+  const getRunwayMonths = () => {
+    return parseInt(data.executive.runway) || 12;
+  };
+
+  // Calculate total for a project based on runway
   const calculateProjectTotal = (project) => {
     if (!project || !project.expenses) return 0;
+    const runwayMonths = getRunwayMonths();
     let total = 0;
     project.expenses.forEach(category => {
       const isUnitCostCategory = category.category === 'Completed Unit Cost';
       category.items.forEach(item => {
         const monthly = parseFloat(item.monthly) || 0;
         if (isUnitCostCategory) {
-          // For unit costs, multiply by quantity instead of 12
+          // For unit costs, multiply by quantity instead of runway
           const quantity = parseFloat(project.unitQuantity) || 0;
           total += monthly * quantity;
         } else {
-          total += monthly * 12;
+          total += monthly * runwayMonths;
         }
       });
     });
@@ -540,7 +546,7 @@ const FundingRequirements = () => {
                     <tr>
                       <th>Expense Item</th>
                       <th>Monthly Cost (R)</th>
-                      <th>12-Month Total</th>
+                      <th>{getRunwayMonths()}-Month Total</th>
                       <th>Notes</th>
                     </tr>
                   </thead>
@@ -558,7 +564,7 @@ const FundingRequirements = () => {
                           />
                         </td>
                         <td className="calculated-total">
-                          {formatCurrency((parseFloat(item.monthly) || 0) * 12)}
+                          {formatCurrency((parseFloat(item.monthly) || 0) * getRunwayMonths())}
                         </td>
                         <td>
                           <input
@@ -579,7 +585,7 @@ const FundingRequirements = () => {
         })}
         
         <div className="project-subtotal">
-          <span>Project Subtotal (12 months):</span>
+          <span>Project Subtotal ({getRunwayMonths()} months):</span>
           <span className="subtotal-value">{formatCurrency(calculateProjectTotal(projectData))}</span>
         </div>
 
@@ -673,12 +679,12 @@ const FundingRequirements = () => {
         <h2>📊 Executive Summary</h2>
         <div className="summary-grid">
           <div className="summary-card total">
-            <label>Total Funding Ask</label>
+            <label>Total Funding Ask ({getRunwayMonths()} months)</label>
             <div className="calculated-value">
               {formatCurrency(calculateGrandTotal())}
             </div>
             <span className="per-month">
-              ({formatCurrency(calculateGrandTotal() / 12)}/month)
+              ({formatCurrency(calculateGrandTotal() / getRunwayMonths())}/month)
             </span>
           </div>
           
@@ -1001,12 +1007,12 @@ const FundingRequirements = () => {
             <span className="breakdown-value">{formatCurrency(calculateProjectTotal(data.operating))}</span>
           </div>
           <div className="breakdown-row subtotal-row">
-            <span className="breakdown-label">OPERATIONAL TOTAL (12 months)</span>
+            <span className="breakdown-label">OPERATIONAL TOTAL ({getRunwayMonths()} months)</span>
             <span className="breakdown-value">{formatCurrency(calculateGrandTotal())}</span>
           </div>
           <div className="breakdown-row monthly-row">
             <span className="breakdown-label">Monthly Burn Rate</span>
-            <span className="breakdown-value">{formatCurrency(calculateGrandTotal() / 12)}</span>
+            <span className="breakdown-value">{formatCurrency(calculateGrandTotal() / getRunwayMonths())}</span>
           </div>
         </div>
       </section>
