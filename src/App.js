@@ -7,14 +7,22 @@ import PitchDeck from './pages/PitchDeck';
 import FullFeatures from './pages/FullFeatures';
 import FundingRequirements from './pages/FundingRequirements';
 import QuantumForInvestors from './pages/QuantumForInvestors';
+import CompanyStructure from './pages/CompanyStructure';
+
+// Unique structure IDs (5-character random strings)
+const STRUCTURE_IDS = ['7x3k9', 'm4p2n', 'q8f5t'];
 
 function App() {
   const location = useLocation();
-  const isFundingPage = location.pathname === '/funding';
+  
+  // Hide header/footer for standalone pages
+  const isStandalonePage = 
+    location.pathname === '/funding' ||
+    location.pathname.startsWith('/structure/');
 
   return (
     <div className="app">
-      {!isFundingPage && <Header />}
+      {!isStandalonePage && <Header />}
       <main>
         <Routes>
           <Route path="/" element={<Navigate to="/introduction-letter" replace />} />
@@ -23,9 +31,14 @@ function App() {
           <Route path="/full-features" element={<FullFeatures />} />
           <Route path="/funding" element={<FundingRequirements />} />
           <Route path="/quantum-guide" element={<QuantumForInvestors />} />
+          
+          {/* Company Structure Pages - 3 unique URLs */}
+          <Route path="/structure/7x3k9" element={<CompanyStructure structureId="7x3k9" />} />
+          <Route path="/structure/m4p2n" element={<CompanyStructure structureId="m4p2n" />} />
+          <Route path="/structure/q8f5t" element={<CompanyStructure structureId="q8f5t" />} />
         </Routes>
       </main>
-      {!isFundingPage && <Footer />}
+      {!isStandalonePage && <Footer />}
     </div>
   );
 }
