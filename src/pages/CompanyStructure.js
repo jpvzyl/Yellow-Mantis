@@ -13,10 +13,15 @@ const CompanyStructure = ({ structureId }) => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [newCompanyName, setNewCompanyName] = useState('');
   const [newCompanyType, setNewCompanyType] = useState('subsidiary');
+  const [newCompanyShareholding, setNewCompanyShareholding] = useState('');
   const [notes, setNotes] = useState('');
+  const [editingNodeShareholding, setEditingNodeShareholding] = useState(null);
   const [showSaved, setShowSaved] = useState(false);
   const [editingConnection, setEditingConnection] = useState(null);
   const [connectionPercent, setConnectionPercent] = useState('');
+  const [expandedCompany, setExpandedCompany] = useState(null);
+  const [newShareholderName, setNewShareholderName] = useState('');
+  const [newShareholderPercent, setNewShareholderPercent] = useState('');
 
   const storageKey = `yellowMantis_companyStructure_${structureId}`;
 
@@ -51,6 +56,8 @@ const CompanyStructure = ({ structureId }) => {
       id: Date.now().toString(),
       name: newCompanyName.trim(),
       type: newCompanyType,
+      shareholding: newCompanyShareholding || '',
+      shareholders: [],
       x: 100 + Math.random() * 200,
       y: 100 + Math.random() * 200,
       color: getTypeColor(newCompanyType),
@@ -58,8 +65,62 @@ const CompanyStructure = ({ structureId }) => {
     
     setCompanies([...companies, newCompany]);
     setNewCompanyName('');
+    setNewCompanyShareholding('');
     setShowAddModal(false);
   };
+
+  // Update company shareholding
+  const updateCompanyShareholding = (companyId, shareholding) => {
+    setCompanies(companies.map(c => 
+      c.id === companyId ? { ...c, shareholding } : c
+    ));
+  };
+
+  // Add shareholder to a company
+  const addShareholder = (companyId) => {
+    if (!newShareholderName.trim()) return;
+    
+    const newShareholder = {
+      id: Date.now().toString(),
+      name: newShareholderName.trim(),
+      percent: newShareholderPercent || '',
+    };
+    
+    setCompanies(companies.map(c => 
+      c.id === companyId 
+        ? { ...c, shareholders: [...(c.shareholders || []), newShareholder] }
+        : c
+    ));
+    
+    setNewShareholderName('');
+    setNewShareholderPercent('');
+  };
+
+  // Remove shareholder from a company
+  const removeShareholder = (companyId, shareholderId) => {
+    setCompanies(companies.map(c => 
+      c.id === companyId 
+        ? { ...c, shareholders: (c.shareholders || []).filter(s => s.id !== shareholderId) }
+        : c
+    ));
+  };
+
+  // Update shareholder
+  const updateShareholder = (companyId, shareholderId, field, value) => {
+    setCompanies(companies.map(c => 
+      c.id === companyId 
+        ? { 
+            ...c, 
+            shareholders: (c.shareholders || []).map(s => 
+              s.id === shareholderId ? { ...s, [field]: value } : s
+            )
+          }
+        : c
+    ));
+  };
+
+  // Get expanded company data
+  const getExpandedCompany = () => companies.find(c => c.id === expandedCompany);
 
   // Get color based on company type
   const getTypeColor = (type) => {
@@ -270,11 +331,20 @@ const CompanyStructure = ({ structureId }) => {
       {/* Instructions */}
       <div className="structure-instructions">
         <p>
-          <strong>Instructions:</strong> Click "Add Company" to create nodes. 
-          Drag nodes to position them. Click a node, then click another to connect them. 
-          Click connections to edit shareholding %.
+          <strong>Connect:</strong> Click node → 🔗 button → Click another node (creates dotted arrow line)
+          <br />
+          <strong>Add shareholders:</strong> Double-click a node or click 👥 button to expand and add shareholders inside
+          <br />
+          <strong>Tip:</strong> Click connection lines to set %. Drag nodes to reposition.
         </p>
       </div>
+      
+      {/* Connecting Mode Indicator */}
+      {connectingFrom && (
+        <div className="connecting-indicator">
+          🔗 Connecting mode: Click another company to create connection, or click anywhere to cancel
+        </div>
+      )}
 
       {/* Canvas */}
       <div 
@@ -386,14 +456,70 @@ const CompanyStructure = ({ structureId }) => {
                 }
               }
             }}
+            onDoubleClick={(e) => {
+              e.stopPropagation();
+              setExpandedCompany(company.id);
+            }}
           >
             <div className="node-header" style={{ background: company.color }}>
               <span className="node-type">{company.type}</span>
             </div>
             <div className="node-name">{company.name}</div>
             
+            {/* Shareholding display/edit */}
+            <div 
+              className="node-shareholding"
+              onClick={(e) => {
+                e.stopPropagation();
+                setEditingNodeShareholding(company.id);
+              }}
+            >
+              {editingNodeShareholding === company.id ? (
+                <input
+                  type="text"
+                  className="shareholding-input"
+                  value={company.shareholding || ''}
+                  onChange={(e) => updateCompanyShareholding(company.id, e.target.value)}
+                  onBlur={() => setEditingNodeShareholding(null)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') setEditingNodeShareholding(null);
+                  }}
+                  placeholder="e.g. 100%"
+                  autoFocus
+                  onClick={(e) => e.stopPropagation()}
+                />
+              ) : (
+                <span className="shareholding-display">
+                  {company.shareholding || 'Click to add %'}
+                </span>
+              )}
+            </div>
+            
+            {/* Shareholders count indicator */}
+            {(company.shareholders?.length > 0) && (
+              <div 
+                className="shareholders-count"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setExpandedCompany(company.id);
+                }}
+              >
+                👥 {company.shareholders.length} shareholder{company.shareholders.length !== 1 ? 's' : ''}
+              </div>
+            )}
+            
             {selectedCompany === company.id && (
               <div className="node-actions">
+                <button 
+                  className="node-action-btn expand"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setExpandedCompany(company.id);
+                  }}
+                  title="Expand to add shareholders"
+                >
+                  👥
+                </button>
                 <button 
                   className="node-action-btn connect"
                   onClick={(e) => {
@@ -466,6 +592,108 @@ const CompanyStructure = ({ structureId }) => {
         </div>
       )}
 
+      {/* Expanded Company Panel */}
+      {expandedCompany && getExpandedCompany() && (
+        <div className="modal-overlay" onClick={() => setExpandedCompany(null)}>
+          <div className="expanded-company-panel" onClick={(e) => e.stopPropagation()}>
+            <div className="expanded-header" style={{ background: getExpandedCompany().color }}>
+              <span className="expanded-type">{getExpandedCompany().type}</span>
+              <button 
+                className="close-btn"
+                onClick={() => setExpandedCompany(null)}
+              >
+                ✕
+              </button>
+            </div>
+            
+            <div className="expanded-body">
+              <h2 className="expanded-name">{getExpandedCompany().name}</h2>
+              
+              {getExpandedCompany().shareholding && (
+                <div className="expanded-shareholding">
+                  Ownership: <strong>{getExpandedCompany().shareholding}</strong>
+                </div>
+              )}
+              
+              <div className="shareholders-section">
+                <h3>👥 Shareholders</h3>
+                
+                {/* Existing shareholders list */}
+                <div className="shareholders-list">
+                  {(getExpandedCompany().shareholders || []).length === 0 ? (
+                    <p className="no-shareholders">No shareholders added yet</p>
+                  ) : (
+                    (getExpandedCompany().shareholders || []).map(shareholder => (
+                      <div key={shareholder.id} className="shareholder-item">
+                        <div className="shareholder-info">
+                          <input
+                            type="text"
+                            value={shareholder.name}
+                            onChange={(e) => updateShareholder(expandedCompany, shareholder.id, 'name', e.target.value)}
+                            className="shareholder-name-input"
+                            placeholder="Shareholder name"
+                          />
+                          <input
+                            type="text"
+                            value={shareholder.percent}
+                            onChange={(e) => updateShareholder(expandedCompany, shareholder.id, 'percent', e.target.value)}
+                            className="shareholder-percent-input"
+                            placeholder="%"
+                          />
+                        </div>
+                        <button
+                          className="remove-shareholder-btn"
+                          onClick={() => removeShareholder(expandedCompany, shareholder.id)}
+                          title="Remove shareholder"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))
+                  )}
+                </div>
+                
+                {/* Add new shareholder */}
+                <div className="add-shareholder-form">
+                  <h4>Add Shareholder</h4>
+                  <div className="add-shareholder-inputs">
+                    <input
+                      type="text"
+                      value={newShareholderName}
+                      onChange={(e) => setNewShareholderName(e.target.value)}
+                      placeholder="Shareholder name..."
+                      className="new-shareholder-name"
+                    />
+                    <input
+                      type="text"
+                      value={newShareholderPercent}
+                      onChange={(e) => setNewShareholderPercent(e.target.value)}
+                      placeholder="e.g. 25%"
+                      className="new-shareholder-percent"
+                    />
+                    <button
+                      className="btn btn-primary btn-sm"
+                      onClick={() => addShareholder(expandedCompany)}
+                    >
+                      ➕ Add
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="expanded-footer">
+              <button 
+                className="btn btn-secondary"
+                onClick={() => setExpandedCompany(null)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Notes Section */}
       <section className="structure-notes">
         <h2>📝 Notes & Context</h2>
@@ -505,6 +733,15 @@ const CompanyStructure = ({ structureId }) => {
                 <option value="trust">Trust</option>
                 <option value="external">External Entity</option>
               </select>
+            </div>
+            <div className="form-group">
+              <label>Shareholding (optional)</label>
+              <input
+                type="text"
+                value={newCompanyShareholding}
+                onChange={(e) => setNewCompanyShareholding(e.target.value)}
+                placeholder="e.g. 100%, 51%, etc."
+              />
             </div>
             <div className="modal-actions">
               <button className="btn btn-secondary" onClick={() => setShowAddModal(false)}>

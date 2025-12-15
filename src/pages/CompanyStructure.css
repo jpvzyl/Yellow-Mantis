@@ -156,6 +156,24 @@
   color: var(--primary-yellow);
 }
 
+/* Connecting Mode Indicator */
+.connecting-indicator {
+  background: linear-gradient(90deg, rgba(46, 204, 113, 0.2), rgba(46, 204, 113, 0.1));
+  border: 1px solid #2ecc71;
+  border-radius: var(--radius-md);
+  padding: 12px 20px;
+  margin: 0 30px 15px;
+  text-align: center;
+  color: #2ecc71;
+  font-weight: 600;
+  animation: pulseGreen 1.5s infinite;
+}
+
+@keyframes pulseGreen {
+  0%, 100% { box-shadow: 0 0 5px rgba(46, 204, 113, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(46, 204, 113, 0.6); }
+}
+
 /* Canvas */
 .structure-canvas {
   position: relative;
@@ -178,6 +196,7 @@
 .connection-line {
   stroke: var(--primary-yellow);
   stroke-width: 2;
+  stroke-dasharray: 8, 6;
   fill: none;
   pointer-events: stroke;
   cursor: pointer;
@@ -186,7 +205,8 @@
 
 .connection-line:hover,
 .connection-line.editing {
-  stroke-width: 4;
+  stroke-width: 3;
+  stroke-dasharray: 10, 6;
 }
 
 .connection-label-group {
@@ -268,12 +288,290 @@
 }
 
 .node-name {
-  padding: 12px 10px;
+  padding: 10px 10px 6px;
   text-align: center;
   font-weight: 600;
   color: var(--text-primary);
   font-size: 0.9rem;
   word-break: break-word;
+}
+
+/* Node Shareholding */
+.node-shareholding {
+  padding: 4px 10px 10px;
+  text-align: center;
+  border-top: 1px dashed var(--border-subtle);
+  margin: 0 8px;
+  cursor: pointer;
+}
+
+.shareholding-display {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  transition: color 0.2s ease;
+}
+
+.node-shareholding:hover .shareholding-display {
+  color: var(--primary-yellow);
+}
+
+.shareholding-input {
+  width: 100%;
+  padding: 4px 8px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--primary-yellow);
+  border-radius: 4px;
+  color: var(--primary-yellow);
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  text-align: center;
+  outline: none;
+}
+
+.shareholding-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Shareholders count on node */
+.shareholders-count {
+  padding: 6px 10px;
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--primary-yellow);
+  background: rgba(242, 217, 116, 0.1);
+  border-top: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.shareholders-count:hover {
+  background: rgba(242, 217, 116, 0.2);
+}
+
+/* Expand button */
+.node-action-btn.expand {
+  background: #9b59b6;
+  color: white;
+}
+
+.node-action-btn.expand:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 10px rgba(155, 89, 182, 0.4);
+}
+
+/* Expanded Company Panel */
+.expanded-company-panel {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.expanded-header {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.expanded-type {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--bg-primary);
+}
+
+.close-btn {
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  color: var(--bg-primary);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.close-btn:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.expanded-body {
+  padding: 25px;
+}
+
+.expanded-name {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.expanded-shareholding {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+  padding: 10px 15px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+}
+
+.expanded-shareholding strong {
+  color: var(--primary-yellow);
+}
+
+.shareholders-section h3 {
+  font-size: 1.1rem;
+  color: var(--primary-yellow);
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.shareholders-list {
+  margin-bottom: 20px;
+}
+
+.no-shareholders {
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+.shareholder-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+}
+
+.shareholder-info {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+}
+
+.shareholder-name-input {
+  flex: 1;
+  padding: 8px 12px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.shareholder-name-input:focus {
+  outline: none;
+  border-color: var(--primary-yellow);
+}
+
+.shareholder-percent-input {
+  width: 80px;
+  padding: 8px 12px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--primary-yellow);
+  font-size: 0.9rem;
+  font-family: 'JetBrains Mono', monospace;
+  text-align: center;
+}
+
+.shareholder-percent-input:focus {
+  outline: none;
+  border-color: var(--primary-yellow);
+}
+
+.remove-shareholder-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #e74c3c;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.remove-shareholder-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+}
+
+.add-shareholder-form {
+  background: rgba(242, 217, 116, 0.05);
+  padding: 15px;
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-subtle);
+}
+
+.add-shareholder-form h4 {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.add-shareholder-inputs {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.new-shareholder-name {
+  flex: 1;
+  padding: 10px 12px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.new-shareholder-name:focus {
+  outline: none;
+  border-color: var(--primary-yellow);
+}
+
+.new-shareholder-percent {
+  width: 80px;
+  padding: 10px 12px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.new-shareholder-percent:focus {
+  outline: none;
+  border-color: var(--primary-yellow);
+}
+
+.expanded-footer {
+  padding: 15px 25px 25px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .node-actions {
