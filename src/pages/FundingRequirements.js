@@ -1109,7 +1109,7 @@ const FundingRequirements = () => {
           <div className="company-total-card equity-card">
             <h4>Total Equity Purchase</h4>
             <div className="company-value">{formatCurrency(calculateTotalEquityPurchase())}</div>
-            <div className="company-percent">{calculateTotalEquityPercent().toFixed(2)}% equity</div>
+            <div className="company-percent">{calculateTotalValuation() > 0 ? ((calculateTotalEquityPurchase() / calculateTotalValuation()) * 100).toFixed(2) : 0}% of portfolio</div>
             <div className="company-breakdown">
               {Object.entries(valuations).map(([key, val]) => (
                 <div key={key} className="company-breakdown-row">
@@ -1120,8 +1120,8 @@ const FundingRequirements = () => {
             </div>
           </div>
           <div className="company-total-card running-card">
-            <h4>Total Running Cost</h4>
-            <div className="company-value">{calculateTotalRunningCost().toFixed(2)}%</div>
+            <h4>Investor Running Cost</h4>
+            <div className="company-value">{calculateGrandTotal() > 0 ? ((calculateTotalRunningCostContribution() / calculateGrandTotal()) * 100).toFixed(2) : 0}%</div>
             <div className="company-amount">{formatCurrency(calculateTotalRunningCostContribution())}</div>
             <div className="company-breakdown">
               {Object.entries(valuations).map(([key, val]) => (
@@ -1140,14 +1140,14 @@ const FundingRequirements = () => {
         <h2>🎯 Total Investment Required</h2>
         <div className="summary-breakdown">
           <div className="breakdown-row">
-            <span className="breakdown-label">📈 Total Company Operating Cost</span>
+            <span className="breakdown-label">📈 Investor Operating Contribution</span>
             <span className="breakdown-value">{formatCurrency(calculateTotalRunningCostContribution())}</span>
-            <span className="breakdown-note">({calculateTotalRunningCost().toFixed(2)}% of {formatCurrency(calculateGrandTotal())})</span>
+            <span className="breakdown-note">({calculateGrandTotal() > 0 ? ((calculateTotalRunningCostContribution() / calculateGrandTotal()) * 100).toFixed(2) : 0}% of {formatCurrency(calculateGrandTotal())} total ops)</span>
           </div>
           <div className="breakdown-row">
             <span className="breakdown-label">💼 Equity Purchase</span>
             <span className="breakdown-value">{formatCurrency(calculateTotalEquityPurchase())}</span>
-            <span className="breakdown-note">({calculateTotalEquityPercent().toFixed(2)}% equity)</span>
+            <span className="breakdown-note">({calculateTotalValuation() > 0 ? ((calculateTotalEquityPurchase() / calculateTotalValuation()) * 100).toFixed(2) : 0}% of total valuation)</span>
           </div>
           <div className="breakdown-row founder-row">
             <span className="breakdown-label">🔄 Founder Re-investment</span>
