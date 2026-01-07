@@ -8,6 +8,7 @@ import FullFeatures from './pages/FullFeatures';
 import FundingRequirements from './pages/FundingRequirements';
 import QuantumForInvestors from './pages/QuantumForInvestors';
 import CompanyStructure from './pages/CompanyStructure';
+import Organogram from './pages/Organogram';
 
 // Unique structure IDs (5-character random strings)
 const STRUCTURE_IDS = ['7x3k9', 'm4p2n', 'q8f5t'];
@@ -18,7 +19,8 @@ function App() {
   // Hide header/footer for standalone pages
   const isStandalonePage = 
     location.pathname === '/funding' ||
-    location.pathname.startsWith('/structure/');
+    location.pathname.startsWith('/structure/') ||
+    location.pathname.startsWith('/organogram/');
 
   return (
     <div className="app">
@@ -36,6 +38,9 @@ function App() {
           <Route path="/structure/7x3k9" element={<CompanyStructure structureId="7x3k9" />} />
           <Route path="/structure/m4p2n" element={<CompanyStructure structureId="m4p2n" />} />
           <Route path="/structure/q8f5t" element={<CompanyStructure structureId="q8f5t" />} />
+          
+          {/* Organogram - SARFAT Holdings Structure */}
+          <Route path="/organogram/sarfat" element={<Organogram />} />
         </Routes>
       </main>
       {!isStandalonePage && <Footer />}
