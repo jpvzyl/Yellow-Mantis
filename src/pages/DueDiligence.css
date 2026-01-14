@@ -54,17 +54,28 @@
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 800;
   margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--dd-accent, var(--accent-primary)) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #F2D974;
+  text-shadow: 0 2px 20px rgba(242, 217, 116, 0.3);
+}
+
+.dd-summary-hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  letter-spacing: 0.05em;
+  margin-top: 1rem;
 }
 
 .dd-hero-tagline,
 .dd-summary-tagline {
   font-size: 1.25rem;
   color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.dd-summary-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-tertiary, #888);
   margin-bottom: 2rem;
+  font-style: italic;
 }
 
 .dd-hero-valuation {

@@ -122,8 +122,9 @@ const DueDiligenceSummary = () => {
       <section className="dd-summary-hero">
         <div className="dd-summary-hero-bg"></div>
         <MantisIcon size={80} className="dd-summary-logo" />
-        <h1>Yellow Mantis Group Tech Due Diligence</h1>
-        <p className="dd-summary-tagline">Portfolio Valuation &amp; Technology Assessment</p>
+        <h1>YELLOW MANTIS</h1>
+        <p className="dd-summary-tagline">Technology Investment Group</p>
+        <p className="dd-summary-subtitle">Portfolio Valuation &amp; Tech Due Diligence</p>
         <div className="dd-summary-total">
           <span className="dd-total-label">Combined IP Valuation</span>
           <span className="dd-total-amount">R{(calculateTotal() / 1000000).toFixed(1)}M+</span>
