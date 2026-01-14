@@ -240,10 +240,11 @@ function PitchDeck() {
         </div>
       </section>
 
-      {/* FACES GROUP Deep Dive */}
+      {/* FACES GROUP Deep Dive - Operated by Rigelaz Holdings */}
       <section id="faces-group" className="pitch-section venture-deep-dive faces-section">
         <div className="venture-badge live">VENTURE 3 • LIVE</div>
         <h2>📱 Faces Group</h2>
+        <p className="venture-note-centered">Operated by RIGELAZ HOLDINGS</p>
         <p className="venture-tagline">"60,000+ Athletes. Production Proven."</p>
         
         <div className="venture-content">
@@ -592,7 +593,7 @@ class AIService:
             <h3>System Architecture</h3>
             <pre className="code-block">
 {`┌─────────────────────────────────────────────────────────────────────┐
-│                     YELLOW MANTIS PLATFORM                           │
+│                     YELLOW MANTIS GROUP                              │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │  ┌─────────────────────────────────────────────────────────────┐   │

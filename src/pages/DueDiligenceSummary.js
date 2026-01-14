@@ -83,16 +83,16 @@ const DueDiligenceSummary = () => {
       competitiveAdvantage: 'First fully autonomous AI CFO platform',
       link: '/due-diligence/boaz'
     },
-    yellowmantis: {
-      id: 'yellowmantis',
-      name: 'YELLOW MANTIS',
+    rigelaz: {
+      id: 'rigelaz',
+      name: 'RIGELAZ HOLDINGS',
       type: 'operational',
-      shortDesc: 'Faces Group Event Platforms',
+      shortDesc: 'Dev & Consulting • Faces Group',
       valuation: 'OPERATIONAL',
       valuationNote: 'Production + Revenue',
       status: 'LIVE',
       color: '#27ae60',
-      icon: '🦗',
+      icon: '💼',
       keyMetrics: [
         '60,000+ Athletes Served',
         '99.9% Uptime (12mo)',
@@ -100,7 +100,7 @@ const DueDiligenceSummary = () => {
         '50K+ Lines of Code'
       ],
       competitiveAdvantage: 'Production-proven platform with enterprise integration moat',
-      link: '/due-diligence/yellowmantis'
+      link: '/due-diligence/rigelaz'
     }
   };
 
@@ -122,7 +122,7 @@ const DueDiligenceSummary = () => {
       <section className="dd-summary-hero">
         <div className="dd-summary-hero-bg"></div>
         <MantisIcon size={80} className="dd-summary-logo" />
-        <h1>SARFAT Group Tech Due Diligence</h1>
+        <h1>Yellow Mantis Group Tech Due Diligence</h1>
         <p className="dd-summary-tagline">Portfolio Valuation &amp; Technology Assessment</p>
         <div className="dd-summary-total">
           <span className="dd-total-label">Combined IP Valuation</span>
@@ -245,8 +245,8 @@ const DueDiligenceSummary = () => {
               </tr>
               <tr className="operational">
                 <td>
-                  <span className="venture-badge">🦗</span>
-                  <strong>Yellow Mantis</strong>
+                  <span className="venture-badge">💼</span>
+                  <strong>Rigelaz Holdings</strong>
                 </td>
                 <td>LIVE PRODUCTION</td>
                 <td className="valuation operational">OPERATIONAL</td>
@@ -371,11 +371,11 @@ const DueDiligenceSummary = () => {
         <h2>Detailed Due Diligence Reports</h2>
         <p>Explore individual venture analysis</p>
         <div className="dd-cta-grid">
-          <Link to="/due-diligence/yqa" className="dd-cta-btn">🧪 Y-QA (R15M)</Link>
+          <Link to="/due-diligence/yqa" className="dd-cta-btn">🧪 Y-QA (R22M)</Link>
           <Link to="/due-diligence/qproteus" className="dd-cta-btn">⚛️ QProteus</Link>
           <Link to="/due-diligence/qyvella" className="dd-cta-btn">🤖 Qyvella</Link>
           <Link to="/due-diligence/boaz" className="dd-cta-btn">📊 Boaz Holdings</Link>
-          <Link to="/due-diligence/yellowmantis" className="dd-cta-btn">🦗 Yellow Mantis</Link>
+          <Link to="/due-diligence/rigelaz" className="dd-cta-btn">💼 Rigelaz Holdings</Link>
         </div>
         <div className="dd-contact-info">
           <p><strong>JP van Zyl</strong> — Founder</p>
@@ -456,7 +456,7 @@ const DueDiligenceSummary = () => {
       {/* Footer */}
       <footer className="dd-footer">
         <p>
-          <strong>SARFAT Holdings</strong> — Technology Investment Group<br />
+          <strong>Yellow Mantis</strong> — Technology Investment Group<br />
           <span className="dd-footer-tagline">Building the future of technology</span>
         </p>
       </footer>

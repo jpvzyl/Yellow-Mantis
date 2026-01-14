@@ -972,7 +972,7 @@ const FundingRequirements = () => {
               <div className="project-header">
                 <h3>🏢 General Operating Expenses</h3>
                 <div className="project-meta">
-                  <span className="valuation">Yellow Mantis HQ</span>
+                  <span className="valuation">Yellow Mantis Group HQ</span>
                   <span className="stage">Ongoing</span>
                 </div>
               </div>

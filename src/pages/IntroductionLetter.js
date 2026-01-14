@@ -60,7 +60,7 @@ function IntroductionLetter() {
             </div>
             <div className="challenge-arrow">→</div>
             <div className="challenge-after">
-              <span className="challenge-label">YELLOW MANTIS</span>
+              <span className="challenge-label">YELLOW MANTIS GROUP</span>
               <p>One decorator. Any Python code. Quantum acceleration invisible to developers.</p>
             </div>
           </div>
@@ -71,7 +71,7 @@ function IntroductionLetter() {
             </div>
             <div className="challenge-arrow">→</div>
             <div className="challenge-after">
-              <span className="challenge-label">YELLOW MANTIS</span>
+              <span className="challenge-label">YELLOW MANTIS GROUP</span>
               <p>Under $500. Voice control. Claude AI brain. Build it yourself in a weekend.</p>
             </div>
           </div>
@@ -82,7 +82,7 @@ function IntroductionLetter() {
             </div>
             <div className="challenge-arrow">→</div>
             <div className="challenge-after">
-              <span className="challenge-label">YELLOW MANTIS</span>
+              <span className="challenge-label">RIGELAZ HOLDINGS</span>
               <p>Complete athlete platform. Live GPS → Timing → Results → Photos → Mobile App.</p>
             </div>
           </div>
@@ -172,6 +172,7 @@ function IntroductionLetter() {
             <div className="venture-header">
               <span className="venture-icon">📱</span>
               <h3>Faces Group</h3>
+              <span className="venture-note">by RIGELAZ HOLDINGS</span>
               <span className="venture-status live">✓ Live in Production</span>
             </div>
             <p className="venture-tagline">"60,000+ Athletes Powered"</p>

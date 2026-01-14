@@ -6,16 +6,16 @@ const Organogram = () => {
   const [selectedCompany, setSelectedCompany] = useState(null);
 
   const companies = {
-    sarfat: {
-      id: 'sarfat',
-      name: 'SARFAT HOLDINGS',
+    yellowmantis: {
+      id: 'yellowmantis',
+      name: 'YELLOW MANTIS',
       type: 'holding',
       shortDesc: 'Primary Holding Company',
       shareholding: [
         { name: 'JP van Zyl', percent: '100%' }
       ],
       color: '#F2D974',
-      summary: `SARFAT Holdings is the primary investment vehicle overseeing a diverse portfolio of technology ventures. Our subsidiaries span AI-powered quality assurance (Y-QA), development consulting (Yellow Mantis), robotics (Qyvella), quantum computing research (QProteus), and autonomous financial systems (Boaz Holdings). Together, these companies represent a comprehensive technology ecosystem positioned for significant growth.`,
+      summary: `Yellow Mantis is the primary investment vehicle overseeing a diverse portfolio of technology ventures. Our subsidiaries span AI-powered quality assurance (Y-QA), development consulting (Rigelaz Holdings), robotics (Qyvella), quantum computing research (QProteus), and autonomous financial systems (Boaz Holdings). Together, these companies represent a comprehensive technology ecosystem positioned for significant growth.`,
       capabilities: [
         'Strategic investment and capital allocation',
         'Portfolio company governance and oversight',
@@ -23,7 +23,7 @@ const Organogram = () => {
         'Cross-venture synergy coordination',
         'Long-term vision and direction setting'
       ],
-      icon: '🏛️'
+      icon: '🦗'
     },
     yqa: {
       id: 'yqa',
@@ -31,7 +31,7 @@ const Organogram = () => {
       type: 'subsidiary',
       shortDesc: 'AI-Powered Quality Assurance',
       shareholding: [
-        { name: 'SARFAT HOLDINGS', percent: '51%' },
+        { name: 'YELLOW MANTIS', percent: '51%' },
         { name: 'JP van Zyl', percent: '49%' }
       ],
       color: '#3498db',
@@ -47,20 +47,20 @@ const Organogram = () => {
       ],
       tech: ['Ruby on Rails', 'React', 'PostgreSQL', 'Docker', 'AI/ML'],
       status: 'Rollout Q1 2026',
-      valuation: 'R15M',
+      valuation: 'R22M',
       icon: '🔬'
     },
-    yellowmantis: {
-      id: 'yellowmantis',
-      name: 'YELLOW MANTIS',
+    rigelaz: {
+      id: 'rigelaz',
+      name: 'RIGELAZ HOLDINGS',
       type: 'subsidiary',
       shortDesc: 'Dev & Consulting • POCs • AI Certification',
       shareholding: [
-        { name: 'SARFAT HOLDINGS', percent: '51%' },
+        { name: 'YELLOW MANTIS', percent: '51%' },
         { name: 'JP van Zyl', percent: '49%' }
       ],
       color: '#27ae60',
-      summary: `Yellow Mantis is a boutique development and consulting firm specialising in rapid proof-of-concept development and AI certification services. We help enterprises validate ideas quickly and ensure their AI implementations meet emerging regulatory standards.`,
+      summary: `Rigelaz Holdings is a boutique development and consulting firm specialising in rapid proof-of-concept development and AI certification services. We help enterprises validate ideas quickly and ensure their AI implementations meet emerging regulatory standards.`,
       capabilities: [
         'Rapid POC development (2-4 weeks)',
         'AI certification and compliance auditing',
@@ -72,7 +72,7 @@ const Organogram = () => {
       ],
       tech: ['Ruby on Rails', 'React', 'Python', 'Salesforce', 'AWS'],
       status: 'Active',
-      icon: '🦗'
+      icon: '💼'
     },
     qyvella: {
       id: 'qyvella',
@@ -80,7 +80,7 @@ const Organogram = () => {
       type: 'subsidiary',
       shortDesc: 'Robotics & AI Development',
       shareholding: [
-        { name: 'SARFAT HOLDINGS', percent: '51%' },
+        { name: 'YELLOW MANTIS', percent: '51%' },
         { name: 'JP van Zyl', percent: '49%' }
       ],
       color: '#e74c3c',
@@ -105,7 +105,7 @@ const Organogram = () => {
       type: 'subsidiary',
       shortDesc: 'Quantum Computing Research & Development',
       shareholding: [
-        { name: 'SARFAT HOLDINGS', percent: '51%' },
+        { name: 'YELLOW MANTIS', percent: '51%' },
         { name: 'JP van Zyl', percent: '49%' }
       ],
       color: '#9b59b6',
@@ -121,8 +121,8 @@ const Organogram = () => {
         'Quantum machine learning research'
       ],
       tech: ['Python', 'AWS Braket', 'D-Wave', 'IBM Quantum', 'FastAPI'],
-      status: 'Research/Alpha',
-      valuation: 'R7.5M - R12.5M',
+      status: 'OPERATIONAL',
+      valuation: 'R18M',
       icon: '⚛️'
     },
     boaz: {
@@ -131,7 +131,7 @@ const Organogram = () => {
       type: 'joint',
       shortDesc: 'AI-Driven Accounting Software',
       shareholding: [
-        { name: 'SARFAT HOLDINGS', percent: '50%' },
+        { name: 'YELLOW MANTIS', percent: '50%' },
         { name: 'Private Partner', percent: '50%' }
       ],
       color: '#1abc9c',
@@ -163,7 +163,7 @@ const Organogram = () => {
       <div className="organogram-hero">
         <div className="organogram-hero-bg"></div>
         <MantisIcon size={60} className="organogram-hero-logo" />
-        <h1>SARFAT Group Structure</h1>
+        <h1>Yellow Mantis Group Structure</h1>
         <p className="organogram-subtitle">Investment Holdings & Technology Ventures</p>
       </div>
 
@@ -173,17 +173,17 @@ const Organogram = () => {
         <div className="org-level org-level-top">
           <div 
             className="org-card org-card-holding"
-            onClick={() => setSelectedCompany('sarfat')}
-            style={{ '--card-color': companies.sarfat.color }}
+            onClick={() => setSelectedCompany('yellowmantis')}
+            style={{ '--card-color': companies.yellowmantis.color }}
           >
-            <div className="org-card-icon">{companies.sarfat.icon}</div>
+            <div className="org-card-icon">{companies.yellowmantis.icon}</div>
             <div className="org-card-header">
               <span className="org-card-type">HOLDING COMPANY</span>
             </div>
-            <h3 className="org-card-name">{companies.sarfat.name}</h3>
-            <p className="org-card-desc">{companies.sarfat.shortDesc}</p>
+            <h3 className="org-card-name">{companies.yellowmantis.name}</h3>
+            <p className="org-card-desc">{companies.yellowmantis.shortDesc}</p>
             <div className="org-card-shareholding">
-              {companies.sarfat.shareholding.map((s, i) => (
+              {companies.yellowmantis.shareholding.map((s, i) => (
                 <span key={i} className="shareholder-badge">
                   {s.name}: {s.percent}
                 </span>
@@ -208,7 +208,7 @@ const Organogram = () => {
 
         {/* Subsidiaries Level */}
         <div className="org-level org-level-subsidiaries">
-          {['yqa', 'yellowmantis', 'qyvella', 'qproteus', 'boaz'].map((key) => {
+          {['yqa', 'rigelaz', 'qyvella', 'qproteus', 'boaz'].map((key) => {
             const company = companies[key];
             return (
               <div 
@@ -253,7 +253,7 @@ const Organogram = () => {
         </div>
         <div className="legend-item">
           <span className="legend-dot" style={{ background: '#3498db' }}></span>
-          Subsidiary (51% Sarfat / 49% JP)
+          Subsidiary (51% Yellow Mantis / 49% JP)
         </div>
         <div className="legend-item">
           <span className="legend-dot" style={{ background: '#1abc9c' }}></span>
@@ -353,7 +353,7 @@ const Organogram = () => {
       {/* Footer */}
       <footer className="organogram-footer">
         <p>
-          <strong>SARFAT Holdings</strong> — Technology Investment Group<br />
+          <strong>Yellow Mantis</strong> — Technology Investment Group<br />
           <span className="footer-tagline">Building the future of technology</span>
         </p>
       </footer>

@@ -19,7 +19,7 @@ function FullFeatures() {
       <section className="features-hero">
         <MantisIcon size={80} className="features-hero-logo" />
         <h1>Full Feature List</h1>
-        <p>Deep technical breakdown across all Yellow Mantis ventures</p>
+        <p>Deep technical breakdown across all Yellow Mantis Group ventures</p>
       </section>
 
       {/* Tab Navigation */}

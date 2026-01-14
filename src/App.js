@@ -16,7 +16,7 @@ import DueDiligenceYQA from './pages/DueDiligenceYQA';
 import DueDiligenceQProteus from './pages/DueDiligenceQProteus';
 import DueDiligenceQyvella from './pages/DueDiligenceQyvella';
 import DueDiligenceBoaz from './pages/DueDiligenceBoaz';
-import DueDiligenceYellowMantis from './pages/DueDiligenceYellowMantis';
+import DueDiligenceRigelaz from './pages/DueDiligenceRigelaz';
 
 // Unique structure IDs (5-character random strings)
 const STRUCTURE_IDS = ['7x3k9', 'm4p2n', 'q8f5t'];
@@ -48,7 +48,7 @@ function App() {
           <Route path="/structure/m4p2n" element={<CompanyStructure structureId="m4p2n" />} />
           <Route path="/structure/q8f5t" element={<CompanyStructure structureId="q8f5t" />} />
           
-          {/* Organogram - SARFAT Holdings Structure */}
+          {/* Organogram - Yellow Mantis Holdings Structure */}
           <Route path="/organogram/sarfat" element={<Organogram />} />
           
           {/* Due Diligence Pages - Tech Valuation & Analysis */}
@@ -57,7 +57,7 @@ function App() {
           <Route path="/due-diligence/qproteus" element={<DueDiligenceQProteus />} />
           <Route path="/due-diligence/qyvella" element={<DueDiligenceQyvella />} />
           <Route path="/due-diligence/boaz" element={<DueDiligenceBoaz />} />
-          <Route path="/due-diligence/yellowmantis" element={<DueDiligenceYellowMantis />} />
+          <Route path="/due-diligence/rigelaz" element={<DueDiligenceRigelaz />} />
         </Routes>
       </main>
       {!isStandalonePage && <Footer />}

@@ -413,8 +413,8 @@ function DueDiligenceBoaz() {
         <Link to="/due-diligence/qyvella" className="dd-nav-btn">
           ← Previous: Qyvella
         </Link>
-        <Link to="/due-diligence/yellowmantis" className="dd-nav-btn primary">
-          Next: Yellow Mantis →
+        <Link to="/due-diligence/rigelaz" className="dd-nav-btn primary">
+          Next: Rigelaz Holdings →
         </Link>
       </section>
     </div>

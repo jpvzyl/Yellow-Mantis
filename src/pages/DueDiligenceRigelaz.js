@@ -2,16 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './DueDiligence.css';
 
-function DueDiligenceYellowMantis() {
+function DueDiligenceRigelaz() {
   return (
     <div className="dd-page">
       {/* Hero Section */}
       <section className="dd-hero" style={{ '--dd-accent': '#27ae60' }}>
         <div className="dd-hero-bg"></div>
         <div className="dd-hero-badge">TECH DUE DILIGENCE</div>
-        <div className="dd-hero-icon">🦗</div>
-        <h1>Yellow Mantis / Faces Group</h1>
-        <p className="dd-hero-tagline">Development, Consulting &amp; Production Event Platforms</p>
+        <div className="dd-hero-icon">💼</div>
+        <h1>RIGELAZ HOLDINGS</h1>
+        <p className="dd-hero-tagline">Development, Consulting &amp; Production Event Platforms (Faces Group)</p>
         <div className="dd-hero-valuation">
           <span className="dd-val-label">Operational Value</span>
           <span className="dd-val-amount">PRODUCTION ACTIVE</span>
@@ -317,7 +317,7 @@ function DueDiligenceYellowMantis() {
 
       {/* Consulting Services */}
       <section className="dd-section">
-        <h2>💼 Yellow Mantis Consulting Services</h2>
+        <h2>💼 Rigelaz Holdings Consulting Services</h2>
         <div className="dd-services-grid">
           <div className="dd-service-card">
             <h4>Rapid POC Development</h4>
@@ -385,4 +385,5 @@ function DueDiligenceYellowMantis() {
   );
 }
 
-export default DueDiligenceYellowMantis;
+export default DueDiligenceRigelaz;
+
