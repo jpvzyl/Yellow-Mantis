@@ -49,7 +49,7 @@ function App() {
           <Route path="/structure/q8f5t" element={<CompanyStructure structureId="q8f5t" />} />
           
           {/* Organogram - Yellow Mantis Holdings Structure */}
-          <Route path="/organogram/sarfat" element={<Organogram />} />
+          <Route path="/organogram/yellow-mantis" element={<Organogram />} />
           
           {/* Due Diligence Pages - Tech Valuation & Analysis */}
           <Route path="/due-diligence" element={<DueDiligenceSummary />} />
