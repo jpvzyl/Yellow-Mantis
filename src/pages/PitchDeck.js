@@ -390,10 +390,10 @@ function PitchDeck() {
 {`# Multi-Provider AI Architecture
 class AIService:
     def __init__(self):
-        # Primary: OpenAI GPT-4 Turbo
-        self.openai = AsyncOpenAI(api_key=OPENAI_KEY)
-        # Secondary: Anthropic Claude 3
+        # Primary: Anthropic Claude (Sonnet 4 / Opus 4)
         self.anthropic = AsyncAnthropic(api_key=ANTHROPIC_KEY)
+        # GPT-4 Compatible (not actively used)
+        self.openai = AsyncOpenAI(api_key=OPENAI_KEY)
     
     async def analyze_document(self, doc):
         # AI extracts: amounts, dates, parties
@@ -464,7 +464,7 @@ class AIService:
             <div className="venture-feature">
               <h4>🤖 AI-Powered Testing</h4>
               <ul>
-                <li>Multi-LLM support (GPT-4, Claude 3.5)</li>
+                <li>Claude Sonnet 4 / Opus 4 (GPT-4 compatible)</li>
                 <li>AI test case generation</li>
                 <li>Self-healing test scripts</li>
                 <li>Intelligent defect prediction</li>
@@ -569,8 +569,8 @@ class AIService:
               <div className="stack-cat">
                 <h4>AI & Quantum</h4>
                 <div className="tech-pills highlight">
-                  <span>OpenAI GPT-4 Turbo</span>
-                  <span>Anthropic Claude 3</span>
+                  <span>Claude Sonnet 4</span>
+                  <span>Claude Opus 4</span>
                   <span>AWS Braket</span>
                   <span>D-Wave</span>
                 </div>
@@ -610,7 +610,7 @@ class AIService:
 │  ▼                           ▼                           ▼         │
 │  ┌─────────────┐    ┌─────────────────┐    ┌─────────────┐        │
 │  │  AI AGENTS  │    │ QUANTUM BRIDGE  │    │  SERVICES   │        │
-│  │ GPT-4/Claude│    │  AWS Braket     │    │ Salesforce  │        │
+│  │ Claude 4   │    │  AWS Braket     │    │ Salesforce  │        │
 │  └─────────────┘    └─────────────────┘    └─────────────┘        │
 │                                                                      │
 └─────────────────────────────────────────────────────────────────────┘`}
@@ -772,10 +772,10 @@ class AIService:
         # Step 1: Extract text (PDF, OCR, multi-format)
         extracted_text = await self._extract_text_from_file(...)
         
-        # Step 2: AI analysis with GPT-4/Claude
+        # Step 2: AI analysis with Claude Sonnet 4
         ai_analysis = await ai_service.analyze_document_content(
             extracted_text,
-            model="gpt-4-turbo-preview"
+            model="claude-sonnet-4"
         )
         # Returns: document_type, confidence, extracted_data,
         #          business_implications, risk_score

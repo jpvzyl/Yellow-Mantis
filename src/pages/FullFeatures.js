@@ -258,7 +258,7 @@ def search(database, target):
               <div className="feature-card highlight">
                 <h4>Claude AI Integration</h4>
                 <ul>
-                  <li>Anthropic Claude 3.5 Sonnet API</li>
+                  <li>Anthropic Claude Sonnet 4 / Opus 4 API</li>
                   <li>Tool/function calling for hardware</li>
                   <li>Natural language control</li>
                   <li>5 AI personality modes</li>
@@ -509,9 +509,9 @@ def search(database, target):
 
 class AIService:
     def __init__(self):
-        # Primary: OpenAI GPT-4 Turbo
-        self.openai = AsyncOpenAI(api_key=OPENAI_KEY)
-        # Secondary: Anthropic Claude 3
+        # Primary: Anthropic Claude (Sonnet 4 / Opus 4)
+        self.anthropic = AsyncAnthropic(api_key=ANTHROPIC_KEY)
+        # GPT-4 Compatible (not actively used)
         self.anthropic = AsyncAnthropic(api_key=ANTHROPIC_KEY)
     
     async def analyze_document(self, document_text, document_type):

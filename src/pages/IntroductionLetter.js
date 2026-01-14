@@ -209,8 +209,8 @@ function IntroductionLetter() {
               <span>FastAPI</span>
               <span>React</span>
               <span>PostgreSQL</span>
-              <span>GPT-4</span>
-              <span>Claude</span>
+              <span>Claude Sonnet 4</span>
+              <span>Claude Opus 4</span>
             </div>
           </div>
 
@@ -244,7 +244,7 @@ function IntroductionLetter() {
         <div className="why-now-grid">
           <div className="why-now-card">
             <h3>🧠 AI Capabilities</h3>
-            <p>Claude 3.5 Sonnet delivers best-in-class reasoning. Tool/function calling lets AI control hardware. Costs 90% cheaper than 2 years ago.</p>
+            <p>Claude Sonnet 4 delivers best-in-class reasoning. Tool/function calling lets AI control hardware. Costs 90% cheaper than 2 years ago.</p>
           </div>
           <div className="why-now-card">
             <h3>⚛️ Quantum Accessibility</h3>

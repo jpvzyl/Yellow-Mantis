@@ -10,6 +10,14 @@ import QuantumForInvestors from './pages/QuantumForInvestors';
 import CompanyStructure from './pages/CompanyStructure';
 import Organogram from './pages/Organogram';
 
+// Due Diligence Pages
+import DueDiligenceSummary from './pages/DueDiligenceSummary';
+import DueDiligenceYQA from './pages/DueDiligenceYQA';
+import DueDiligenceQProteus from './pages/DueDiligenceQProteus';
+import DueDiligenceQyvella from './pages/DueDiligenceQyvella';
+import DueDiligenceBoaz from './pages/DueDiligenceBoaz';
+import DueDiligenceYellowMantis from './pages/DueDiligenceYellowMantis';
+
 // Unique structure IDs (5-character random strings)
 const STRUCTURE_IDS = ['7x3k9', 'm4p2n', 'q8f5t'];
 
@@ -20,7 +28,8 @@ function App() {
   const isStandalonePage = 
     location.pathname === '/funding' ||
     location.pathname.startsWith('/structure/') ||
-    location.pathname.startsWith('/organogram/');
+    location.pathname.startsWith('/organogram/') ||
+    location.pathname.startsWith('/due-diligence');
 
   return (
     <div className="app">
@@ -41,6 +50,14 @@ function App() {
           
           {/* Organogram - SARFAT Holdings Structure */}
           <Route path="/organogram/sarfat" element={<Organogram />} />
+          
+          {/* Due Diligence Pages - Tech Valuation & Analysis */}
+          <Route path="/due-diligence" element={<DueDiligenceSummary />} />
+          <Route path="/due-diligence/yqa" element={<DueDiligenceYQA />} />
+          <Route path="/due-diligence/qproteus" element={<DueDiligenceQProteus />} />
+          <Route path="/due-diligence/qyvella" element={<DueDiligenceQyvella />} />
+          <Route path="/due-diligence/boaz" element={<DueDiligenceBoaz />} />
+          <Route path="/due-diligence/yellowmantis" element={<DueDiligenceYellowMantis />} />
         </Routes>
       </main>
       {!isStandalonePage && <Footer />}
