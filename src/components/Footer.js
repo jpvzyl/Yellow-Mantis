@@ -9,23 +9,10 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <div className="footer-brand">
+        <Link to="/" className="footer-brand">
           <MantisIcon size={28} className="footer-logo" />
           <span className="footer-name">Yellow Mantis</span>
-        </div>
-        
-        <nav className="footer-nav">
-          <Link to="/introduction-letter">Introduction</Link>
-          <Link to="/pitch-deck">Pitch Deck</Link>
-          <Link to="/full-features">Features</Link>
-        </nav>
-        
-        <div className="footer-badges">
-          <span className="footer-badge">🚀 Innovative</span>
-          <span className="footer-badge">💡 Creative</span>
-          <span className="footer-badge">⚡ Fast</span>
-        </div>
-        
+        </Link>
         <p className="footer-copyright">
           © {currentYear} Yellow Mantis. All rights reserved.
         </p>
@@ -35,4 +22,3 @@ function Footer() {
 }
 
 export default Footer;
-
