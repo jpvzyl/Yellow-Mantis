@@ -10,65 +10,90 @@ function LandingPage() {
         <div className="landing-hero-glow" aria-hidden="true" />
         <MantisIcon size={100} className="landing-hero-logo" />
         <h1 className="landing-hero-title">Yellow Mantis</h1>
-        <p className="landing-hero-tagline">Technology That Breaks Boundaries</p>
+        <p className="landing-hero-tagline">Technology Development Company</p>
         <p className="landing-hero-subtitle">
-          We build the software others call impossible: from classical–quantum bridges to AI-native robotics, 
-          from autonomous financial systems to enterprise platforms at scale. No clients or projects named — 
-          just capability, IP, and delivery.
+          We design, build, and operate full-stack software across web, mobile, cloud, and frontier R&D.
+          We build and own IP — from quantum–classical computing bridges to AI-native robotics, from autonomous
+          financial systems to enterprise platforms at scale. We take ideas from concept through to production
+          and maintain the codebases.
         </p>
       </section>
 
-      {/* What We Build */}
+      {/* Summary: What We Do */}
       <section className="landing-section">
-        <h2 className="landing-section-title">What We Build</h2>
+        <h2 className="landing-section-title">What We Do</h2>
         <p className="landing-section-intro">
-          Our IP spans full-stack systems, AI, and frontier R&D. Here’s the kind of ground we cover — 
-          without naming products or customers.
+          We are a full-stack development company that spans every layer — backend APIs and services, web and mobile
+          front ends, AI/ML integration, quantum hardware integration, biometrics, regulatory-compliant fintech, and
+          cloud infrastructure. We prove at scale and cover many domains.
         </p>
         <div className="landing-capabilities">
           <div className="landing-cap-card">
             <span className="landing-cap-icon" aria-hidden="true">⚛️</span>
             <h3>Quantum–Classical Bridges</h3>
-            <p>Frameworks that let existing applications run on quantum hardware where it matters, with seamless fallbacks. Live demos on real quantum systems.</p>
+            <p>Working bridge between classical software and quantum hardware, with live demos on real quantum systems. Automatic problem classification, graceful fallback to classical solvers.</p>
           </div>
           <div className="landing-cap-card">
             <span className="landing-cap-icon" aria-hidden="true">🤖</span>
-            <h3>AI-Native Robotics</h3>
-            <p>Affordable, voice-controlled platforms with persistent AI personality, natural-language control, and hardware abstraction for simulation and real devices.</p>
+            <h3>AI Consciousness & Robotics</h3>
+            <p>Persistent AI personality with memory, self-reflection, and emotional state. Natural-language and voice control for robot actions. Hardware abstraction for simulation and real devices.</p>
           </div>
           <div className="landing-cap-card">
             <span className="landing-cap-icon" aria-hidden="true">🧪</span>
-            <h3>AI-Powered Quality Assurance</h3>
-            <p>Dual-model AI pipelines, application digital twins for risk-aware QA, and quantum-inspired test optimization — industry-first combinations.</p>
+            <h3>Dual-Model AI QA</h3>
+            <p>One model for analysis, another for validation. Application digital twin for risk-aware QA. Quantum-inspired test optimization and codebase-aware test generation.</p>
           </div>
           <div className="landing-cap-card">
             <span className="landing-cap-icon" aria-hidden="true">📊</span>
-            <h3>Autonomous Financial Systems</h3>
-            <p>Multi-agent AI for document intelligence, cash-flow forecasting, and CFO-level strategy. Built for accuracy and auditability.</p>
+            <h3>Multi-Agent Financial Systems</h3>
+            <p>Specialized AI agents for document intelligence, cash-flow optimization, and strategic recommendation. Multi-provider LLM support, accuracy and auditability from day one.</p>
           </div>
           <div className="landing-cap-card">
             <span className="landing-cap-icon" aria-hidden="true">🔐</span>
-            <h3>Compliant Fintech Engines</h3>
-            <p>Full-stack lending and affordability logic built for strict regulation — from interest and fee rules to reckless-lending prevention.</p>
+            <h3>NCA-Compliant Lending</h3>
+            <p>Full lending logic aligned with National Credit Act–style rules: interest caps, affordability assessment, reckless-lending prevention. Mandate and payment architecture ready for PASA-style integration.</p>
           </div>
           <div className="landing-cap-card">
             <span className="landing-cap-icon" aria-hidden="true">👤</span>
             <h3>Biometrics & Attendance</h3>
-            <p>Face verification, location checks, and attendance flows for sites and events — kiosk and mobile, with offline support.</p>
+            <p>Face-based verification, location verification, kiosk and mobile flows. End-to-end backend, mobile app, and web admin with offline support.</p>
           </div>
           <div className="landing-cap-card">
             <span className="landing-cap-icon" aria-hidden="true">🏢</span>
             <h3>Enterprise Platforms</h3>
-            <p>Registration, timing, results, CRM, inventory, and integrations at scale — proven under high traffic and critical uptime.</p>
+            <p>Large-scale participant systems, CRM/ERP-style systems, event and participant platforms. High reliability, deep integrations, production at scale.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* What Sets Us Apart */}
+      <section className="landing-section landing-section-dark">
+        <h2 className="landing-section-title">What Sets Us Apart</h2>
+        <div className="landing-differentiators">
+          <div className="landing-diff-card">
+            <h3>Frontier R&D and Production</h3>
+            <p>We combine “impossible” R&D with “boring, reliable” production — quantum computing, AI robotics, and enterprise platforms at scale in one house.</p>
+          </div>
+          <div className="landing-diff-card">
+            <h3>Compliance Built In</h3>
+            <p>Regulatory and compliance as core logic, not an afterthought. Lending, affordability, payment readiness, and audit-friendly design from day one.</p>
+          </div>
+          <div className="landing-diff-card">
+            <h3>AI as Architecture</h3>
+            <p>AI in the architecture — agents, pipelines, and control flows — not a single chatbot. Dual-model QA, multi-agent systems, natural-language control.</p>
+          </div>
+          <div className="landing-diff-card">
+            <h3>Full Ownership of the Stack</h3>
+            <p>Backend, frontend, mobile, cloud, and where applicable hardware. One team that owns the entire chain from database to UI to quantum hardware.</p>
           </div>
         </div>
       </section>
 
       {/* By the Numbers */}
-      <section className="landing-section landing-section-dark">
+      <section className="landing-section">
         <h2 className="landing-section-title">By the Numbers</h2>
         <p className="landing-section-intro">
-          Our portfolio of owned and delivered work speaks to depth and breadth. Conservative IP valuation across projects.
+          Our portfolio of owned and delivered work. Conservative IP valuation across projects.
         </p>
         <div className="landing-metrics">
           <div className="landing-metric">
@@ -90,24 +115,16 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* Contact */}
+      {/* Contact Us */}
       <section id="contact" className="landing-contact">
-        <h2 className="landing-contact-title">Get in Touch</h2>
-        <p className="landing-contact-intro">
-          For partnerships, build-for-hire, or investment in our capability and IP.
-        </p>
-        <div className="landing-contact-details">
-          <a href="mailto:jp@yellow-mantis.com" className="landing-contact-link">
-            jp@yellow-mantis.com
-          </a>
-          <a href="tel:+27764863294" className="landing-contact-link">
-            +27 76 486 3294
-          </a>
-          <a href="https://yellow-mantis.com" className="landing-contact-link" rel="noopener noreferrer">
-            yellow-mantis.com
+        <h2 className="landing-contact-title">Contact Us</h2>
+        <div className="landing-contact-block">
+          <p className="landing-contact-role">Founder</p>
+          <p className="landing-contact-name">Jp van Zyl</p>
+          <a href="mailto:Jp@yellow-mantis.com" className="landing-contact-email">
+            Jp@yellow-mantis.com
           </a>
         </div>
-        <p className="landing-contact-note">JP van Zyl — Founder</p>
       </section>
     </div>
   );

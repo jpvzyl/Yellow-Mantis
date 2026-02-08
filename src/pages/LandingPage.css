@@ -194,6 +194,42 @@
   line-height: 1.35;
 }
 
+/* Differentiators */
+.landing-differentiators {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.landing-diff-card {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.landing-diff-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(242, 217, 116, 0.35);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+}
+
+.landing-diff-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-yellow);
+  margin-bottom: 12px;
+}
+
+.landing-diff-card p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
 /* Contact */
 .landing-contact {
   text-align: center;
@@ -206,27 +242,35 @@
   font-size: clamp(1.5rem, 3.5vw, 2.25rem);
   font-weight: 700;
   color: var(--primary-yellow);
-  margin-bottom: 12px;
-}
-
-.landing-contact-intro {
-  font-size: 1rem;
-  color: var(--text-secondary);
   margin-bottom: 32px;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-.landing-contact-details {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px 32px;
-  margin-bottom: 24px;
+.landing-contact-block {
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
 }
 
-.landing-contact-link {
+.landing-contact-role {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.landing-contact-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.landing-contact-email {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--primary-yellow);
@@ -234,19 +278,14 @@
   padding: 12px 20px;
   border: 2px solid var(--border-subtle);
   border-radius: var(--radius-md);
+  display: inline-block;
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-.landing-contact-link:hover {
+.landing-contact-email:hover {
   background: rgba(242, 217, 116, 0.12);
   border-color: var(--primary-yellow);
   color: var(--text-primary);
-}
-
-.landing-contact-note {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin: 0;
 }
 
 @media (max-width: 768px) {
@@ -263,8 +302,4 @@
     gap: 20px;
   }
 
-  .landing-contact-details {
-    flex-direction: column;
-    align-items: center;
-  }
 }

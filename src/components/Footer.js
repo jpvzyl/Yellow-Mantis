@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import MantisIcon from './MantisIcon';
 import './Footer.css';
 
@@ -9,10 +8,10 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <Link to="/" className="footer-brand">
+        <a href="/" className="footer-brand">
           <MantisIcon size={28} className="footer-logo" />
           <span className="footer-name">Yellow Mantis</span>
-        </Link>
+        </a>
         <p className="footer-copyright">
           © {currentYear} Yellow Mantis. All rights reserved.
         </p>

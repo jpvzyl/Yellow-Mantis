@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import MantisIcon from './MantisIcon';
 import './Header.css';
 
@@ -20,10 +19,10 @@ function Header() {
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <nav className="nav-container">
-        <Link to="/" className="logo-container">
+        <a href="/" className="logo-container">
           <MantisIcon size={36} className="logo-icon" />
           <span className="logo-text">Yellow Mantis</span>
-        </Link>
+        </a>
 
         <div className="nav-cta">
           <a href="#contact" onClick={scrollToContact} className="btn btn-primary">
