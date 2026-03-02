@@ -1,6 +1,6 @@
 import { useTeams } from '../api/hooks'
 import { Link } from 'react-router-dom'
-import { Layers, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 export function DashboardPage() {
   const { data: teams, isLoading } = useTeams()

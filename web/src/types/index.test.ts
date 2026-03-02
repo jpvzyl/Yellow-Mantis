@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import type { Issue, Priority, StateType, WorkflowState, User, Team, Label, Project } from './index'
+import type { Issue, Priority, StateType } from './index'
 
 describe('Type definitions', () => {
   it('Priority type accepts valid values', () => {

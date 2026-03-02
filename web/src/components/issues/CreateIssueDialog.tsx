@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { X } from 'lucide-react'
 import { useCreateIssue, useTeam } from '../../api/hooks'
 import { useUIStore } from '../../stores/ui'
-import { PriorityIcon } from '../ui/PriorityIcon'
 
 const priorities = [
   { value: 0, label: 'No priority' },

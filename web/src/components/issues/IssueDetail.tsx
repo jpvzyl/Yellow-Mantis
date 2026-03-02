@@ -1,7 +1,7 @@
 import { X, MoreHorizontal } from 'lucide-react'
 import { useIssue, useUpdateIssue, useTeam } from '../../api/hooks'
 import { useUIStore } from '../../stores/ui'
-import { PriorityIcon, PriorityBadge } from '../ui/PriorityIcon'
+import { PriorityBadge } from '../ui/PriorityIcon'
 import { StatusIcon, StatusBadge } from '../ui/StatusIcon'
 import { UserAvatar } from '../ui/UserAvatar'
 

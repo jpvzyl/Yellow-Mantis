@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Inbox, User, Star, Layers, LayoutGrid, Map, Settings, ChevronDown, ChevronRight, Plus, Search } from 'lucide-react'
 import { clsx } from 'clsx'
 import { useTeams } from '../../api/hooks'
