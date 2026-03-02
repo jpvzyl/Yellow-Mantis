@@ -1,0 +1,32 @@
+source "https://rubygems.org"
+
+ruby "3.1.6"
+
+gem "rails", "~> 7.1.6"
+gem "pg", "~> 1.1"
+gem "puma", ">= 5.0"
+gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "bootsnap", require: false
+
+gem "rack-cors"
+gem "bcrypt", "~> 3.1.7"
+gem "jwt"
+gem "blueprinter"
+gem "pundit"
+gem "pg_search"
+gem "redis"
+gem "sidekiq"
+gem "kaminari"
+
+group :development, :test do
+  gem "debug", platforms: %i[ mri windows ]
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "faker"
+  gem "shoulda-matchers"
+  gem "database_cleaner-active_record"
+end
+
+group :development do
+  gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
+end

@@ -31,4 +31,14 @@ yarn-error.log*
 .cache/
 .npm/
 
+# Rails
+api/tmp/
+api/log/
+api/storage/
+api/db/schema.rb
 
+# Cursor
+.cursor/
+
+# Rails secrets
+api/config/master.key
