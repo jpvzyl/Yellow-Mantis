@@ -136,4 +136,55 @@ RSpec.describe "Api::V1::Issues", type: :request do
       expect(json).to have_key("sub_issues")
     end
   end
+
+  describe "GET /api/v1/:workspace_slug/teams/:team_id/issues with assignee_id filter" do
+    it "returns only issues assigned to the given user" do
+      other_user = create(:user)
+      create(:issue, team: team, creator: user, title: "Unassigned", assignee_id: nil)
+      assigned = create(:issue, team: team, creator: user, title: "Assigned to me", assignee_id: user.id)
+      create(:issue, team: team, creator: user, title: "Assigned to other", assignee_id: other_user.id)
+
+      get "/api/v1/#{workspace.slug}/teams/#{team.identifier}/issues",
+        params: { assignee_id: user.id }, headers: headers
+
+      expect(response).to have_http_status(:ok)
+      json = JSON.parse(response.body)
+      expect(json.length).to eq(1)
+      expect(json.first["id"]).to eq(assigned.id)
+      expect(json.first["title"]).to eq("Assigned to me")
+    end
+  end
+
+  describe "POST /api/v1/:workspace_slug/teams/:team_id/issues/bulk_update" do
+    let!(:issue1) { create(:issue, team: team, creator: user, title: "Bulk 1") }
+    let!(:issue2) { create(:issue, team: team, creator: user, title: "Bulk 2") }
+    let(:started_state) { team.workflow_states.find_by(state_type: :started) }
+
+    it "updates multiple issues state and optional assignee" do
+      post "/api/v1/#{workspace.slug}/teams/#{team.identifier}/issues/bulk_update",
+        params: {
+          issue_ids: [issue1.id, issue2.id],
+          updates: { state_id: started_state.id, priority: 4 }
+        }.to_json,
+        headers: headers
+
+      expect(response).to have_http_status(:ok)
+      json = JSON.parse(response.body)
+      expect(json.length).to eq(2)
+      json.each do |issue|
+        expect(issue["state"]["state_type"]).to eq("started")
+        expect(issue["priority"]).to eq(4)
+      end
+    end
+
+    it "returns bad_request when issue_ids blank" do
+      post "/api/v1/#{workspace.slug}/teams/#{team.identifier}/issues/bulk_update",
+        params: { updates: { state_id: started_state.id } }.to_json,
+        headers: headers
+
+      expect(response).to have_http_status(:bad_request)
+      json = JSON.parse(response.body)
+      expect(json["error"]).to include("No issues specified")
+    end
+  end
 end

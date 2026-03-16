@@ -96,6 +96,18 @@ export function useUpdateIssue(teamId: string) {
   })
 }
 
+export function useBulkUpdateIssues(teamId: string) {
+  const qc = useQueryClient()
+  const slug = api.getWorkspaceSlug()
+  return useMutation({
+    mutationFn: (params: { issue_ids: string[]; updates: { state_id?: string; priority?: number; assignee_id?: string | null; project_id?: string | null } }) =>
+      api.post<Issue[]>(`/${slug}/teams/${teamId}/issues/bulk_update`, params),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['issues', teamId] })
+    },
+  })
+}
+
 export function useDeleteIssue(teamId: string) {
   const qc = useQueryClient()
   const slug = api.getWorkspaceSlug()

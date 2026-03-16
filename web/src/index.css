@@ -22,6 +22,20 @@
   --color-status-in-progress: #eab308;
   --color-status-done: #22c55e;
   --color-status-cancelled: #6b7280;
+
+  /* Company Vault Theme */
+  --color-vault-bg: #0c0c14;
+  --color-vault-surface: #12121e;
+  --color-vault-sidebar: #0e0e18;
+  --color-vault-hover: #1a1a2a;
+  --color-vault-active: #1e1e32;
+  --color-vault-border: #1e1e30;
+  --color-vault-border-active: #2e2e48;
+  --color-vault-text-primary: #e4e4ec;
+  --color-vault-text-secondary: #8888a8;
+  --color-vault-text-muted: #555578;
+  --color-vault-accent: #6366f1;
+  --color-vault-accent-hover: #818cf8;
 }
 
 body {
@@ -39,4 +53,35 @@ body {
 ::selection {
   background-color: var(--color-accent);
   color: white;
+}
+
+/* Company Vault Styles */
+.vault-container {
+  background-color: var(--color-vault-bg);
+}
+
+.vault-email-body {
+  line-height: 1.6;
+}
+
+.vault-email-body img {
+  max-width: 100%;
+  height: auto;
+}
+
+.vault-email-body a {
+  color: var(--color-vault-accent);
+  text-decoration: underline;
+}
+
+.vault-email-body table {
+  border-collapse: collapse;
+  max-width: 100%;
+}
+
+.vault-email-body blockquote {
+  border-left: 3px solid var(--color-vault-border);
+  padding-left: 12px;
+  margin-left: 0;
+  color: var(--color-vault-text-muted);
 }

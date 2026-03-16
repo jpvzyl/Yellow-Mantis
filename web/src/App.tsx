@@ -8,6 +8,14 @@ import { AppLayout } from './components/layout/AppLayout'
 import { LoginPage } from './pages/LoginPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { TeamIssuesPage } from './pages/TeamIssuesPage'
+import { InboxPage } from './pages/InboxPage'
+import { MyIssuesPage } from './pages/MyIssuesPage'
+import { FavoritesPage } from './pages/FavoritesPage'
+import { ProjectsPage } from './pages/ProjectsPage'
+import { RoadmapPage } from './pages/RoadmapPage'
+import { SettingsPage } from './pages/SettingsPage'
+import { VaultPage } from './pages/VaultPage'
+import { VaultOAuthCallback } from './pages/VaultOAuthCallback'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -71,24 +79,17 @@ function AppRoutes() {
         <Route path="/" element={<DashboardPage />} />
         <Route path="/team/:teamIdentifier/issues" element={<TeamIssuesPage />} />
         <Route path="/team/:teamIdentifier/board" element={<TeamIssuesPage />} />
-        <Route path="/inbox" element={<PlaceholderPage title="Inbox" />} />
-        <Route path="/my-issues" element={<PlaceholderPage title="My Issues" />} />
-        <Route path="/favorites" element={<PlaceholderPage title="Favorites" />} />
-        <Route path="/projects" element={<PlaceholderPage title="Projects" />} />
-        <Route path="/roadmap" element={<PlaceholderPage title="Roadmap" />} />
-        <Route path="/settings" element={<PlaceholderPage title="Settings" />} />
+        <Route path="/inbox" element={<InboxPage />} />
+        <Route path="/my-issues" element={<MyIssuesPage />} />
+        <Route path="/favorites" element={<FavoritesPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/roadmap" element={<RoadmapPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/vault" element={<VaultPage />} />
+        <Route path="/vault/oauth/callback" element={<VaultOAuthCallback />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
-  )
-}
-
-function PlaceholderPage({ title }: { title: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center h-full text-text-tertiary">
-      <h1 className="text-lg font-semibold text-text-primary mb-1">{title}</h1>
-      <p className="text-sm">Coming in Phase 2</p>
-    </div>
   )
 }
 

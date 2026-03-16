@@ -1,17 +1,29 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { Plus, Filter, SortAsc } from 'lucide-react'
-import { useIssues, useTeam } from '../api/hooks'
+import { useParams, useLocation } from 'react-router-dom'
+import { Plus, Filter, SortAsc, LayoutGrid, Layers } from 'lucide-react'
+import { useIssues, useTeam, useUpdateIssue } from '../api/hooks'
 import { IssueList } from '../components/issues/IssueList'
+import { IssueBoard } from '../components/issues/IssueBoard'
 import { IssueDetail } from '../components/issues/IssueDetail'
 import { CreateIssueDialog } from '../components/issues/CreateIssueDialog'
 import { useUIStore } from '../stores/ui'
+import { Link } from 'react-router-dom'
 
 export function TeamIssuesPage() {
   const { teamIdentifier } = useParams<{ teamIdentifier: string }>()
+  const location = useLocation()
+  const isBoardView = location.pathname.includes('/board')
+
   const { data: team } = useTeam(teamIdentifier || '')
   const { data: issues, isLoading } = useIssues(teamIdentifier || '')
+  const updateIssue = useUpdateIssue(teamIdentifier || '')
   const openCreateIssue = useUIStore((s) => s.openCreateIssue)
+
+  const workflowStates = team?.workflow_states ?? []
+
+  const handleMoveIssue = (issueId: string, stateId: string) => {
+    updateIssue.mutate({ id: issueId, state_id: stateId })
+  }
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -36,7 +48,26 @@ export function TeamIssuesPage() {
                 {team.identifier[0]}
               </div>
               <h1 className="text-sm font-semibold text-text-primary">{team.name}</h1>
-              <span className="text-xs text-text-tertiary">Issues</span>
+              <nav className="flex items-center gap-1 ml-2">
+                <Link
+                  to={`/team/${teamIdentifier}/issues`}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs transition-colors ${
+                    !isBoardView ? 'bg-surface-active text-text-primary' : 'text-text-secondary hover:bg-surface-hover hover:text-text-primary'
+                  }`}
+                >
+                  <Layers className="size-3.5" />
+                  Issues
+                </Link>
+                <Link
+                  to={`/team/${teamIdentifier}/board`}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs transition-colors ${
+                    isBoardView ? 'bg-surface-active text-text-primary' : 'text-text-secondary hover:bg-surface-hover hover:text-text-primary'
+                  }`}
+                >
+                  <LayoutGrid className="size-3.5" />
+                  Board
+                </Link>
+              </nav>
             </div>
           )}
         </div>
@@ -60,12 +91,20 @@ export function TeamIssuesPage() {
         </div>
       </div>
 
-      {/* Issue list */}
-      <div className="flex-1 overflow-y-auto">
+      {/* Content */}
+      <div className="flex-1 overflow-hidden min-h-0">
         {isLoading ? (
-          <div className="flex items-center justify-center py-20 text-text-tertiary text-sm">Loading issues...</div>
+          <div className="flex items-center justify-center py-20 text-text-tertiary text-sm">Loading...</div>
+        ) : isBoardView && workflowStates.length > 0 ? (
+          <IssueBoard
+            issues={issues ?? []}
+            workflowStates={workflowStates}
+            onMoveIssue={handleMoveIssue}
+          />
         ) : issues ? (
-          <IssueList issues={issues} groupBy="status" />
+          <div className="overflow-y-auto h-full">
+            <IssueList issues={issues} groupBy="status" />
+          </div>
         ) : null}
       </div>
 

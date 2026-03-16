@@ -22,6 +22,24 @@ RSpec.describe "Api::V1::Teams", type: :request do
     end
   end
 
+  describe "GET /api/v1/:workspace_slug/teams/:id (show)" do
+    let!(:team) { create(:team, workspace: workspace, name: "Engineering", identifier: "ENG") }
+
+    it "returns team detail with workflow_states by identifier" do
+      get "/api/v1/#{workspace.slug}/teams/ENG", headers: headers
+
+      expect(response).to have_http_status(:ok)
+      json = JSON.parse(response.body)
+      expect(json["identifier"]).to eq("ENG")
+      expect(json["name"]).to eq("Engineering")
+      expect(json["workflow_states"]).to be_an(Array)
+      expect(json["workflow_states"].length).to eq(5)
+      state_types = json["workflow_states"].map { |s| s["state_type"] }
+      expect(state_types).to include("backlog", "unstarted", "started", "completed", "cancelled")
+    end
+
+  end
+
   describe "POST /api/v1/:workspace_slug/teams" do
     it "creates a team with default workflow states" do
       post "/api/v1/#{workspace.slug}/teams",
