@@ -1,8 +1,6 @@
-import { clsx } from 'clsx'
 import {
   ScrollText,
   Shield,
-  Globe,
   Mail,
   FileText,
   Settings,
@@ -19,7 +17,6 @@ import {
 } from 'lucide-react'
 import { useVaultStore } from '../../stores/vault'
 import { useVaultAuditLogs } from '../../api/vault-hooks'
-import type { VaultAuditLog } from '../../types/vault'
 
 const ACTION_ICONS: Record<string, typeof Shield> = {
   'business.create': Plus,

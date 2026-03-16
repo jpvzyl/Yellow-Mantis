@@ -22,7 +22,7 @@ export function TeamIssuesPage() {
   const workflowStates = team?.workflow_states ?? []
 
   const handleMoveIssue = (issueId: string, stateId: string) => {
-    updateIssue.mutate({ id: issueId, state_id: stateId })
+    updateIssue.mutate({ id: issueId, state_id: stateId } as any)
   }
 
   useEffect(() => {

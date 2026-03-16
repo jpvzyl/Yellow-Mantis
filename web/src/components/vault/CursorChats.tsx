@@ -12,13 +12,11 @@ import {
   Bot,
   FolderOpen,
   Building2,
-  Filter,
   Wrench,
   Clock,
   Hash,
   ArrowDownToLine,
   Check,
-  X,
 } from 'lucide-react'
 import { useVaultStore } from '../../stores/vault'
 import {
@@ -368,7 +366,6 @@ function ImportPanel({ onClose }: { onClose: () => void }) {
   const [selectedUuids, setSelectedUuids] = useState<Set<string>>(new Set())
   const { data: businesses } = useVaultBusinesses()
   const [assignBizId, setAssignBizId] = useState<string>('')
-  const activeBusiness = useVaultStore((s) => s.activeBusiness)
 
   const handleScan = () => {
     refetch()

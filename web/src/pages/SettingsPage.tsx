@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useMe } from '../api/hooks'
 import { api } from '../api/client'
-import { Settings, User, LogOut } from 'lucide-react'
+import { Settings, LogOut } from 'lucide-react'
 
 export function SettingsPage() {
   const { data } = useMe()

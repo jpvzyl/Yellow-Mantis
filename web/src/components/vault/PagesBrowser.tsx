@@ -17,9 +17,6 @@ import {
   CreditCard,
   Share2,
   Mail as MailIcon,
-  MoreHorizontal,
-  Edit,
-  X,
 } from 'lucide-react'
 import { useVaultStore } from '../../stores/vault'
 import { useVaultPages, useDeletePage, useTogglePagePin } from '../../api/vault-hooks'

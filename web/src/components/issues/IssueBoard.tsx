@@ -62,7 +62,7 @@ function IssueCard({
             </div>
           )}
         </div>
-        <UserAvatar user={issue.assignee} size="xs" className="shrink-0" />
+        <UserAvatar user={issue.assignee} size="xs" />
       </div>
     </div>
   )
@@ -141,7 +141,6 @@ export function IssueBoard({ issues, workflowStates, onMoveIssue }: IssueBoardPr
     }))
   }, [issues, workflowStates])
 
-  const handleDragStart = (issueId: string) => setDraggingId(issueId)
   const handleDragEnd = () => setDraggingId(null)
 
   const handleDrop = (stateId: string, issueId: string) => {

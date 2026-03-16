@@ -5,10 +5,8 @@ import {
   Plus,
   Trash2,
   Download,
-  Shield,
   Lock,
   Search,
-  Filter,
   Eye,
   EyeOff,
   File,
@@ -196,7 +194,7 @@ export function DocumentVault() {
                     <div className="flex items-center gap-2">
                       <span className="text-sm font-medium text-vault-text-primary truncate">{doc.name}</span>
                       {doc.sensitive && (
-                        <AlertTriangle className="size-3 text-red-400 shrink-0" title="Sensitive document" />
+                        <AlertTriangle className="size-3 text-red-400 shrink-0" />
                       )}
                     </div>
                     {doc.description && (

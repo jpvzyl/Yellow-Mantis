@@ -5,7 +5,7 @@ import { DocumentVault } from './DocumentVault'
 import { CursorChats } from './CursorChats'
 import { AuditLogViewer } from './AuditLogViewer'
 import { BusinessSettings } from './BusinessSettings'
-import { Shield, Building2, Plus, Lock, KeyRound, Fingerprint } from 'lucide-react'
+import { Shield, Plus, Lock, KeyRound, Fingerprint } from 'lucide-react'
 
 export function VaultContent() {
   const activeBusiness = useVaultStore((s) => s.activeBusiness)
