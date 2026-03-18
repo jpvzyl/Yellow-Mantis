@@ -120,6 +120,16 @@ export function useDeleteIssue(teamId: string) {
   })
 }
 
+// Workspace Members
+export function useWorkspaceMembers() {
+  const slug = api.getWorkspaceSlug()
+  return useQuery({
+    queryKey: ['members', slug],
+    queryFn: () => api.get<{ id: string; user: User; role: string }[]>(`/${slug}/workspace/members`),
+    enabled: !!slug,
+  })
+}
+
 // Labels
 export function useLabels() {
   const slug = api.getWorkspaceSlug()

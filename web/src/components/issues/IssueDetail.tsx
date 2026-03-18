@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { X, MoreHorizontal, Trash2, Check } from 'lucide-react'
-import { useIssue, useUpdateIssue, useDeleteIssue, useTeam, useLabels } from '../../api/hooks'
+import { useIssue, useUpdateIssue, useDeleteIssue, useTeam, useLabels, useWorkspaceMembers } from '../../api/hooks'
 import { useUIStore } from '../../stores/ui'
 import { PriorityIcon } from '../ui/PriorityIcon'
 import { StatusIcon, StatusBadge } from '../ui/StatusIcon'
@@ -116,6 +116,7 @@ export function IssueDetail({ teamId }: { teamId: string }) {
   const { data: issue, isLoading } = useIssue(teamId, issueId || '')
   const { data: team } = useTeam(teamId)
   const { data: allLabels } = useLabels()
+  const { data: memberships } = useWorkspaceMembers()
   const updateIssue = useUpdateIssue(teamId)
   const deleteIssue = useDeleteIssue(teamId)
 
@@ -263,7 +264,16 @@ export function IssueDetail({ teamId }: { teamId: string }) {
               <span className="text-xs text-text-tertiary w-20">Assignee</span>
               <div className="flex items-center gap-2">
                 <UserAvatar user={issue.assignee} size="xs" />
-                <span className="text-xs text-text-secondary">{issue.assignee?.display_name || 'Unassigned'}</span>
+                <select
+                  value={issue.assignee?.id || ''}
+                  onChange={(e) => handleUpdate({ assignee_id: e.target.value || null })}
+                  className="bg-transparent text-xs text-text-secondary border border-border-primary rounded px-2 py-1 outline-none focus:border-accent"
+                >
+                  <option value="">Unassigned</option>
+                  {memberships?.map((m) => (
+                    <option key={m.user.id} value={m.user.id}>{m.user.display_name}</option>
+                  ))}
+                </select>
               </div>
             </div>
 
