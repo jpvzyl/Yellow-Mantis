@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Inbox, User, Star, Layers, LayoutGrid, Map, Settings, ChevronDown, ChevronRight, Plus, Search, Shield } from 'lucide-react'
+import { Inbox, User, Star, Layers, LayoutGrid, Map, Settings, ChevronDown, ChevronRight, Plus, Search } from 'lucide-react'
 import { clsx } from 'clsx'
 import { useTeams } from '../../api/hooks'
 import { useUIStore } from '../../stores/ui'
@@ -124,10 +124,6 @@ export function Sidebar() {
         <SidebarLink to="/projects" icon={LayoutGrid} label="Projects" active={isActive('/projects')} />
         <SidebarLink to="/roadmap" icon={Map} label="Roadmap" active={isActive('/roadmap')} />
 
-        <div className="pt-4 pb-1 px-3">
-          <span className="text-xs font-medium text-text-tertiary uppercase tracking-wider">Apps</span>
-        </div>
-        <SidebarLink to="/vault" icon={Shield} label="Company Vault" active={location.pathname.startsWith('/vault')} />
       </nav>
 
       {/* Settings */}

@@ -10,10 +10,6 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :vault_businesses, class_name: "Vault::Business", dependent: :destroy
-  has_many :vault_audit_logs, class_name: "Vault::AuditLog", dependent: :destroy
-  has_many :vault_cursor_chats, class_name: "Vault::CursorChat", dependent: :destroy
-
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :name, presence: true
 

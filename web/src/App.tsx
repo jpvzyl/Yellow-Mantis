@@ -14,8 +14,6 @@ import { FavoritesPage } from './pages/FavoritesPage'
 import { ProjectsPage } from './pages/ProjectsPage'
 import { RoadmapPage } from './pages/RoadmapPage'
 import { SettingsPage } from './pages/SettingsPage'
-import { VaultPage } from './pages/VaultPage'
-import { VaultOAuthCallback } from './pages/VaultOAuthCallback'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -85,8 +83,6 @@ function AppRoutes() {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/roadmap" element={<RoadmapPage />} />
         <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/vault" element={<VaultPage />} />
-        <Route path="/vault/oauth/callback" element={<VaultOAuthCallback />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
