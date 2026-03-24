@@ -106,5 +106,24 @@ export interface Project {
   teams?: { id: string; name: string; identifier: string }[]
 }
 
+export interface Company {
+  id: string
+  name: string
+  slug: string
+  description: string | null
+  logo: string | null
+  color: string
+  role: 'admin' | 'member'
+  workspace_slug: string | null
+  created_at: string
+}
+
+export interface CompanyMember {
+  id: string
+  user: User
+  role: 'admin' | 'member'
+  joined_at: string
+}
+
 export type Priority = 0 | 1 | 2 | 3 | 4
 export type StateType = 'backlog' | 'unstarted' | 'started' | 'completed' | 'cancelled'

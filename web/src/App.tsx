@@ -14,6 +14,7 @@ import { FavoritesPage } from './pages/FavoritesPage'
 import { ProjectsPage } from './pages/ProjectsPage'
 import { RoadmapPage } from './pages/RoadmapPage'
 import { SettingsPage } from './pages/SettingsPage'
+import { AdminPage } from './pages/AdminPage'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,20 +28,35 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
   const setUser = useAuthStore((s) => s.setUser)
   const setWorkspaces = useAuthStore((s) => s.setWorkspaces)
   const setCurrentWorkspace = useAuthStore((s) => s.setCurrentWorkspace)
+  const setCompanies = useAuthStore((s) => s.setCompanies)
+  const setCurrentCompany = useAuthStore((s) => s.setCurrentCompany)
   const navigate = useNavigate()
 
   useEffect(() => {
     if (data) {
       setUser(data.user)
       setWorkspaces(data.workspaces)
-      if (data.workspaces.length > 0) {
+      setCompanies(data.companies || [])
+
+      const savedCompanyId = localStorage.getItem('ym_company')
+      const company = data.companies?.find((c) => c.id === savedCompanyId) || data.companies?.[0]
+
+      if (company) {
+        setCurrentCompany(company)
+        localStorage.setItem('ym_company', company.id)
+        if (company.workspace_slug) {
+          api.setWorkspaceSlug(company.workspace_slug)
+          const ws = data.workspaces.find((w) => w.slug === company.workspace_slug)
+          if (ws) setCurrentWorkspace(ws)
+        }
+      } else if (data.workspaces.length > 0) {
         const saved = api.getWorkspaceSlug()
         const ws = data.workspaces.find((w) => w.slug === saved) || data.workspaces[0]
         api.setWorkspaceSlug(ws.slug)
         setCurrentWorkspace(ws)
       }
     }
-  }, [data, setUser, setWorkspaces, setCurrentWorkspace])
+  }, [data, setUser, setWorkspaces, setCurrentWorkspace, setCompanies, setCurrentCompany])
 
   useEffect(() => {
     if (!token || isError) {
@@ -83,6 +99,7 @@ function AppRoutes() {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/roadmap" element={<RoadmapPage />} />
         <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
