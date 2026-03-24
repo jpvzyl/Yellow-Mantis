@@ -75,6 +75,11 @@ function EditableDescription({ value, onSave }: { value?: string; onSave: (v: st
     setEditing(false)
   }
 
+  const cancel = () => {
+    setDraft(value || '')
+    setEditing(false)
+  }
+
   if (!editing) {
     return (
       <div
@@ -91,21 +96,36 @@ function EditableDescription({ value, onSave }: { value?: string; onSave: (v: st
   }
 
   return (
-    <textarea
-      ref={textareaRef}
-      value={draft}
-      onChange={(e) => {
-        setDraft(e.target.value)
-        e.target.style.height = 'auto'
-        e.target.style.height = e.target.scrollHeight + 'px'
-      }}
-      onBlur={commit}
-      onKeyDown={(e) => {
-        if (e.key === 'Escape') { setDraft(value || ''); setEditing(false) }
-      }}
-      placeholder="Add description..."
-      className="w-full text-sm text-text-secondary bg-surface-tertiary rounded px-1 -mx-1 py-0.5 outline-none ring-1 ring-accent resize-none leading-relaxed min-h-[4rem]"
-    />
+    <div>
+      <textarea
+        ref={textareaRef}
+        value={draft}
+        onChange={(e) => {
+          setDraft(e.target.value)
+          e.target.style.height = 'auto'
+          e.target.style.height = e.target.scrollHeight + 'px'
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') cancel()
+        }}
+        placeholder="Add description..."
+        className="w-full text-sm text-text-secondary bg-surface-tertiary rounded px-1 -mx-1 py-0.5 outline-none ring-1 ring-accent resize-none leading-relaxed min-h-[4rem]"
+      />
+      <div className="flex items-center gap-2 mt-2">
+        <button
+          onClick={commit}
+          className="px-3 py-1.5 text-xs font-medium text-white bg-accent rounded-md hover:bg-accent-hover transition-colors"
+        >
+          Save
+        </button>
+        <button
+          onClick={cancel}
+          className="px-3 py-1.5 text-xs text-text-secondary hover:text-text-primary rounded-md hover:bg-surface-hover transition-colors"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
   )
 }
 

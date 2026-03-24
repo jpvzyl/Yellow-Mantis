@@ -1,12 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from './client'
-import type { Issue, Team, Label, User, Workspace, Comment, Project } from '../types'
+import type { Issue, Team, Label, User, Workspace, Comment, Project, Company, CompanyMember } from '../types'
 
 // Auth
 export function useMe() {
   return useQuery({
     queryKey: ['me'],
-    queryFn: () => api.get<{ user: User; workspaces: Workspace[] }>('/auth/me'),
+    queryFn: () => api.get<{ user: User; workspaces: Workspace[]; companies: Company[] }>('/auth/me'),
     retry: false,
   })
 }
@@ -71,6 +71,18 @@ export function useIssue(teamId: string, issueId: string) {
   })
 }
 
+export function useCreateTeam() {
+  const qc = useQueryClient()
+  const slug = api.getWorkspaceSlug()
+  return useMutation({
+    mutationFn: (params: { name: string; identifier: string; color?: string; description?: string }) =>
+      api.post<Team>(`/${slug}/teams`, params),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['teams', slug] })
+    },
+  })
+}
+
 export function useCreateIssue(teamId: string) {
   const qc = useQueryClient()
   const slug = api.getWorkspaceSlug()
@@ -89,9 +101,22 @@ export function useUpdateIssue(teamId: string) {
   return useMutation({
     mutationFn: ({ id, ...params }: Partial<Issue> & { id: string }) =>
       api.patch<Issue>(`/${slug}/teams/${teamId}/issues/${id}`, params),
+    onMutate: async ({ id, ...params }) => {
+      await qc.cancelQueries({ queryKey: ['issue', id] })
+      const previous = qc.getQueryData<Issue>(['issue', id])
+      if (previous) {
+        qc.setQueryData<Issue>(['issue', id], { ...previous, ...params } as Issue)
+      }
+      return { previous, id }
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) {
+        qc.setQueryData(['issue', context.id], context.previous)
+      }
+    },
     onSuccess: (data) => {
-      qc.invalidateQueries({ queryKey: ['issues', teamId] })
       qc.setQueryData(['issue', data.id], data)
+      qc.invalidateQueries({ queryKey: ['issues', teamId] })
     },
   })
 }
@@ -160,6 +185,18 @@ export function useProjects() {
   })
 }
 
+export function useCreateProject() {
+  const qc = useQueryClient()
+  const slug = api.getWorkspaceSlug()
+  return useMutation({
+    mutationFn: (params: { name: string; description?: string; color?: string; status?: string; target_date?: string }) =>
+      api.post<Project>(`/${slug}/projects`, params),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['projects', slug] })
+    },
+  })
+}
+
 // Search
 export function useSearch(query: string) {
   const slug = api.getWorkspaceSlug()
@@ -167,5 +204,66 @@ export function useSearch(query: string) {
     queryKey: ['search', query],
     queryFn: () => api.get<{ issues: Issue[]; projects: Project[] }>(`/${slug}/search?q=${encodeURIComponent(query)}`),
     enabled: !!slug && query.length >= 2,
+  })
+}
+
+// Companies
+export function useCompanies() {
+  return useQuery({
+    queryKey: ['companies'],
+    queryFn: () => api.get<Company[]>('/companies'),
+  })
+}
+
+export function useCreateCompany() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (params: { name: string; description?: string; color?: string }) =>
+      api.post<Company>('/companies', params),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['companies'] })
+      qc.invalidateQueries({ queryKey: ['me'] })
+    },
+  })
+}
+
+export function useCompanyMembers(companyId: string) {
+  return useQuery({
+    queryKey: ['company-members', companyId],
+    queryFn: () => api.get<CompanyMember[]>(`/companies/${companyId}/members`),
+    enabled: !!companyId,
+  })
+}
+
+export function useAddCompanyMember(companyId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (params: { email: string; name?: string; password?: string; role?: string }) =>
+      api.post<CompanyMember>(`/companies/${companyId}/members`, params),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['company-members', companyId] })
+    },
+  })
+}
+
+export function useUpdateCompanyMember(companyId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, role }: { id: string; role: string }) =>
+      api.patch<CompanyMember>(`/companies/${companyId}/members/${id}`, { role }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['company-members', companyId] })
+    },
+  })
+}
+
+export function useRemoveCompanyMember(companyId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (memberId: string) =>
+      api.delete(`/companies/${companyId}/members/${memberId}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['company-members', companyId] })
+    },
   })
 }
