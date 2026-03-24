@@ -1,4 +1,5 @@
 class Workspace < ApplicationRecord
+  belongs_to :company, optional: true
   has_many :workspace_memberships, dependent: :destroy
   has_many :users, through: :workspace_memberships
   has_many :teams, dependent: :destroy

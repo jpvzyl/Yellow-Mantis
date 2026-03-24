@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
 
+  has_many :company_memberships, dependent: :destroy
+  has_many :companies, through: :company_memberships
   has_many :workspace_memberships, dependent: :destroy
   has_many :workspaces, through: :workspace_memberships
   has_many :team_memberships, dependent: :destroy
@@ -12,6 +14,10 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :name, presence: true
+
+  def admin_of?(company)
+    company_memberships.exists?(company: company, role: :admin)
+  end
 
   def generate_token
     JsonWebToken.encode(user_id: id)

@@ -6,6 +6,11 @@ Rails.application.routes.draw do
       post "auth/refresh", to: "auth#refresh"
       get "auth/me", to: "auth#me"
 
+      resources :companies, only: [:index, :show, :create, :update] do
+        resources :members, only: [:index, :create, :update, :destroy],
+          controller: "company/members"
+      end
+
       post "workspaces/join", to: "workspaces#join"
 
       scope ":workspace_slug" do

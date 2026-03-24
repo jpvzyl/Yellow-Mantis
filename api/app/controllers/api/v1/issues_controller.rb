@@ -32,7 +32,7 @@ module Api
 
       def update
         if @issue.update(issue_params)
-          render json: IssueSerializer.render(@issue)
+          render json: IssueSerializer.render(@issue, view: :detail)
         else
           render json: { errors: @issue.errors.full_messages }, status: :unprocessable_entity
         end

@@ -7,8 +7,14 @@ module Api
         user = User.new(register_params)
 
         if user.save
+          company = nil
           workspace = nil
-          if params[:workspace_name].present?
+
+          if params[:company_name].present?
+            company = Company.create!(name: params[:company_name])
+            CompanyMembership.create!(company: company, user: user, role: :admin)
+            workspace = company.workspaces.first
+          elsif params[:workspace_name].present?
             workspace = Workspace.create!(name: params[:workspace_name])
             WorkspaceMembership.create!(workspace: workspace, user: user, role: :owner)
           end
@@ -17,7 +23,8 @@ module Api
             user: UserSerializer.render(user),
             token: user.generate_token,
             refresh_token: user.generate_refresh_token,
-            workspace: workspace ? WorkspaceSerializer.render(workspace) : nil
+            workspace: workspace ? WorkspaceSerializer.render(workspace) : nil,
+            company: company ? CompanySerializer.render(company, membership: user.company_memberships.find_by(company: company)) : nil
           }, status: :created
         else
           render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
@@ -57,9 +64,13 @@ module Api
       end
 
       def me
+        companies = current_user.companies.includes(:workspaces)
         render json: {
           user: UserSerializer.render(current_user),
-          workspaces: current_user.workspaces.map { |w| WorkspaceSerializer.render(w) }
+          workspaces: current_user.workspaces.map { |w| WorkspaceSerializer.render(w) },
+          companies: companies.map { |c|
+            CompanySerializer.render(c, membership: current_user.company_memberships.find_by(company: c))
+          }
         }
       end
 
