@@ -83,6 +83,31 @@ export function useCreateTeam() {
   })
 }
 
+export function useUpdateTeam() {
+  const qc = useQueryClient()
+  const slug = api.getWorkspaceSlug()
+  return useMutation({
+    mutationFn: ({ id, ...params }: { id: string; name?: string; color?: string; description?: string }) =>
+      api.patch<Team>(`/${slug}/teams/${id}`, params),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: ['teams', slug] })
+      qc.invalidateQueries({ queryKey: ['team', data.identifier] })
+    },
+  })
+}
+
+export function useDeleteTeam() {
+  const qc = useQueryClient()
+  const slug = api.getWorkspaceSlug()
+  return useMutation({
+    mutationFn: (teamId: string) =>
+      api.delete(`/${slug}/teams/${teamId}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['teams', slug] })
+    },
+  })
+}
+
 export function useCreateIssue(teamId: string) {
   const qc = useQueryClient()
   const slug = api.getWorkspaceSlug()

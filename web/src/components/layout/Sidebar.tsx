@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Inbox, User, Star, Layers, LayoutGrid, Map, Settings, ChevronDown, ChevronRight, Plus, Search, Shield, Check } from 'lucide-react'
+import { Inbox, User, Star, Layers, LayoutGrid, Map, Settings, ChevronDown, ChevronRight, Plus, Search, Shield, Check, MoreHorizontal, Pencil, Trash2 } from 'lucide-react'
 import { clsx } from 'clsx'
-import { useTeams, useCreateTeam } from '../../api/hooks'
+import { useTeams, useCreateTeam, useUpdateTeam, useDeleteTeam } from '../../api/hooks'
 import { useUIStore } from '../../stores/ui'
 import { useAuthStore } from '../../stores/auth'
 import { api } from '../../api/client'
@@ -21,24 +21,172 @@ function SidebarLink({ to, icon: Icon, label, active }: { to: string; icon: type
   )
 }
 
-function TeamSection({ team }: { team: { id: string; name: string; identifier: string; color: string; issue_count: number } }) {
+function EditTeamDialog({ team, onClose }: { team: { id: string; name: string; identifier: string; color: string }; onClose: () => void }) {
+  const [name, setName] = useState(team.name)
+  const [color, setColor] = useState(team.color)
+  const updateTeam = useUpdateTeam()
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    try {
+      await updateTeam.mutateAsync({ id: team.identifier, name, color })
+      onClose()
+    } catch {
+      // error handled by mutation
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={onClose}>
+      <div className="bg-surface-secondary border border-border-primary rounded-xl p-6 w-full max-w-md shadow-2xl" onClick={(e) => e.stopPropagation()}>
+        <h2 className="text-lg font-semibold text-text-primary mb-4">Edit Team</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {updateTeam.isError && (
+            <div className="text-sm text-priority-urgent bg-priority-urgent/10 border border-priority-urgent/20 rounded-lg px-3 py-2">
+              {(updateTeam.error as Error).message}
+            </div>
+          )}
+          <div>
+            <label className="block text-xs font-medium text-text-secondary mb-1.5">Team Name</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full bg-surface-tertiary border border-border-primary rounded-lg px-3 py-2 text-sm text-text-primary outline-none focus:border-accent transition-colors"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-text-secondary mb-1.5">Identifier</label>
+            <input
+              type="text"
+              value={team.identifier}
+              disabled
+              className="w-full bg-surface-tertiary border border-border-primary rounded-lg px-3 py-2 text-sm text-text-tertiary font-mono outline-none opacity-50 cursor-not-allowed"
+            />
+            <p className="text-[11px] text-text-tertiary mt-1">Identifier cannot be changed after creation</p>
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-text-secondary mb-1.5">Color</label>
+            <div className="flex gap-2">
+              {TEAM_COLORS.map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setColor(c)}
+                  className={clsx(
+                    'size-8 rounded-lg transition-all',
+                    color === c ? 'ring-2 ring-offset-2 ring-offset-surface-secondary ring-accent scale-110' : 'hover:scale-105'
+                  )}
+                  style={{ backgroundColor: c }}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="flex justify-end gap-2 pt-2">
+            <button type="button" onClick={onClose} className="px-4 py-2 text-sm text-text-secondary hover:text-text-primary rounded-lg hover:bg-surface-hover transition-colors">
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={updateTeam.isPending || !name}
+              className="px-4 py-2 text-sm font-medium text-white bg-accent rounded-lg hover:bg-accent-hover transition-colors disabled:opacity-50"
+            >
+              {updateTeam.isPending ? 'Saving...' : 'Save Changes'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+function TeamSection({ team, isAdmin }: { team: { id: string; name: string; identifier: string; color: string; issue_count: number }; isAdmin: boolean }) {
   const [expanded, setExpanded] = useState(true)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [showEdit, setShowEdit] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
+  const navigate = useNavigate()
+  const deleteTeam = useDeleteTeam()
   const isActive = (path: string) => location.pathname.includes(path)
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const handler = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false)
+        setConfirmDelete(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [menuOpen])
+
+  const handleDelete = async () => {
+    try {
+      await deleteTeam.mutateAsync(team.identifier)
+      setMenuOpen(false)
+      navigate('/')
+    } catch {
+      // error handled by mutation
+    }
+  }
 
   return (
     <div>
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className="flex items-center gap-2 px-3 py-1.5 w-full text-left text-sm text-text-secondary hover:text-text-primary transition-colors"
-      >
-        {expanded ? <ChevronDown className="size-3.5" /> : <ChevronRight className="size-3.5" />}
-        <div className="size-4 rounded flex items-center justify-center text-[10px] font-bold text-white" style={{ backgroundColor: team.color }}>
-          {team.identifier[0]}
-        </div>
-        <span className="font-medium truncate">{team.name}</span>
-        <span className="ml-auto text-xs text-text-tertiary">{team.issue_count}</span>
-      </button>
+      <div className="flex items-center group">
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="flex-1 flex items-center gap-2 px-3 py-1.5 text-left text-sm text-text-secondary hover:text-text-primary transition-colors min-w-0"
+        >
+          {expanded ? <ChevronDown className="size-3.5 shrink-0" /> : <ChevronRight className="size-3.5 shrink-0" />}
+          <div className="size-4 rounded flex items-center justify-center text-[10px] font-bold text-white shrink-0" style={{ backgroundColor: team.color }}>
+            {team.identifier[0]}
+          </div>
+          <span className="font-medium truncate">{team.name}</span>
+          <span className="ml-auto text-xs text-text-tertiary">{team.issue_count}</span>
+        </button>
+        {isAdmin && (
+          <div className="relative" ref={menuRef}>
+            <button
+              onClick={(e) => { e.stopPropagation(); setMenuOpen(!menuOpen); setConfirmDelete(false) }}
+              className="p-1 mr-1 rounded text-text-tertiary hover:text-text-primary hover:bg-surface-hover transition-colors opacity-0 group-hover:opacity-100"
+            >
+              <MoreHorizontal className="size-3.5" />
+            </button>
+            {menuOpen && (
+              <div className="absolute right-0 top-full mt-1 w-40 bg-surface-tertiary border border-border-primary rounded-lg shadow-xl py-1 z-50">
+                <button
+                  onClick={() => { setMenuOpen(false); setShowEdit(true) }}
+                  className="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-text-secondary hover:bg-surface-hover hover:text-text-primary transition-colors"
+                >
+                  <Pencil className="size-3" />
+                  Edit team
+                </button>
+                {!confirmDelete ? (
+                  <button
+                    onClick={() => setConfirmDelete(true)}
+                    className="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-red-400 hover:bg-surface-hover transition-colors"
+                  >
+                    <Trash2 className="size-3" />
+                    Delete team
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleDelete}
+                    className="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-red-400 bg-red-500/10 hover:bg-red-500/20 transition-colors"
+                  >
+                    <Trash2 className="size-3" />
+                    {deleteTeam.isPending ? 'Deleting...' : 'Confirm delete'}
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
       {expanded && (
         <div className="ml-4 mt-0.5 space-y-0.5">
           <Link
@@ -67,6 +215,7 @@ function TeamSection({ team }: { team: { id: string; name: string; identifier: s
           </Link>
         </div>
       )}
+      {showEdit && <EditTeamDialog team={team} onClose={() => setShowEdit(false)} />}
     </div>
   )
 }
@@ -270,11 +419,13 @@ export function Sidebar() {
   const location = useLocation()
   const collapsed = useUIStore((s) => s.sidebarCollapsed)
   const openCommandPalette = useUIStore((s) => s.openCommandPalette)
+  const currentCompany = useAuthStore((s) => s.currentCompany)
   const [showCreateTeam, setShowCreateTeam] = useState(false)
 
   if (collapsed) return null
 
   const isActive = (path: string) => location.pathname === path
+  const isAdmin = currentCompany?.role === 'admin'
 
   return (
     <aside className="w-60 h-screen bg-surface-secondary border-r border-border-primary flex flex-col shrink-0">
@@ -308,7 +459,7 @@ export function Sidebar() {
         </div>
 
         {teams?.map((team) => (
-          <TeamSection key={team.id} team={team} />
+          <TeamSection key={team.id} team={team} isAdmin={!!isAdmin} />
         ))}
 
         <div className="pt-4 pb-1 px-3">
