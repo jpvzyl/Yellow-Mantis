@@ -15,6 +15,7 @@ import { ProjectsPage } from './pages/ProjectsPage'
 import { RoadmapPage } from './pages/RoadmapPage'
 import { SettingsPage } from './pages/SettingsPage'
 import { AdminPage } from './pages/AdminPage'
+import { AiPresentationPage } from './pages/AiPresentationPage'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -83,6 +84,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/presentations/ai" element={<AiPresentationPage />} />
       <Route
         element={
           <AuthGuard>

@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Inbox, User, Star, Layers, LayoutGrid, Map, Settings, ChevronDown, ChevronRight, Plus, Search, Shield, Check, MoreHorizontal, Pencil, Trash2 } from 'lucide-react'
+import { Inbox, User, Star, Layers, LayoutGrid, Map, Settings, ChevronDown, ChevronRight, Plus, Search, Shield, Check, MoreHorizontal, Pencil, Trash2, Presentation } from 'lucide-react'
 import { clsx } from 'clsx'
 import { useTeams, useCreateTeam, useUpdateTeam, useDeleteTeam } from '../../api/hooks'
 import { useUIStore } from '../../stores/ui'
@@ -467,6 +467,11 @@ export function Sidebar() {
         </div>
         <SidebarLink to="/projects" icon={LayoutGrid} label="Projects" active={isActive('/projects')} />
         <SidebarLink to="/roadmap" icon={Map} label="Roadmap" active={isActive('/roadmap')} />
+
+        <div className="pt-4 pb-1 px-3">
+          <span className="text-xs font-medium text-text-tertiary uppercase tracking-wider">Presentations</span>
+        </div>
+        <SidebarLink to="/presentations/ai" icon={Presentation} label="AI: The Full Picture" active={isActive('/presentations/ai')} />
 
         <div className="pt-4 pb-1 px-3">
           <span className="text-xs font-medium text-text-tertiary uppercase tracking-wider">Administration</span>
