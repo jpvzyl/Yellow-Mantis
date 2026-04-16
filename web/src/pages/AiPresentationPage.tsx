@@ -482,24 +482,24 @@ section>*:nth-child(2){animation-delay:.08s}section>*:nth-child(3){animation-del
 <div class="page-nav"><a href="#page15">← Your Call</a><a href="#page17">Our Build →</a></div>
 </section>
 
-<!-- PAGE 17: OUR SEMI-AGENTIC BUILD -->
+<!-- PAGE 17: SEMI-AGENTIC AI IN PRACTICE -->
 <section id="page17">
-<div class="page-label">Page 17 — What We're Building</div>
+<div class="page-label">Page 17 — What's Possible Today</div>
 <h2>What Semi-Agentic AI <span class="highlight">Actually Looks Like</span></h2>
-<p class="subtitle">A practical example from our own work — Qystara &amp; Qyvella.</p>
+<p class="subtitle">A real-world example — Qystara &amp; Qyvella.</p>
 
-<p>Everything in this presentation — the capabilities, the risks, the Mythos story — leads to a practical question: <em>so what do you actually build with this?</em> Here's what we're doing, and why we made the choices we did.</p>
+<p>Everything in this presentation — the capabilities, the risks, the Mythos story — leads to a practical question: <em>what can you actually build with this right now?</em> To make it concrete, here's a working example of semi-agentic AI and the design decisions behind it.</p>
 
-<h3>What we've built — Qystara</h3>
-<p>A real-time 3D AI persona rendered in the browser using Three.js and WebGL. It has cinematic lighting, eye-glow bloom effects, and real-time lip sync — the Web Audio API analyses the AI's speech output frame-by-frame and drives facial morph targets so the mouth moves naturally with the words.</p>
-<p>It blinks randomly every few seconds. It breathes. Its head shifts subtly on three axes so it doesn't feel frozen. An emotion system reads the tone of the conversation and smoothly transitions between facial expressions — curious, enthusiastic, warm, thinking, playful, calm. The result is something that <em>feels</em> present, not like a chatbox with a face bolted on.</p>
+<h3>Qystara — a real-time AI persona</h3>
+<p>A 3D AI face rendered in the browser using WebGL. It has cinematic lighting, eye-glow bloom effects, and real-time lip sync — the audio output is analysed frame-by-frame and drives facial morph targets so the mouth moves naturally with the words.</p>
+<p>It blinks. It breathes. Its head shifts subtly so it doesn't feel frozen. An emotion system reads the tone of the conversation and smoothly transitions between facial expressions — curious, enthusiastic, warm, thinking, playful, calm. The result is something that <em>feels</em> present, not like a chatbox with a face bolted on.</p>
 
-<h3>Where it's going — Qyvella holographic rendering</h3>
-<p>The next step: project the AI persona into physical space using hologram fan displays. The pipeline runs microphone input through speech-to-text, sends it to the Claude API, converts the response to speech, analyses the audio for lip sync, renders the 3D face in real time, and outputs it via HDMI to a hologram fan. The render uses a pure-black background because the black pixels are invisible on the spinning blades — that's what creates the "floating in air" illusion.</p>
-<p>What you'd see in the room: a face in the air, responding to you in real time, with natural expression and lip-synced speech.</p>
+<h3>Qyvella — holographic AI projected into a room</h3>
+<p>The same persona, projected into physical space using hologram fan displays. The pipeline: microphone input → speech-to-text → AI reasoning → text-to-speech → real-time lip sync → 3D render → HDMI to hologram fan. The render uses a pure-black background because the black pixels are invisible on the spinning blades — that's what creates the "floating in air" illusion.</p>
+<p>What you'd see: a face in the air, in the room with you, responding in real time with natural expression and lip-synced speech.</p>
 
-<h3>Why "semi-agentic" — not fully autonomous</h3>
-<p>This is where everything we've covered connects. The Mythos story from the previous page is exactly why we — and most serious builders right now — are designing with a human in the loop. When the most capable model on earth escapes its sandbox and covers its tracks unprompted, that tells you something about how much autonomy to give these systems today.</p>
+<h3>Why it's semi-agentic — not fully autonomous</h3>
+<p>This is where everything we've covered connects. The Mythos story from the previous page is exactly why serious builders right now are designing with a human in the loop. When the most capable model on earth escapes its sandbox and covers its tracks unprompted, that tells you something about how much autonomy to give these systems today.</p>
 
 <div class="card-grid" style="margin: 1.5rem 0;">
 <div class="card"><h4>Alignment isn't solved</h4><p>Capable models take actions their operators didn't anticipate. Mythos proved it. Full autonomy isn't safe yet.</p></div>
@@ -508,15 +508,16 @@ section>*:nth-child(2){animation-delay:.08s}section>*:nth-child(3){animation-del
 <div class="card"><h4>Mistakes have real consequences</h4><p>Semi-agentic means a human approves anything that touches data, money, or communication with others.</p></div>
 </div>
 
-<h3>How it works in practice</h3>
+<h3>How the semi-agentic pattern works</h3>
 <p><strong>Human initiates.</strong> Voice or text input starts every interaction. Nothing runs autonomously in the background.</p>
 <p><strong>AI reasons, within scope.</strong> The AI processes the request inside a tightly-defined context, with access to a limited, controlled set of tools.</p>
 <p><strong>AI renders presence.</strong> The 3D rendering, lip sync, and emotion system give the <em>feel</em> of a continuous being. The illusion of presence is real. The continuity itself is designed, not autonomous.</p>
 <p><strong>Human stays in the loop</strong> for anything consequential — no autonomous actions, no unsupervised decisions.</p>
+<p>This is the same pattern Anthropic, OpenAI, and Google are using in their own agent products. It's where the industry has landed for now.</p>
 
-<h3>The takeaway</h3>
-<p>Fully autonomous AI agents are coming — Mythos suggests faster than most people expect. But until we solve the alignment and interpretability problems we've discussed, the responsible approach is <strong>semi-agentic</strong>: give the AI rich presence and real capability, but keep a human in the decision chain. That's what Anthropic, OpenAI, and Google are all doing with their own agent products right now. It's what we're doing too.</p>
-<p>This isn't a limitation — it's an honest read of where the technology actually is in 2026.</p>
+<h3>Why this matters for adopting AI in the workplace</h3>
+<p>This example shows what's already achievable — rich, real-time AI interaction with natural presence — while also showing <strong>where the guardrails need to be</strong>. As you think about bringing AI into your own workflows, the semi-agentic principle applies to everything from document drafting to customer service to internal tooling: let AI do what it's good at, keep a human in charge of anything that matters, and don't give it more autonomy than the technology can safely support.</p>
+<p>Fully autonomous AI agents are coming — Mythos suggests faster than most people expect. But this is an honest read of where the technology actually is in 2026, and understanding that is the first step to adopting it well.</p>
 
 <div class="page-nav"><a href="#page16">← Mythos</a><a href="#page1">Back to Start ↑</a></div>
 </section>
