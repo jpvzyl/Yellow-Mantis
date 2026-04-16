@@ -1,13 +1,13 @@
 # Yellow Mantis Technology Group - Project Context & Memory
 
-**Last Updated:** December 15, 2025  
+**Last Updated:** April 6, 2026  
 **Workspace:** `/Users/jpvanzyl/Workspaces/Yellow-Manits`
 
 ---
 
 ## Project Overview
 
-Yellow Mantis is an investor-facing React website showcasing a technology holding company with ventures in:
+Yellow Mantis is a technology holding company with ventures in:
 - **Y-QA Platform** - AI-powered QA testing (Valuation: R15M)
 - **Quantum Bridge** - Quantum-classical computing bridge (Valuation: R7.5M-R12.5M)
 - **Qyvella Robotics** - AI robotics platform (Valuation: R5M-R7.5M)
@@ -15,15 +15,48 @@ Yellow Mantis is an investor-facing React website showcasing a technology holdin
 
 **Total Portfolio Valuation:** R30M - R40M (Conservative)
 
+The repo contains **three applications** in a monorepo:
+
+| App | Directory | Stack | Purpose |
+|-----|-----------|-------|---------|
+| **Pitch Deck** | `/` (root) | React 18, Webpack 5, Express.js | Investor-facing website at yellow-mantis.com |
+| **PM Web App** | `/web` | React 19, Vite, TypeScript, Tailwind CSS 4, TanStack Query, Zustand, Radix UI | Linear-style project management tool |
+| **PM API** | `/api` | Rails 7.1, Ruby 3.1.6, PostgreSQL, Puma, JWT, Pundit, Sidekiq | Backend API for PM web app |
+
 ---
 
 ## Deployment Information
 
 ### Production URLs
-- **Main Site:** https://yellow-mantis.com
-- **Heroku App:** https://yellow-mantis-pitch-cbf8600f787f.herokuapp.com
 
-### Key Pages
+| App | Heroku App Name | Production URL |
+|-----|-----------------|----------------|
+| **Pitch Deck** | `yellow-mantis-pitch` | https://yellow-mantis.com / https://yellow-mantis-pitch-cbf8600f787f.herokuapp.com |
+| **PM Web App** | `yellow-mantis-pm-web` | https://yellow-mantis-pm-web-fa3ee43b29be.herokuapp.com |
+| **PM API** | `yellow-mantis-pm-api` | https://yellow-mantis-pm-api-dbc580dfc947.herokuapp.com |
+
+### Git Remotes
+
+| Remote | URL | Deploys |
+|--------|-----|---------|
+| `origin` | https://github.com/jpvzyl/Yellow-Mantis.git | GitHub (source of truth) |
+| `heroku` | https://git.heroku.com/yellow-mantis-pitch.git | Pitch deck site |
+| `heroku-api` | https://git.heroku.com/yellow-mantis-pm-api.git | PM API |
+| `heroku-web` | https://git.heroku.com/yellow-mantis-pm-web.git | PM web app |
+
+### Heroku Buildpack Config (PM Web App)
+
+The `heroku-web` app uses a monorepo buildpack to build from the `web/` subdirectory:
+
+1. `https://github.com/lstoll/heroku-buildpack-monorepo` (copies `web/` to root)
+2. `heroku/nodejs` (builds the Vite app)
+
+**Config vars:**
+- `APP_BASE=web`
+- `VITE_API_URL=https://yellow-mantis-pm-api-dbc580dfc947.herokuapp.com`
+
+### Pitch Deck Pages
+
 | Page | URL | Description |
 |------|-----|-------------|
 | Introduction Letter | `/introduction-letter` | Company overview |
@@ -35,26 +68,78 @@ Yellow Mantis is an investor-facing React website showcasing a technology holdin
 | Company Structure #2 | `/structure/m4p2n` | Interactive org chart (standalone) |
 | Company Structure #3 | `/structure/q8f5t` | Interactive org chart (standalone) |
 
+### PM Web App Pages
+
+| Page | URL | Description |
+|------|-----|-------------|
+| Dashboard | `/` | Team overview |
+| Team Issues | `/team/:id/issues` | Issue list per team |
+| Team Board | `/team/:id/board` | Kanban board per team |
+| Inbox | `/inbox` | Notifications |
+| My Issues | `/my-issues` | Personal issue list |
+| Favorites | `/favorites` | Starred items |
+| Projects | `/projects` | Project management |
+| Roadmap | `/roadmap` | Roadmap view |
+| Settings | `/settings` | Workspace settings |
+| Admin | `/admin` | User management (admin only) |
+| AI Presentation | `/presentations/ai` | "AI: The Full Picture" — 15-section standalone presentation (April 2026) |
+
+### Presentations (Live URLs)
+
+- **AI: The Full Picture:** https://yellow-mantis-pm-web-fa3ee43b29be.herokuapp.com/presentations/ai
+
 ### Deployment Commands
+
+**Pitch Deck (yellow-mantis.com):**
 ```bash
 cd /Users/jpvanzyl/Workspaces/Yellow-Manits
 npm run build
-git add -A && git commit -m "Your message"
 git push origin main
 heroku login  # If authentication expired
 git push heroku main
+```
+
+**PM Web App:**
+```bash
+cd /Users/jpvanzyl/Workspaces/Yellow-Manits
+git push origin main
+git push heroku-web main
+```
+
+**PM API:**
+```bash
+cd /Users/jpvanzyl/Workspaces/Yellow-Manits
+git push origin main
+git push heroku-api main
 ```
 
 ---
 
 ## Tech Stack
 
+### Pitch Deck (root)
 - **Frontend:** React 18 + React Router DOM
 - **Bundler:** Webpack 5
 - **Server:** Express.js (for Heroku)
 - **Styling:** CSS with CSS Variables (themes)
-- **Hosting:** Heroku + Custom Domain (yellow-mantis.com)
-- **DNS:** Google Domains (configured)
+
+### PM Web App (`/web`)
+- **Frontend:** React 19, TypeScript, react-router-dom v7
+- **Bundler:** Vite 7
+- **Styling:** Tailwind CSS 4
+- **State:** Zustand (auth, UI), TanStack Query (server state)
+- **UI Components:** Radix UI, Lucide icons
+- **Layout:** Sidebar + main content via `AppLayout` → `<Outlet />`
+- **Auth:** JWT token, `AuthGuard` wrapper
+
+### PM API (`/api`)
+- **Framework:** Rails 7.1, Ruby 3.1.6
+- **Database:** PostgreSQL
+- **Server:** Puma
+- **Auth:** JWT (Devise + jwt gem)
+- **Authorization:** Pundit
+- **Background Jobs:** Sidekiq + Redis
+- **Multi-tenancy:** Company → Workspace scoping
 
 ---
 
@@ -62,37 +147,59 @@ git push heroku main
 
 ```
 Yellow-Manits/
-├── src/
-│   ├── App.js                    # Main router
-│   ├── index.js                  # Entry point
+├── src/                              # Pitch deck (root app)
+│   ├── App.js
+│   ├── index.js
 │   ├── components/
-│   │   ├── Header.js/css         # Navigation
-│   │   ├── Footer.js/css         # Footer
-│   │   └── MantisIcon.js         # Logo component (PNG)
-│   ├── pages/
-│   │   ├── IntroductionLetter.js/css
-│   │   ├── PitchDeck.js/css
-│   │   ├── FullFeatures.js/css
-│   │   ├── QuantumForInvestors.js/css
-│   │   ├── FundingRequirements.js/css  # Interactive budget
-│   │   └── CompanyStructure.js/css     # Interactive org chart
-│   └── styles/
-│       ├── global.css            # Global styles
-│       └── themes.css            # Theme variables
-├── public/
-│   ├── index.html
-│   ├── favicon.ico
-│   └── mantis-logo-transparent.png
-├── dist/                         # Built files
-├── server.js                     # Express server
+│   └── pages/
+├── server.js                         # Express server (pitch deck)
 ├── webpack.config.js
-├── package.json
-└── Documentation files (.md)
+├── package.json                      # Root pitch deck package
+│
+├── web/                              # PM Web App (Vite + React)
+│   ├── src/
+│   │   ├── App.tsx                   # Router + AuthGuard
+│   │   ├── main.tsx                  # Entry point
+│   │   ├── api/                      # API client + hooks
+│   │   ├── components/
+│   │   │   └── layout/
+│   │   │       ├── AppLayout.tsx     # Sidebar + Outlet shell
+│   │   │       ├── Sidebar.tsx       # Navigation sidebar
+│   │   │       └── CommandPalette.tsx
+│   │   ├── pages/
+│   │   │   ├── DashboardPage.tsx
+│   │   │   ├── TeamIssuesPage.tsx
+│   │   │   ├── AiPresentationPage.tsx  # Standalone AI presentation
+│   │   │   └── ...
+│   │   ├── stores/                   # Zustand stores (auth, ui)
+│   │   └── types/
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── api/                              # PM API (Rails)
+│   ├── app/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── policies/                 # Pundit policies
+│   │   └── serializers/
+│   ├── db/
+│   │   └── migrate/
+│   ├── Gemfile
+│   ├── Dockerfile
+│   └── Procfile
+│
+├── Architecture/                     # Documentation
+│   └── PROJECT_CONTEXT.md            # This file
+├── DEPLOY_AND_DOMAIN.md
+└── public/
+    ├── index.html
+    ├── favicon.ico
+    └── mantis-logo-transparent.png
 ```
 
 ---
 
-## Interactive Features
+## Interactive Features (Pitch Deck)
 
 ### 1. Funding Requirements Page (`/funding`)
 
@@ -131,7 +238,7 @@ Yellow-Manits/
 
 ## Design System
 
-### Colors (Deep Charcoal Theme - Static)
+### Pitch Deck Colors (Deep Charcoal Theme)
 ```css
 --bg-primary: #1a1a1a
 --bg-secondary: #242424
@@ -143,23 +250,32 @@ Yellow-Manits/
 --border-subtle: rgba(255, 255, 255, 0.1)
 ```
 
+### PM Web App
+- Tailwind CSS 4 with custom theme tokens (defined in Tailwind config)
+- Dark theme with surface/text/border token system
+
 ### Fonts
 - Headers: System fonts with fallbacks
 - Mono: JetBrains Mono (for numbers/code)
 
 ---
 
-## Recent Changes (December 2025)
+## Recent Changes
 
+### April 2026
+1. **Added AI Presentation page** — "AI: The Full Picture" at `/presentations/ai` in PM web app, 15-section standalone presentation for company AI talk
+2. **Fixed Heroku PM web deployment** — Added monorepo buildpack + `APP_BASE=web` config so `heroku-web` correctly builds the Vite app instead of the root pitch deck
+3. **Multi-tenant company management** — Added company model, company switcher in sidebar, admin user management
+
+### December 2025
 1. **Added Company Structure pages** - Interactive drag-and-drop org charts with 3 unique URLs
 2. **Enhanced Funding Requirements** - Added growth percentages, share purchase section, unit costs for robotics
 3. **Removed theme switcher** - Static Deep Charcoal theme
 4. **Logo updated** - Using `mantis-logo-transparent.png` (static, no animation)
-5. **Bullet points fixed** - Changed from arrows → to simple bullets •
-6. **Renamed Nova Robotics → Qyvella Robotics**
-7. **Changed Y-QA status** - "Rollout Q1 2026"
-8. **Added Y-Accounting note** - "In conjunction with a third party"
-9. **Changed "Founder & CEO" → "Founder"**
+5. **Renamed Nova Robotics → Qyvella Robotics**
+6. **Changed Y-QA status** - "Rollout Q1 2026"
+7. **Added Y-Accounting note** - "In conjunction with a third party"
+8. **Changed "Founder & CEO" → "Founder"**
 
 ---
 
@@ -201,7 +317,15 @@ Yellow-Manits/
 ### Heroku Push Fails
 ```bash
 heroku login  # Re-authenticate
-git push heroku main
+git push heroku main       # Pitch deck
+git push heroku-web main   # PM web app
+git push heroku-api main   # PM API
+```
+
+### Heroku Push Rejected (non-fast-forward)
+Heroku remotes can diverge. Since GitHub is the source of truth, force push is safe:
+```bash
+git push heroku-web main --force
 ```
 
 ### Port 3000 in Use (Local Dev)
@@ -212,6 +336,14 @@ npm start
 
 ### Build Errors
 ```bash
+rm -rf node_modules
+npm install
+npm run build
+```
+
+### PM Web App Build Errors
+```bash
+cd web
 rm -rf node_modules
 npm install
 npm run build
