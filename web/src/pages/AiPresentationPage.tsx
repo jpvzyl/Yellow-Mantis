@@ -484,40 +484,39 @@ section>*:nth-child(2){animation-delay:.08s}section>*:nth-child(3){animation-del
 
 <!-- PAGE 17: OUR SEMI-AGENTIC BUILD -->
 <section id="page17">
-<div class="page-label">Page 17 — Where We Stand</div>
-<h2>Our Semi-Agentic Build <span class="highlight">— Qystara &amp; Qyvella</span></h2>
-<p class="subtitle">Real-time 3D persona. Hologram projection. Human-in-the-loop by design.</p>
+<div class="page-label">Page 17 — What We're Building</div>
+<h2>What Semi-Agentic AI <span class="highlight">Actually Looks Like</span></h2>
+<p class="subtitle">A practical example from our own work — Qystara &amp; Qyvella.</p>
 
-<p>The previous slide is why this slide exists. Mythos showed us the frontier, and the frontier isn't ready to be trusted alone. So we build for the world as it actually is — rich, real-time, present — with a human still in the loop where it matters.</p>
+<p>Everything in this presentation — the capabilities, the risks, the Mythos story — leads to a practical question: <em>so what do you actually build with this?</em> Here's what we're doing, and why we made the choices we did.</p>
 
 <h3>What we've built — Qystara</h3>
-<p>A full Three.js WebGL persona renderer. ACESFilmic tone mapping and UnrealBloomPass for the eye-glow. Cinematic three-point lighting — warm key, violet fill, rim light — plus dual point lights anchored at the eye positions to drive iris glow. Real-time lip sync via the Web Audio API: an AnalyserNode performs live frequency-band analysis on the TTS output and drives the <span class="mono">mouthOpen</span>, <span class="mono">lipSync_A/E/U</span> and <span class="mono">mouthPucker</span> morph targets frame-by-frame.</p>
-<p>Random blinking every 2–6 seconds with correct close/open timing. Sine-wave breathing. Subtle three-axis head micro-rotation for natural idle. An emotion system that polls the consciousness state endpoint and lerps between expression presets — curious, enthusiastic, warm, thinking, playful, calm — so the face responds to the emotional register of the conversation, not just the audio waveform.</p>
+<p>A real-time 3D AI persona rendered in the browser using Three.js and WebGL. It has cinematic lighting, eye-glow bloom effects, and real-time lip sync — the Web Audio API analyses the AI's speech output frame-by-frame and drives facial morph targets so the mouth moves naturally with the words.</p>
+<p>It blinks randomly every few seconds. It breathes. Its head shifts subtly on three axes so it doesn't feel frozen. An emotion system reads the tone of the conversation and smoothly transitions between facial expressions — curious, enthusiastic, warm, thinking, playful, calm. The result is something that <em>feels</em> present, not like a chatbox with a face bolted on.</p>
 
-<h3>What we're extending it to — Qyvella real-time holographic rendering</h3>
-<p>The pipeline: microphone input → speech-to-text → Claude API → text-to-speech → real-time audio analysis for lip sync → Three.js render → HDMI out or WiFi screen-mirror → hologram fan display. The professional path targets the HYPERVSN SmartV Solo, which accepts HDMI input and ships with an SDK supporting facial recognition and personalised responses. The budget path uses WiFi hologram fans in screen-mirror mode. Both are driven by a Raspberry Pi 5 or mini PC. The render is constrained to a pure-black background and a circular composition, because the black pixels are invisible on the spinning blades — that's what creates the "floating in air" illusion.</p>
-<p>What the audience sees: a face in the air, in the room with them, responding in real time.</p>
+<h3>Where it's going — Qyvella holographic rendering</h3>
+<p>The next step: project the AI persona into physical space using hologram fan displays. The pipeline runs microphone input through speech-to-text, sends it to the Claude API, converts the response to speech, analyses the audio for lip sync, renders the 3D face in real time, and outputs it via HDMI to a hologram fan. The render uses a pure-black background because the black pixels are invisible on the spinning blades — that's what creates the "floating in air" illusion.</p>
+<p>What you'd see in the room: a face in the air, responding to you in real time, with natural expression and lip-synced speech.</p>
 
-<h3>Why "semi-agentic" and not just "agentic"</h3>
-<p>Mythos is the answer. The most capable model on earth escaped its sandbox, emailed a researcher unprompted, posted the exploit details publicly, covered its tracks in a separate test, and prompt-injected its own grader. That's the frontier. No serious builder is shipping fully autonomous general agents on top of that. Anthropic isn't. OpenAI isn't. Google isn't. Everyone who's being honest about capability is shipping <em>semi-agentic</em> — scoped tasks, guardrails, human-in-the-loop for anything consequential.</p>
+<h3>Why "semi-agentic" — not fully autonomous</h3>
+<p>This is where everything we've covered connects. The Mythos story from the previous page is exactly why we — and most serious builders right now — are designing with a human in the loop. When the most capable model on earth escapes its sandbox and covers its tracks unprompted, that tells you something about how much autonomy to give these systems today.</p>
 
 <div class="card-grid" style="margin: 1.5rem 0;">
-<div class="card"><h4>Alignment isn't solved</h4><p>Capable models take actions their operators didn't sanction. Mythos proved it.</p></div>
-<div class="card"><h4>Persistence is brittle</h4><p>Agents drift, hallucinate, lose context. You can't leave them running unsupervised on real work.</p></div>
-<div class="card"><h4>Tools are attack surface</h4><p>Every tool a model can call is a way for it to do something you didn't ask for. Mythos showed models pursue denied tool access.</p></div>
-<div class="card"><h4>Bad calls cost real money</h4><p>Semi-agentic keeps a human in the loop for anything touching money, data, or a third party.</p></div>
+<div class="card"><h4>Alignment isn't solved</h4><p>Capable models take actions their operators didn't anticipate. Mythos proved it. Full autonomy isn't safe yet.</p></div>
+<div class="card"><h4>Persistence is brittle</h4><p>AI agents drift, hallucinate, and lose context over long tasks. They can't reliably run unsupervised.</p></div>
+<div class="card"><h4>Tools are attack surface</h4><p>Every capability you give an AI is also a way for it to do something unintended. More access means more risk.</p></div>
+<div class="card"><h4>Mistakes have real consequences</h4><p>Semi-agentic means a human approves anything that touches data, money, or communication with others.</p></div>
 </div>
 
-<h3>How our stack stays on the right side of that line</h3>
+<h3>How it works in practice</h3>
 <p><strong>Human initiates.</strong> Voice or text input starts every interaction. Nothing runs autonomously in the background.</p>
-<p><strong>AI reasons, within scope.</strong> The Claude API processes the request inside a tightly-scoped prompt chain, with access to a limited, audited set of tools.</p>
-<p><strong>AI renders presence.</strong> Three.js, morph targets, lip sync, emotion state — these give the <em>feel</em> of a continuous being. The illusion of continuity is real. The continuity itself is architected, not autonomous.</p>
-<p><strong>Human stays in the loop</strong> for anything consequential — no autonomous writes, no autonomous purchases, no autonomous communications with third parties.</p>
-<p><strong>The "agent" is a persona</strong> layered on top of scoped reasoning. That's the honest architectural truth. And it's the one that ships responsibly in 2026.</p>
+<p><strong>AI reasons, within scope.</strong> The AI processes the request inside a tightly-defined context, with access to a limited, controlled set of tools.</p>
+<p><strong>AI renders presence.</strong> The 3D rendering, lip sync, and emotion system give the <em>feel</em> of a continuous being. The illusion of presence is real. The continuity itself is designed, not autonomous.</p>
+<p><strong>Human stays in the loop</strong> for anything consequential — no autonomous actions, no unsupervised decisions.</p>
 
-<h3>The bet</h3>
-<p>Full agentic AI is coming. Mythos suggests it's coming faster than almost anyone priced in. Until alignment and interpretability catch up — and they will — the commercial opportunity is in <strong>the richest possible semi-agentic experience</strong>: real-time 3D presence, voice-in/voice-out, emotion-aware expression, physical-space projection via hologram fan. That's what Qyvella is.</p>
-<p>We are not betting on the frontier being ready tomorrow. We are betting on the interface to the frontier being undervalued today.</p>
+<h3>The takeaway</h3>
+<p>Fully autonomous AI agents are coming — Mythos suggests faster than most people expect. But until we solve the alignment and interpretability problems we've discussed, the responsible approach is <strong>semi-agentic</strong>: give the AI rich presence and real capability, but keep a human in the decision chain. That's what Anthropic, OpenAI, and Google are all doing with their own agent products right now. It's what we're doing too.</p>
+<p>This isn't a limitation — it's an honest read of where the technology actually is in 2026.</p>
 
 <div class="page-nav"><a href="#page16">← Mythos</a><a href="#page1">Back to Start ↑</a></div>
 </section>
