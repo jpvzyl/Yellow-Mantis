@@ -5,6 +5,7 @@ const typeStyles: Record<string, string> = {
   backlog: 'border-dashed border-status-backlog',
   unstarted: 'border-solid border-status-todo',
   started: 'border-solid border-status-in-progress bg-status-in-progress/20',
+  in_review: 'border-solid border-status-in-review bg-status-in-review/20',
   completed: 'border-solid border-status-done bg-status-done/20',
   cancelled: 'border-solid border-status-cancelled bg-status-cancelled/20',
 }
@@ -34,6 +35,14 @@ export function StatusIcon({ state, className }: { state: WorkflowState; classNa
     return (
       <div className={clsx('size-4 rounded-full border-2 relative overflow-hidden', typeStyles[state.state_type], className)}>
         <div className="absolute inset-0 bg-status-in-progress/40" style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' }} />
+      </div>
+    )
+  }
+
+  if (state.state_type === 'in_review') {
+    return (
+      <div className={clsx('size-4 rounded-full border-2 relative overflow-hidden', typeStyles[state.state_type], className)}>
+        <div className="absolute inset-0 bg-status-in-review/60" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 50%, 0 50%)' }} />
       </div>
     )
   }

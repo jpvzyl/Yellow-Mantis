@@ -25,8 +25,23 @@ describe('IssueBoard', () => {
     expect(screen.getByText('Backlog')).toBeInTheDocument()
     expect(screen.getByText('Todo')).toBeInTheDocument()
     expect(screen.getByText('In Progress')).toBeInTheDocument()
+    expect(screen.getByText('QA')).toBeInTheDocument()
     expect(screen.getByText('Done')).toBeInTheDocument()
     expect(screen.getByText('Cancelled')).toBeInTheDocument()
+  })
+
+  it('renders QA column between In Progress and Done', () => {
+    render(
+      <IssueBoard
+        issues={[]}
+        workflowStates={mockWorkflowStates}
+        onMoveIssue={onMoveIssue}
+      />
+    )
+    const columnNames = screen
+      .getAllByText(/Backlog|Todo|In Progress|QA|Done|Cancelled/)
+      .map((el) => el.textContent)
+    expect(columnNames).toEqual(['Backlog', 'Todo', 'In Progress', 'QA', 'Done', 'Cancelled'])
   })
 
   it('renders issue cards in correct columns', () => {

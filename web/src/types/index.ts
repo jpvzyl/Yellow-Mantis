@@ -21,7 +21,7 @@ export interface WorkflowState {
   name: string
   color: string
   position: number
-  state_type: 'backlog' | 'unstarted' | 'started' | 'completed' | 'cancelled'
+  state_type: 'backlog' | 'unstarted' | 'started' | 'in_review' | 'completed' | 'cancelled'
 }
 
 export interface Team {
@@ -126,4 +126,4 @@ export interface CompanyMember {
 }
 
 export type Priority = 0 | 1 | 2 | 3 | 4
-export type StateType = 'backlog' | 'unstarted' | 'started' | 'completed' | 'cancelled'
+export type StateType = 'backlog' | 'unstarted' | 'started' | 'in_review' | 'completed' | 'cancelled'

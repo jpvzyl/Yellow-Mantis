@@ -25,7 +25,7 @@ function StatusGroup({ state, issues }: { state: WorkflowState; issues: Issue[] 
   )
 }
 
-const stateOrder = ['backlog', 'unstarted', 'started', 'completed', 'cancelled']
+const stateOrder = ['backlog', 'unstarted', 'started', 'in_review', 'completed', 'cancelled']
 
 export function IssueList({ issues, groupBy = 'status' }: IssueListProps) {
   const grouped = useMemo(() => {

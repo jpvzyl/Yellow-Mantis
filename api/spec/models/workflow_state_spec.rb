@@ -15,7 +15,7 @@ RSpec.describe WorkflowState, type: :model do
   describe "enums" do
     it "supports all state types" do
       expect(WorkflowState.state_types.keys).to contain_exactly(
-        "backlog", "unstarted", "started", "completed", "cancelled"
+        "backlog", "unstarted", "started", "completed", "cancelled", "in_review"
       )
     end
   end

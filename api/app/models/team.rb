@@ -23,8 +23,9 @@ class Team < ApplicationRecord
       { name: "Backlog", color: "#bec2c8", position: 0, state_type: :backlog },
       { name: "Todo", color: "#e2e2e2", position: 1, state_type: :unstarted },
       { name: "In Progress", color: "#f2c94c", position: 2, state_type: :started },
-      { name: "Done", color: "#4cb782", position: 3, state_type: :completed },
-      { name: "Cancelled", color: "#95a2b3", position: 4, state_type: :cancelled }
+      { name: "QA", color: "#a855f7", position: 3, state_type: :in_review },
+      { name: "Done", color: "#4cb782", position: 4, state_type: :completed },
+      { name: "Cancelled", color: "#95a2b3", position: 5, state_type: :cancelled }
     ].each { |attrs| workflow_states.create!(attrs) }
   end
 end

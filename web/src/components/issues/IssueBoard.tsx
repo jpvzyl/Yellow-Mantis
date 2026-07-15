@@ -5,7 +5,7 @@ import { PriorityIcon } from '../ui/PriorityIcon'
 import { UserAvatar } from '../ui/UserAvatar'
 import { useUIStore } from '../../stores/ui'
 
-const STATE_ORDER: WorkflowState['state_type'][] = ['backlog', 'unstarted', 'started', 'completed', 'cancelled']
+const STATE_ORDER: WorkflowState['state_type'][] = ['backlog', 'unstarted', 'started', 'in_review', 'completed', 'cancelled']
 
 const DRAG_ISSUE_KEY = 'application/x-ym-issue-id'
 

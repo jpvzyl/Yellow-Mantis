@@ -14,8 +14,9 @@ export const mockWorkflowStates: WorkflowState[] = [
   { id: 'state-backlog', name: 'Backlog', color: '#94a3b8', position: 0, state_type: 'backlog' },
   { id: 'state-unstarted', name: 'Todo', color: '#e2e8f0', position: 1, state_type: 'unstarted' },
   { id: 'state-started', name: 'In Progress', color: '#6366f1', position: 2, state_type: 'started' },
-  { id: 'state-completed', name: 'Done', color: '#22c55e', position: 3, state_type: 'completed' },
-  { id: 'state-cancelled', name: 'Cancelled', color: '#64748b', position: 4, state_type: 'cancelled' },
+  { id: 'state-in-review', name: 'QA', color: '#a855f7', position: 3, state_type: 'in_review' },
+  { id: 'state-completed', name: 'Done', color: '#22c55e', position: 4, state_type: 'completed' },
+  { id: 'state-cancelled', name: 'Cancelled', color: '#64748b', position: 5, state_type: 'cancelled' },
 ]
 
 export const mockIssue = (overrides: Partial<Issue> = {}): Issue => ({

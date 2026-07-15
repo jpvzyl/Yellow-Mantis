@@ -44,13 +44,13 @@ RSpec.describe "Api::V1 E2E flows", type: :request do
       team_json = JSON.parse(response.body)
       team_id = team_json["id"]
       team_identifier = team_json["identifier"]
-      expect(team_json["workflow_states"].length).to eq(5)
+      expect(team_json["workflow_states"].length).to eq(6)
 
       # 4. Get team show (by identifier) for board workflow_states
       get "/api/v1/#{workspace_slug}/teams/#{team_identifier}", headers: headers
       expect(response).to have_http_status(:ok)
       show_team = JSON.parse(response.body)
-      expect(show_team["workflow_states"].length).to eq(5)
+      expect(show_team["workflow_states"].length).to eq(6)
       backlog_state = show_team["workflow_states"].find { |s| s["state_type"] == "backlog" }
       started_state = show_team["workflow_states"].find { |s| s["state_type"] == "started" }
       expect(backlog_state).to be_present

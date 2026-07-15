@@ -20,6 +20,7 @@
   --color-status-backlog: #6b7280;
   --color-status-todo: #9ca3af;
   --color-status-in-progress: #eab308;
+  --color-status-in-review: #a855f7;
   --color-status-done: #22c55e;
   --color-status-cancelled: #6b7280;
 }

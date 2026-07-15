@@ -36,12 +36,19 @@ RSpec.describe Team, type: :model do
   end
 
   describe "default workflow states" do
-    it "creates 5 default workflow states on create" do
+    it "creates 6 default workflow states on create" do
       workspace = create(:workspace)
       team = Team.create!(workspace: workspace, name: "Test", identifier: "TST")
-      expect(team.workflow_states.count).to eq(5)
+      expect(team.workflow_states.count).to eq(6)
       types = team.workflow_states.pluck(:state_type)
-      expect(types).to contain_exactly("backlog", "unstarted", "started", "completed", "cancelled")
+      expect(types).to contain_exactly("backlog", "unstarted", "started", "in_review", "completed", "cancelled")
+    end
+
+    it "orders QA between In Progress and Done" do
+      workspace = create(:workspace)
+      team = Team.create!(workspace: workspace, name: "Test", identifier: "TST")
+      ordered = team.workflow_states.order(:position).pluck(:name)
+      expect(ordered).to eq(["Backlog", "Todo", "In Progress", "QA", "Done", "Cancelled"])
     end
   end
 
